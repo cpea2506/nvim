@@ -44,6 +44,13 @@ local options = {
 	winwidth = 10,
 	winminwidth = 10,
 	equalalways = false,
+
+	shell = "pwsh -NoLogo",
+	shellcmdflag = "-ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encodin']='utf8';Remove-Alias -Force -ErrorAction SilentlyContinue tee;",
+	shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+	shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+	shellquote = "",
+	shellxquote = "",
 }
 
 return options
