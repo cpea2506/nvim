@@ -73,6 +73,6 @@ return {
 			end,
 		},
 		exe = vim.fs.joinpath(vim.fn.stdpath("data"), "roslyn", "Microsoft.CodeAnalysis.LanguageServer.dll"),
-		filewatching = true,
+		filewatching = false,
 	},
 }
