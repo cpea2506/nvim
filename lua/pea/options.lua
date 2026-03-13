@@ -18,6 +18,7 @@ local options = {
         linebreak = true,
         list = true,
         listchars = "tab:⇤–⇥,multispace:·,trail:·,precedes:⇠,extends:⇢",
+        swapfile = false,
         number = true,
         shiftwidth = 4,
         showmode = false,
