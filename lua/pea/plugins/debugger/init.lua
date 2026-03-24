@@ -2,14 +2,20 @@ return {
     {
         "MironPascalCaseFan/debugmaster.nvim",
         dependencies = "mfussenegger/nvim-dap",
-        keys = "<leader>d",
+        keys = {
+            {
+                "<leader>d",
+                function()
+                    require("debugmaster").mode.toggle()
+                end,
+                desc = "Toggle Debug Mode",
+            },
+        },
         config = function()
             local debugmaster = require "debugmaster"
 
             debugmaster.plugins.cursor_hl.enabled = true
             debugmaster.plugins.ui_auto_toggle.enabled = true
-
-            vim.keymap.set({ "n", "v" }, "<leader>d", debugmaster.mode.toggle, { nowait = true })
         end,
     },
     {
