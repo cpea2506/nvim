@@ -69,6 +69,7 @@ return {
                     components.location,
                     components.diagnostics,
                     components.macro,
+                    components.debug,
                     components.center,
                     components.lsp,
                 },

@@ -70,6 +70,7 @@ return {
         ArrowRight = "➜",
         Close = "✗",
         Write = "",
+        Bug = "",
     },
     git = {
         LineAdded = " ",

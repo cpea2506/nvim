@@ -3,6 +3,15 @@ local conditions = require "pea.plugins.lualine.conditions"
 local colors = require "pea.plugins.lualine.colors"
 local icons = require "pea.ui.icons"
 
+local debug_enabled = false
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "DebugModeChanged",
+    callback = function(args)
+        debug_enabled = args.data.enabled
+    end,
+})
+
 local components = {
     leftbar = {
         function()
@@ -154,6 +163,14 @@ local components = {
             return reg ~= "" and "recording @" .. reg or nil
         end,
         color = { fg = colors.orange },
+        draw_empty = false,
+    },
+    debug = {
+        "debug",
+        fmt = function()
+            return debug_enabled and icons.ui.Bug or nil
+        end,
+        color = { fg = colors.magenta },
         draw_empty = false,
     },
 }
