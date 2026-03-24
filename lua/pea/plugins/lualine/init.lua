@@ -38,6 +38,7 @@ return {
                     "dapui_scopes",
                     "dapui_stacks",
                     "dapui_watches",
+                    "sidekick_terminal",
                     "fzf",
                     "help",
                     "lspinfo",
