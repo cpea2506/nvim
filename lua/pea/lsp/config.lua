@@ -12,7 +12,7 @@ M.on_attach = function(client, bufnr)
     end
 
     if client:supports_method("textDocument/documentColor", bufnr) then
-        vim.lsp.document_color.enable(true, bufnr, { style = "virtual" })
+        vim.lsp.document_color.enable(true, { client_id = client.id }, { style = "virtual" })
     end
 
     if client:supports_method("textDocument/onTypeFormatting", bufnr) then
