@@ -1,5 +1,4 @@
 vim.loader.enable()
-require("vim._core.ui2").enable {}
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
@@ -27,6 +26,7 @@ local modules = {
     "onkeys",
     "events",
     "lsp",
+    "ui",
 }
 
 for _, module in pairs(modules) do
