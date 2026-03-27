@@ -53,6 +53,7 @@ return {
                     scrollbar = false,
                 },
             },
+            file_ignore_patterns = { "%.meta$" },
             fzf_opts = {
                 ["--prompt"] = icons.ui.Telescope .. " ",
                 ["--pointer"] = " ",
