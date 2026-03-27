@@ -55,10 +55,11 @@ return {
             },
             file_ignore_patterns = { "%.meta$" },
             fzf_opts = {
-                ["--prompt"] = icons.ui.Telescope .. " ",
-                ["--pointer"] = " ",
                 ["--cycle"] = true,
+                ["--gutter"] = " ",
                 ["--no-scrollbar"] = true,
+                ["--pointer"] = icons.ui.ChevronRight,
+                ["--prompt"] = " " .. icons.ui.Telescope .. " ",
             },
             fzf_colors = {
                 true,
