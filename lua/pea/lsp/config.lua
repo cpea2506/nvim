@@ -102,6 +102,7 @@ M.on_progress = function(client, token, value)
             status = "success",
             percent = percentage,
             title = ("%s [%s] %s"):format(icons.ui.Tick, client.name, value.title),
+            source = "lsp",
         })
 
         progress_message_ids[progress_id] = nil
@@ -116,6 +117,7 @@ M.on_progress = function(client, token, value)
             status = "running",
             percent = percentage,
             title = ("%s [%s] %s"):format(spinner[index], client.name, value.title),
+            source = "lsp",
         })
     end
 end
