@@ -7,7 +7,6 @@ return {
     end,
     opts = {
         formatters_by_ft = {
-            lua = { "stylua" },
             json = { "prettier" },
             jsonc = { "prettier" },
             markdown = { "prettier" },
