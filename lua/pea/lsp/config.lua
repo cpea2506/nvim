@@ -20,7 +20,7 @@ M.on_attach = function(client, bufnr)
     end
 
     if client:supports_method("textDocument/codeLens", bufnr) then
-        vim.lsp.codelens.enable(true, { bufnr = bufnr })
+        vim.lsp.codelens.enable(true, { client_id = client.id })
     end
 
     if client:supports_method("textDocument/documentHighlight", bufnr) then
