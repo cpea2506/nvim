@@ -8,7 +8,6 @@ return {
     opts = {
         formatters_by_ft = {
             lua = { "stylua" },
-            cs = { "csharpier" },
             json = { "prettier" },
             jsonc = { "prettier" },
             markdown = { "prettier" },
@@ -19,16 +18,6 @@ return {
             cpp = { "clang-format" },
             toml = { "taplo" },
             sh = { "shfmt" },
-        },
-        formatters = {
-            csharpier = {
-                command = "csharpier",
-                args = { "format" },
-                cwd = function(_, ctx)
-                    return vim.fs.root(ctx.dirname, { ".csharpierrc" })
-                end,
-                require_cwd = true,
-            },
         },
         format_on_save = {
             timeout_ms = 500,
