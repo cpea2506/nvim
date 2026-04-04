@@ -72,6 +72,14 @@ function M.set(bufnr)
             { desc = "Implementation" },
         },
         { "n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" } },
+        {
+            "n",
+            "gw",
+            function()
+                vim.diagnostic.setqflist()
+            end,
+            { desc = "Workspace Diagnostics" },
+        },
         { "n", "gn", vim.lsp.buf.rename, { desc = "Rename" } },
         { { "n", "v" }, "ga", vim.lsp.buf.code_action, { desc = "Code Action" } },
     }

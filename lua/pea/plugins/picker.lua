@@ -6,7 +6,6 @@ return {
         { "<leader>sf", "<cmd>FzfLua files<cr>", desc = "FzfLua Files" },
         { "<leader>st", "<cmd>FzfLua live_grep<cr>", desc = "FzfLua Grep" },
         { "<leader>sb", "<cmd>FzfLua buffers<cr>", desc = "FzfLua Buffers" },
-        { "<leader>sd", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "FzfLua Diagnostics" },
     },
     init = function(plugin)
         vim.api.nvim_create_autocmd("User", {
