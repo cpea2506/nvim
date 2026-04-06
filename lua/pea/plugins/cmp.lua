@@ -73,6 +73,7 @@ return {
                 },
                 completion = {
                     accept = {
+                        dot_repeat = false,
                         resolve_timeout_ms = 1000,
                     },
                     ghost_text = {
@@ -81,7 +82,6 @@ return {
                         show_without_selection = false,
                     },
                     menu = {
-                        border = "rounded",
                         draw = {
                             columns = { { "kind_icon" }, { "label", gap = 1, "source_name" } },
                             components = {
@@ -96,18 +96,12 @@ return {
                     documentation = {
                         auto_show = true,
                         auto_show_delay_ms = 250,
-                        window = {
-                            border = "rounded",
-                        },
                     },
                 },
                 signature = {
                     enabled = true,
                     trigger = {
                         show_on_insert = true,
-                    },
-                    window = {
-                        border = "rounded",
                     },
                 },
                 sources = {
