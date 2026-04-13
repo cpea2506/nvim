@@ -1,7 +1,10 @@
 return {
     {
         "MironPascalCaseFan/debugmaster.nvim",
-        dependencies = "mfussenegger/nvim-dap",
+        dependencies = {
+            "mfussenegger/nvim-dap",
+            "ownself/nvim-dap-unity",
+        },
         keys = {
             {
                 "<leader>d",
@@ -19,20 +22,15 @@ return {
         end,
     },
     {
+        "ownself/nvim-dap-unity",
+        otps = {
+            auto_install_on_start = true,
+            add_default_cs_configuration = true,
+        },
+    },
+    {
         "mfussenegger/nvim-dap",
         config = function()
-            local dap = require "dap"
-            local adapters = require "pea.plugins.debugger.adapters"
-            local configurations = require "pea.plugins.debugger.configurations"
-
-            for adapter, config in pairs(adapters) do
-                dap.adapters[adapter] = config
-            end
-
-            for filetype, config in pairs(configurations) do
-                dap.configurations[filetype] = config
-            end
-
             local icons = require "pea.ui.icons"
 
             vim.fn.sign_define("DapBreakpoint", {
