@@ -23,7 +23,7 @@ return {
     },
     {
         "ownself/nvim-dap-unity",
-        otps = {
+        opts = {
             auto_install_on_start = true,
             add_default_cs_configuration = true,
         },
