@@ -27,6 +27,7 @@ return {
                 "qf",
                 "input",
                 "lazygit",
+                "pager",
             },
         }
     end,
