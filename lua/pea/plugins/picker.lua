@@ -13,33 +13,6 @@ return {
             { "<leader>st", "<cmd>FzfLua live_grep<cr>", desc = "FzfLua Grep" },
             { "<leader>sb", "<cmd>FzfLua buffers<cr>", desc = "FzfLua Buffers" },
         },
-        init = function(plugin)
-            vim.api.nvim_create_autocmd("User", {
-                group = vim.api.nvim_create_augroup("pea_picker", { clear = true }),
-                pattern = "VeryLazy",
-                callback = function()
-                    require(plugin.name).register_ui_select(function(_, items)
-                        local min_height, max_height = 0.15, 0.85
-                        local height = (#items + 4) / vim.o.lines
-
-                        if height < min_height then
-                            height = min_height
-                        elseif height > max_height then
-                            height = max_height
-                        end
-
-                        return {
-                            winopts = {
-                                height = height,
-                                preview = {
-                                    hidden = true,
-                                },
-                            },
-                        }
-                    end)
-                end,
-            })
-        end,
         opts = function()
             local icons = require "pea.ui.icons"
 
@@ -103,7 +76,6 @@ return {
             { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "Telescope Buffers" },
         },
         dependencies = {
-            "nvim-telescope/telescope-ui-select.nvim",
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
@@ -165,7 +137,6 @@ return {
 
             telescope.setup(opts)
             telescope.load_extension "fzf"
-            telescope.load_extension "ui-select"
         end,
     },
 }

@@ -30,6 +30,7 @@ return {
                 disabled_filetypes = {
                     "",
                     "input",
+                    "select",
                     "TelescopePrompt",
                     "checkhealth",
                     "dap-repl",

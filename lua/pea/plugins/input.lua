@@ -14,6 +14,10 @@ return {
         },
     },
     {
+        "cpea2506/select.nvim",
+        event = "LazyFile",
+    },
+    {
         "cpea2506/input.nvim",
         event = "LazyFile",
     },
