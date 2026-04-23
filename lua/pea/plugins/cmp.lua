@@ -2,6 +2,7 @@ return {
     {
         "saghen/blink.cmp",
         build = "cargo build --release",
+        version = "*",
         dependencies = {
             "mikavilpas/blink-ripgrep.nvim",
             "rafamadriz/friendly-snippets",
