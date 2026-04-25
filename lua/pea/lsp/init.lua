@@ -6,6 +6,8 @@ vim.lsp.config("*", {
     capabilities = config.capabilities(),
 })
 
+vim.lsp.codelens = require "pea.lsp.codelens"
+
 local augroup = vim.api.nvim_create_augroup("pea_lsp", { clear = true })
 
 vim.api.nvim_create_autocmd("LspAttach", {
