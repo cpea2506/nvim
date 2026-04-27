@@ -155,6 +155,7 @@ return {
                                     },
                                 },
                             },
+                            score_offset = -3,
                         },
                         snippets = {
                             opts = {
