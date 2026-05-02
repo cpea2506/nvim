@@ -82,6 +82,14 @@ function M.set(bufnr)
         },
         { "n", "gn", vim.lsp.buf.rename, { desc = "Rename" } },
         { { "n", "v" }, "ga", vim.lsp.buf.code_action, { desc = "Code Action" } },
+        {
+            { "n" },
+            "gx",
+            function()
+                vim.lsp.codelens.run()
+            end,
+            { desc = "Code Action" },
+        },
     }
 
     for _, key in pairs(keymaps) do
