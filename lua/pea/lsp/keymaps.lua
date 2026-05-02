@@ -2,7 +2,7 @@ local M = {}
 
 ---@param bufnr integer
 function M.set(bufnr)
-    ---@param opts vim.lsp.ListOpts.OnList
+    ---@param opts vim.fn.setqflist.what
     local function on_list(opts)
         opts.items = vim.list.unique(opts.items, function(item)
             return (":%s:%d:%s"):format(item.filename, item.lnum, item.text)
