@@ -42,31 +42,22 @@ return {
                 end
 
                 local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-                row, col = row - 1, col + 1
-                local uri = vim.uri_from_bufnr(bufnr)
-
                 local params = {
-                    _vs_textDocument = { uri = uri },
-                    _vs_position = { line = row, character = col },
+                    _vs_textDocument = vim.lsp.util.make_text_document_params(bufnr),
+                    _vs_position = { line = row - 1, character = col + 1 },
                     _vs_ch = char,
-                    _vs_options = {
-                        tabSize = vim.bo[bufnr].tabstop,
-                        insertSpaces = vim.bo[bufnr].expandtab,
-                    },
                 }
 
-                -- NOTE: We should send textDocument/_vs_onAutoInsert request only after
-                -- buffer has changed.
-                vim.defer_fn(function()
+                vim.schedule(function()
                     client:request("textDocument/_vs_onAutoInsert", params, function(err, result, _)
                         if err or not result then
                             return
                         end
 
-                        local newText = string.gsub(result._vs_textEdit.newText, "\r", "")
+                        local newText = result._vs_textEdit.newText:gsub("\r?\n%s*", "\n")
                         vim.snippet.expand(newText)
                     end, bufnr)
-                end, 1)
+                end)
             end,
         })
     end,
