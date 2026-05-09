@@ -95,7 +95,7 @@ function M.set(bufnr)
     for _, key in pairs(keymaps) do
         local opts = key[4] or {}
         opts.silent = true
-        opts.buffer = bufnr
+        opts.buf = bufnr
 
         vim.keymap.set(key[1], key[2], key[3], opts)
     end

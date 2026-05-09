@@ -22,7 +22,7 @@ local autocmds = {
 
                 vim.keymap.set("n", "q", function()
                     vim.cmd.bd(bufnr)
-                end, { buffer = bufnr, silent = true })
+                end, { buf = bufnr, silent = true })
             end,
         },
     },

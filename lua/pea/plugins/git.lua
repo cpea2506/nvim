@@ -84,7 +84,7 @@ return {
                 }
 
                 for key, value in pairs(keymaps) do
-                    vim.keymap.set("n", key, value, { buffer = conflict.bufnr })
+                    vim.keymap.set("n", key, value, { buf = conflict.bufnr })
                 end
 
                 vim.diagnostic.enable(false, { bufnr = conflict.bufnr })

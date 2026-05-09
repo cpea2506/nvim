@@ -26,13 +26,13 @@ M.on_attach = function(client, bufnr)
     if client:supports_method("textDocument/documentHighlight", bufnr) then
         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             group = document_highlight_group,
-            buffer = bufnr,
+            buf = bufnr,
             callback = vim.lsp.buf.document_highlight,
         })
 
         vim.api.nvim_create_autocmd("CursorMoved", {
             group = document_highlight_group,
-            buffer = bufnr,
+            buf = bufnr,
             callback = vim.lsp.buf.clear_references,
         })
     end
@@ -43,7 +43,7 @@ end
 M.on_detach = function(_, bufnr)
     vim.api.nvim_clear_autocmds {
         group = document_highlight_group,
-        buffer = bufnr,
+        buf = bufnr,
     }
 end
 
