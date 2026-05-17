@@ -47,7 +47,7 @@ local components = {
             }
 
             vim.api.nvim_set_hl(0, "LualineMode", {
-                fg = mode_color[vim.fn.mode()],
+                fg = mode_color[vim.api.nvim_get_mode().mode],
                 bg = colors.bg,
             })
 
@@ -93,9 +93,11 @@ local components = {
 
             -- Add formatters.
             local formatters = require("conform").list_formatters(bufnr)
-            local formatter_names = vim.tbl_map(function(f)
-                return f.name
-            end, formatters)
+            local formatter_names = vim.iter(formatters)
+                :map(function(v)
+                    return v.name
+                end)
+                :totable()
             vim.list_extend(buf_client_names, formatter_names)
 
             -- Add linters.
@@ -145,8 +147,8 @@ local components = {
     },
     scrollbar = {
         function()
-            local current = vim.fn.line "."
-            local total = vim.fn.line "$"
+            local current = vim.api.nvim_win_get_cursor(0)[1]
+            local total = vim.api.nvim_buf_line_count(0)
             local chars = icons.ui.Scrollbar
             local index = math.ceil(current / total * #chars)
 

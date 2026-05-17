@@ -19,10 +19,10 @@ function M.set(bufnr)
 
             -- Push a new item into tagstack
             local tagname = vim.fn.expand "<cword>"
-            local curpos = vim.fn.getcurpos(winid)
+            local curpos = vim.api.nvim_win_get_cursor(winid)
             curpos[1] = bufnr
             local tagstack = { { tagname = tagname, from = curpos } }
-            vim.fn.settagstack(vim.fn.win_getid(winid), { items = tagstack }, "t")
+            vim.fn.settagstack(winid, { items = tagstack }, "t")
 
             vim.bo[b].buflisted = true
 

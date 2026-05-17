@@ -132,12 +132,13 @@ return {
                 },
                 sources = {
                     default = function()
-                        local success, node = pcall(vim.treesitter.get_node)
+                        local node = vim.npcall(vim.treesitter.get_node)
 
                         if
-                            success
-                            and node
-                            and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
+                            node
+                            and vim.iter({ "comment", "line_comment", "block_comment" }):any(function(v)
+                                return node:type() == v
+                            end)
                         then
                             return { "buffer", "ripgrep" }
                         else

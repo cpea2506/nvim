@@ -4,7 +4,7 @@ local conditions = {
     buffer_not_empty = function()
         local buf = vim.fn.expand "%:t"
 
-        return vim.fn.empty(buf) ~= 1
+        return buf ~= ""
     end,
     should_hide_in_width = function()
         return vim.o.columns > winwidth_limit

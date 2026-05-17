@@ -1,8 +1,8 @@
 local M = {}
 
-local has_lazy, lazy = pcall(require, "lazy")
+local lazy = vim.npcall(require, "lazy")
 
-if not has_lazy then
+if not lazy then
     return M
 end
 

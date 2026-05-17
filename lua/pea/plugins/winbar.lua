@@ -5,9 +5,11 @@ return {
         local icons = require "pea.ui.icons"
 
         return {
-            icons = vim.tbl_map(function(icon)
-                return icon .. " "
-            end, icons.kind),
+            icons = vim.iter(icons.kind)
+                :map(function(icon)
+                    return icon .. " "
+                end)
+                :totable(),
             lsp = {
                 auto_attach = true,
             },
@@ -83,7 +85,11 @@ return {
             callback = function(args)
                 local bufnr = args.buf
 
-                if vim.tbl_contains(opts.exclude_filetypes, vim.bo[bufnr].filetype) then
+                if
+                    vim.iter(opts.exclude_filetypes):any(function(v)
+                        return vim.bo[bufnr].filetype == v
+                    end)
+                then
                     return
                 end
 

@@ -5,8 +5,10 @@ end
 local listeners = {
     {
         function(char)
-            if vim.fn.mode() == "n" then
-                local hlsearch = vim.tbl_contains({ "<CR>", "/", "?", "*", "#", "n", "N" }, vim.fn.keytrans(char))
+            if vim.api.nvim_get_mode().mode == "n" then
+                local hlsearch = vim.iter({ "/", "?", "*", "#", "n", "N" }):any(function(v)
+                    return char == v
+                end)
 
                 if vim.o.hlsearch ~= hlsearch then
                     vim.o.hlsearch = hlsearch

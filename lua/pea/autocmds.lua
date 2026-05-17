@@ -42,7 +42,7 @@ local autocmds = {
         {
             group = augroup "resize_splits",
             callback = function()
-                local current_tab = vim.fn.tabpagenr()
+                local current_tab = vim.api.nvim_get_current_tabpage()
 
                 vim.cmd.tabdo "wincmd ="
                 vim.cmd.tabnext(current_tab)
