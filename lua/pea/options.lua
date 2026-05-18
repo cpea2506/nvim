@@ -44,9 +44,9 @@ if utils.is_windows then
         vim = {
             shell = "pwsh",
             shellcmdflag = "-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';",
-            shellpipe = "2>&1 | %{ '$_' } | Tee-Object %s; exit $LastExitCode",
+            shellpipe = "2>&1 | %%{ '$_' } | Tee-Object %%s; exit $LastExitCode",
             shellquote = "",
-            shellredir = "2>&1 | %{ '$_' } | Out-File %s; exit $LastExitCode",
+            shellredir = "2>&1 | %%{ '$_' } | Out-File %%s; exit $LastExitCode",
             shellxquote = "",
         },
     })
