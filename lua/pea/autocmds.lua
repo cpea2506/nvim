@@ -8,7 +8,16 @@ local autocmds = {
         {
             group = augroup "highlight_yank",
             callback = function()
-                vim.hl.on_yank()
+                vim.hl.hl_op()
+            end,
+        },
+    },
+    {
+        "TextPutPost",
+        {
+            group = augroup "highlight_put",
+            callback = function()
+                vim.hl.hl_op()
             end,
         },
     },
