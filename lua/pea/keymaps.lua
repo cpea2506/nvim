@@ -11,6 +11,8 @@ local keymaps = {
     { "v", "<", "<gv" },
     { "v", ">", ">gv" },
 
+    { "t", "<C-x>", "<C-\\><C-n>" },
+
     { "n", "<leader>ph", "<cmd>Lazy<cr>" },
     { "n", "<leader>ps", "<cmd>Lazy sync<cr>" },
 }
