@@ -2,38 +2,45 @@ local M = {}
 
 ---@param bufnr integer
 function M.set(bufnr)
-    ---@param opts vim.fn.setqflist.what
-    local function on_list(opts)
-        opts.items = vim.list.unique(opts.items, function(item)
-            return (":%s:%d:%s"):format(item.filename, item.lnum, item.text)
+    ---@param what vim.fn.setqflist.what
+    local function on_list(what)
+        vim.list.unique(what.items, function(item)
+            return (":%s:%d:%d:%d:%d:%s"):format(
+                item.filename or "",
+                item.lnum or 0,
+                item.col or 0,
+                item.end_lnum or 0,
+                item.end_col or 0,
+                item.text or ""
+            )
         end)
 
-        if #opts.items == 1 then
-            local item = opts.items[1]
-            local b = item.bufnr or vim.fn.bufadd(item.filename)
+        if #what.items == 1 then
+            local item = what.items[1]
+            local item_bufnr = item.bufnr or vim.fn.bufadd(item.filename)
 
-            -- Save position in jumplist
+            -- Save position in jumplist.
             vim.cmd.normal { "m'", bang = true }
 
             local winid = vim.api.nvim_get_current_win()
-
-            -- Push a new item into tagstack
-            local tagname = vim.fn.expand "<cword>"
             local curpos = vim.api.nvim_win_get_cursor(winid)
-            curpos[1] = bufnr
-            local tagstack = { { tagname = tagname, from = curpos } }
-            vim.fn.settagstack(winid, { items = tagstack }, "t")
+            curpos[1] = item_bufnr
 
-            vim.bo[b].buflisted = true
+            vim.fn.settagstack(winid, {
+                items = {
+                    {
+                        bufnr = item_bufnr,
+                        from = curpos,
+                        tagname = vim.fn.expand "<cword>",
+                    },
+                },
+            }, "t")
 
-            vim.api.nvim_win_set_buf(winid, b)
+            vim.bo[item_bufnr].buflisted = true
+            vim.api.nvim_win_set_buf(winid, item_bufnr)
             vim.api.nvim_win_set_cursor(winid, { item.lnum, item.col - 1 })
-            vim._with({ win = winid }, function()
-                -- Open folds under the cursor
-                vim.cmd.normal { "zv", bang = true }
-            end)
         else
-            vim.fn.setqflist({}, " ", { title = opts.title, items = opts.items })
+            vim.fn.setqflist({}, " ", what)
             vim.cmd "bo cope"
         end
     end
