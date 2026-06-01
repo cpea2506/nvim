@@ -1,8 +1,10 @@
 return {
+    { "saghen/blink.lib" },
     {
         "saghen/blink.cmp",
-        build = "cargo build --release",
-        version = "*",
+        build = function()
+            require("blink.cmp").build():pwait()
+        end,
         dependencies = {
             "mikavilpas/blink-ripgrep.nvim",
             "rafamadriz/friendly-snippets",
@@ -211,7 +213,9 @@ return {
     },
     {
         "saghen/blink.pairs",
-        build = "cargo build --release",
+        build = function()
+            require("blink.pairs").build():pwait()
+        end,
         event = "LazyFile",
         opts = {
             highlights = {
