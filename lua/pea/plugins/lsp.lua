@@ -43,12 +43,6 @@ return {
         },
     },
     {
-        "khoido2003/roslyn-filewatch.nvim",
-        build = "nvim -l build.lua --",
-        ft = "cs",
-        opts = {},
-    },
-    {
         "saecki/crates.nvim",
         event = "BufRead Cargo.toml",
         opts = {
