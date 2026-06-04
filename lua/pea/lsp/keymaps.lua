@@ -91,7 +91,7 @@ function M.set(bufnr)
         { { "n", "v" }, "ga", vim.lsp.buf.code_action, { desc = "Code Action" } },
         {
             { "n" },
-            "gx",
+            "gk",
             function()
                 vim.lsp.codelens.run()
             end,
