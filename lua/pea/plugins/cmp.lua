@@ -188,19 +188,21 @@ return {
                             },
                         },
                     },
-                    sources = function()
-                        local type = vim.fn.getcmdtype()
+                    sources = {
+                        default = function()
+                            local type = vim.fn.getcmdtype()
 
-                        if type == "/" or type == "?" then
-                            return { "buffer", "ripgrep" }
-                        end
+                            if type == "/" or type == "?" then
+                                return { "buffer", "ripgrep" }
+                            end
 
-                        if type == ":" or type == "@" then
-                            return { "cmdline", "buffer" }
-                        end
+                            if type == ":" or type == "@" then
+                                return { "cmdline", "buffer" }
+                            end
 
-                        return {}
-                    end,
+                            return {}
+                        end,
+                    },
                     keymap = {
                         ["<C-k>"] = { "select_prev", "fallback" },
                         ["<C-j>"] = { "select_next", "fallback" },
