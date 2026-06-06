@@ -210,6 +210,11 @@ return {
                         ["<CR>"] = { "accept_and_enter", "fallback" },
                     },
                 },
+                term = {
+                    completion = {
+                        ghost_text = { enabled = false },
+                    },
+                },
             }
         end,
     },
