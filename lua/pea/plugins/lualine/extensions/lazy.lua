@@ -1,9 +1,7 @@
-local M = {}
-
 local lazy = vim.npcall(require, "lazy")
 
 if not lazy then
-    return M
+    return {}
 end
 
 local colors = require "pea.plugins.lualine.colors"
@@ -24,19 +22,18 @@ local status = {
     color = { fg = colors.fg },
 }
 
-M.sections = {
-    lualine_c = {
-        components.leftbar,
-        components.evil,
-        components.center,
-        title,
-        status,
-    },
-    lualine_x = {
-        components.scrollbar,
+return {
+    filetypes = { "lazy" },
+    sections = {
+        lualine_c = {
+            components.leftbar,
+            components.evil,
+            components.center,
+            title,
+            status,
+        },
+        lualine_x = {
+            components.scrollbar,
+        },
     },
 }
-
-M.filetypes = { "lazy" }
-
-return M

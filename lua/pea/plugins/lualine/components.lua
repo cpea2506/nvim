@@ -1,7 +1,18 @@
 local lib = require "pea.lib"
-local conditions = require "pea.plugins.lualine.conditions"
 local colors = require "pea.plugins.lualine.colors"
 local icons = require "pea.ui.icons"
+
+local function buffer_not_empty()
+    local buf = vim.fn.expand "%:t"
+
+    return buf ~= ""
+end
+
+local function should_hide_in_width()
+    local winwidth_limit = 85
+
+    return vim.o.columns > winwidth_limit
+end
 
 local debug_enabled = false
 
@@ -58,7 +69,7 @@ local components = {
     },
     filesize = {
         "filesize",
-        cond = conditions.buffer_not_empty,
+        cond = buffer_not_empty,
     },
     diagnostics = {
         "diagnostics",
@@ -113,26 +124,26 @@ local components = {
         "b:gitsigns_head",
         icon = icons.git.Branch,
         color = { fg = colors.violet, gui = "bold" },
-        cond = conditions.should_hide_in_width,
+        cond = should_hide_in_width,
     },
     filetype = {
         "filetype",
-        cond = conditions.should_hide_in_width,
+        cond = should_hide_in_width,
     },
     location = {
         "location",
-        cond = conditions.should_hide_in_width,
+        cond = should_hide_in_width,
     },
     os = {
         function()
             return lib.is_windows and icons.ui.Windows or icons.ui.Apple
         end,
-        cond = conditions.should_hide_in_width,
+        cond = should_hide_in_width,
         color = { fg = lib.is_windows and colors.cerulean or colors.fg },
     },
     encoding = {
         "o:encoding",
-        cond = conditions.should_hide_in_width,
+        cond = should_hide_in_width,
         color = { fg = colors.green, gui = "bold" },
     },
     treesitter = {
@@ -158,19 +169,17 @@ local components = {
         padding = { left = 1 },
     },
     macro = {
-        "macro",
-        fmt = function()
+        function()
             local reg = vim.fn.reg_recording()
 
-            return reg ~= "" and "recording @" .. reg or nil
+            return reg ~= "" and "recording @" .. reg or ""
         end,
         color = { fg = colors.orange },
         draw_empty = false,
     },
     debug = {
-        "debug",
-        fmt = function()
-            return debug_enabled and icons.ui.Bug or nil
+        function()
+            return debug_enabled and icons.ui.Bug or ""
         end,
         color = { fg = colors.magenta },
         draw_empty = false,
