@@ -1,4 +1,6 @@
-local keymaps = {
+local lib = require "pea.lib"
+
+lib.set_keymaps {
     { "n", "<leader>q", "<cmd>q<cr>" },
     { "n", "<C-s>", "<cmd>w<cr>" },
     { "n", "<C-e>", "<cmd>bd<cr>" },
@@ -16,10 +18,3 @@ local keymaps = {
     { "n", "<leader>ph", "<cmd>Lazy<cr>" },
     { "n", "<leader>ps", "<cmd>Lazy sync<cr>" },
 }
-
-for _, key in pairs(keymaps) do
-    local opts = key[4] or {}
-    opts.silent = true
-
-    vim.keymap.set(key[1], key[2], key[3], opts)
-end

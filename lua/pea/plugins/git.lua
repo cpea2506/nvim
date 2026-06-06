@@ -62,30 +62,58 @@ return {
             highlight = true,
             on_attach = function(conflict)
                 local mid = "^=======$"
-                local keymaps = {
-                    ["<C-j>"] = function()
-                        vim.cmd("/" .. mid)
-                    end,
-                    ["<C-k>"] = function()
-                        vim.cmd("?" .. mid)
-                    end,
-                    ["co"] = function()
-                        conflict:choose_ours()
-                    end,
-                    ["ct"] = function()
-                        conflict:choose_theirs()
-                    end,
-                    ["cb"] = function()
-                        conflict:choose_both()
-                    end,
-                    ["cn"] = function()
-                        conflict:choose_none()
-                    end,
-                }
+                local lib = require "pea.lib"
 
-                for key, value in pairs(keymaps) do
-                    vim.keymap.set("n", key, value, { buf = conflict.bufnr })
-                end
+                lib.set_keymaps {
+                    {
+                        "n",
+                        "<C-j>",
+                        function()
+                            vim.cmd("/" .. mid)
+                        end,
+                        { buf = conflict.bufnr },
+                    },
+                    {
+                        "n",
+                        "<C-k>",
+                        function()
+                            vim.cmd("?" .. mid)
+                        end,
+                        { buf = conflict.bufnr },
+                    },
+                    {
+                        "n",
+                        "co",
+                        function()
+                            conflict:choose_ours()
+                        end,
+                        { buf = conflict.bufnr },
+                    },
+                    {
+                        "n",
+                        "ct",
+                        function()
+                            conflict:choose_theirs()
+                        end,
+                        { buf = conflict.bufnr },
+                    },
+                    {
+                        "n",
+                        "cb",
+                        function()
+                            conflict:choose_both()
+                        end,
+                        { buf = conflict.bufnr },
+                    },
+                    {
+                        "n",
+                        "cn",
+                        function()
+                            conflict:choose_none()
+                        end,
+                        { buf = conflict.bufnr },
+                    },
+                }
 
                 vim.diagnostic.enable(false, { bufnr = conflict.bufnr })
             end,

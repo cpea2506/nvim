@@ -1,4 +1,4 @@
-local utils = require "pea.utils"
+local lib = require "pea.lib"
 
 local options = {
     vim = {
@@ -39,7 +39,7 @@ local options = {
     },
 }
 
-if utils.is_windows then
+if lib.is_windows then
     options = vim.tbl_deep_extend("force", options, {
         vim = {
             shell = "pwsh",

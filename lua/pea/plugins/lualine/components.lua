@@ -1,4 +1,4 @@
-local utils = require "pea.utils"
+local lib = require "pea.lib"
 local conditions = require "pea.plugins.lualine.conditions"
 local colors = require "pea.plugins.lualine.colors"
 local icons = require "pea.ui.icons"
@@ -125,10 +125,10 @@ local components = {
     },
     os = {
         function()
-            return utils.is_windows and icons.ui.Windows or icons.ui.Apple
+            return lib.is_windows and icons.ui.Windows or icons.ui.Apple
         end,
         cond = conditions.should_hide_in_width,
-        color = { fg = utils.is_windows and colors.cerulean or colors.fg },
+        color = { fg = lib.is_windows and colors.cerulean or colors.fg },
     },
     encoding = {
         "o:encoding",

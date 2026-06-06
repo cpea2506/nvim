@@ -1,7 +1,5 @@
 local M = {}
 
-local document_highlight_group = vim.api.nvim_create_augroup("pea_document_highlight", { clear = true })
-
 ---@param client vim.lsp.Client
 ---@param bufnr integer
 M.on_attach = function(client, bufnr)
@@ -24,27 +22,41 @@ M.on_attach = function(client, bufnr)
     end
 
     if client:supports_method("textDocument/documentHighlight", bufnr) then
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            group = document_highlight_group,
-            buf = bufnr,
-            callback = vim.lsp.buf.document_highlight,
-        })
+        local lib = require "pea.lib"
+        local document_highlight_group = vim.api.nvim_create_augroup("pea_document_highlight", { clear = true })
 
-        vim.api.nvim_create_autocmd("CursorMoved", {
-            group = document_highlight_group,
-            buf = bufnr,
-            callback = vim.lsp.buf.clear_references,
-        })
+        lib.create_autocmds {
+            {
+                { "CursorHold", "CursorHoldI" },
+                {
+                    group = document_highlight_group,
+                    buf = bufnr,
+                    callback = vim.lsp.buf.document_highlight,
+                },
+            },
+            {
+                "CursorMoved",
+                {
+                    group = document_highlight_group,
+                    buf = bufnr,
+                    callback = vim.lsp.buf.clear_references,
+                },
+            },
+        }
     end
 end
 
----@param _ vim.lsp.Client
+---@param client vim.lsp.Client
 ---@param bufnr integer
-M.on_detach = function(_, bufnr)
-    vim.api.nvim_clear_autocmds {
-        group = document_highlight_group,
-        buf = bufnr,
-    }
+M.on_detach = function(client, bufnr)
+    if client:supports_method("textDocument/documentHighlight", bufnr) then
+        local document_highlight_group = vim.api.nvim_create_augroup("pea_document_highlight", { clear = false })
+
+        vim.api.nvim_clear_autocmds {
+            group = document_highlight_group,
+            buf = bufnr,
+        }
+    end
 end
 
 M.capabilities = function()

@@ -1,8 +1,10 @@
+local lib = require "pea.lib"
+
 local function augroup(name)
     return vim.api.nvim_create_augroup("pea_" .. name, { clear = true })
 end
 
-local autocmds = {
+lib.create_autocmds {
     {
         "TextYankPost",
         {
@@ -59,7 +61,3 @@ local autocmds = {
         },
     },
 }
-
-for _, autocmd in pairs(autocmds) do
-    vim.api.nvim_create_autocmd(autocmd[1], autocmd[2])
-end

@@ -1,3 +1,4 @@
+local lib = require "pea.lib"
 local config = require "pea.lsp.config"
 
 vim.diagnostic.config(config.diagnostics())
@@ -10,48 +11,57 @@ vim.lsp.codelens = require "pea.lsp.codelens"
 
 local augroup = vim.api.nvim_create_augroup("pea_lsp", { clear = true })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = augroup,
-    callback = function(args)
-        local bufnr = args.buf
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
+lib.create_autocmds {
+    {
+        "LspAttach",
+        {
+            group = augroup,
+            callback = function(args)
+                local bufnr = args.buf
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-        if not client then
-            return
-        end
+                if not client then
+                    return
+                end
 
-        config.on_attach(client, bufnr)
-    end,
-})
+                config.on_attach(client, bufnr)
+            end,
+        },
+    },
+    {
+        "LspDetach",
+        {
+            group = augroup,
+            callback = function(args)
+                local bufnr = args.buf
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-vim.api.nvim_create_autocmd("LspDetach", {
-    group = augroup,
-    callback = function(args)
-        local bufnr = args.buf
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
+                if not client then
+                    return
+                end
 
-        if not client then
-            return
-        end
+                config.on_detach(client, bufnr)
+            end,
+        },
+    },
+    {
+        "LspProgress",
+        {
+            group = augroup,
+            pattern = { "begin", "report", "end" },
+            callback = function(args)
+                local data = args.data
+                local client = vim.lsp.get_client_by_id(data.client_id)
 
-        config.on_detach(client, bufnr)
-    end,
-})
+                if not client then
+                    return
+                end
 
-vim.api.nvim_create_autocmd("LspProgress", {
-    group = augroup,
-    pattern = { "begin", "report", "end" },
-    callback = function(args)
-        local data = args.data
-        local client = vim.lsp.get_client_by_id(data.client_id)
+                ---@type lsp.ProgressParams
+                local params = data.params
 
-        if not client then
-            return
-        end
-
-        ---@type lsp.ProgressParams
-        local params = data.params
-
-        config.on_progress(client, params.token, params.value)
-    end,
-})
+                config.on_progress(client, params.token, params.value)
+            end,
+        },
+    },
+}

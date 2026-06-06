@@ -45,14 +45,16 @@ end
 
 ---@param bufnr integer
 function M.set(bufnr)
-    local keymaps = {
+    local lib = require "pea.lib"
+
+    lib.set_keymaps {
         {
             "n",
             "gd",
             function()
                 vim.lsp.buf.definition { on_list = on_list }
             end,
-            { desc = "Definition" },
+            { buf = bufnr, desc = "Definition" },
         },
         {
             "n",
@@ -60,7 +62,7 @@ function M.set(bufnr)
             function()
                 vim.lsp.buf.type_definition { on_list = on_list }
             end,
-            { desc = "Type Definition" },
+            { buf = bufnr, desc = "Type Definition" },
         },
         {
             "n",
@@ -68,7 +70,7 @@ function M.set(bufnr)
             function()
                 vim.lsp.buf.references(nil, { on_list = on_list })
             end,
-            { desc = "References", nowait = true },
+            { buf = bufnr, desc = "References", nowait = true },
         },
         {
             "n",
@@ -76,7 +78,7 @@ function M.set(bufnr)
             function()
                 vim.lsp.buf.implementation { on_list = on_list }
             end,
-            { desc = "Implementation" },
+            { buf = bufnr, desc = "Implementation" },
         },
         { "n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" } },
         {
@@ -85,7 +87,7 @@ function M.set(bufnr)
             function()
                 vim.diagnostic.setqflist()
             end,
-            { desc = "Workspace Diagnostics" },
+            { buf = bufnr, desc = "Workspace Diagnostics" },
         },
         { "n", "gn", vim.lsp.buf.rename, { desc = "Rename" } },
         { { "n", "v" }, "ga", vim.lsp.buf.code_action, { desc = "Code Action" } },
@@ -95,17 +97,9 @@ function M.set(bufnr)
             function()
                 vim.lsp.codelens.run()
             end,
-            { desc = "Code Action" },
+            { buf = bufnr, desc = "Code Action" },
         },
     }
-
-    for _, key in pairs(keymaps) do
-        local opts = key[4] or {}
-        opts.silent = true
-        opts.buf = bufnr
-
-        vim.keymap.set(key[1], key[2], key[3], opts)
-    end
 end
 
 return M

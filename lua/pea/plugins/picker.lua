@@ -3,9 +3,9 @@ return {
         "ibhagwan/fzf-lua",
         cmd = "FzfLua",
         enabled = function()
-            local utils = require "pea.utils"
+            local lib = require "pea.lib"
 
-            return not utils.is_windows
+            return not lib.is_windows
         end,
         keys = {
             { "<leader>sg", "<cmd>FzfLua global<cr>", desc = "FzfLua Global" },
@@ -66,9 +66,9 @@ return {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
         enabled = function()
-            local utils = require "pea.utils"
+            local lib = require "pea.lib"
 
-            return utils.is_windows
+            return lib.is_windows
         end,
         keys = {
             { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Telescope Find Files" },
