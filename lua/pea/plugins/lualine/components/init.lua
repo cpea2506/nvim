@@ -14,15 +14,6 @@ local function should_hide_in_width()
     return vim.o.columns > winwidth_limit
 end
 
-local debug_enabled = false
-
-vim.api.nvim_create_autocmd("User", {
-    pattern = "DebugModeChanged",
-    callback = function(args)
-        debug_enabled = args.data.enabled
-    end,
-})
-
 local components = {
     leftbar = {
         function()
@@ -178,9 +169,7 @@ local components = {
         draw_empty = false,
     },
     debug = {
-        function()
-            return debug_enabled and icons.ui.Bug or ""
-        end,
+        require "pea.plugins.lualine.components.debug",
         color = { fg = colors.magenta },
         draw_empty = false,
     },
