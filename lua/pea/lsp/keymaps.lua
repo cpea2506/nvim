@@ -1,50 +1,50 @@
 local M = {}
 
+---@param what vim.fn.setqflist.what
+local function on_list(what)
+    vim.list.unique(what.items, function(item)
+        return (":%s:%d:%d:%d:%d:%s"):format(
+            item.filename or "",
+            item.lnum or 0,
+            item.col or 0,
+            item.end_lnum or 0,
+            item.end_col or 0,
+            item.text or ""
+        )
+    end)
+
+    if #what.items == 1 then
+        local item = what.items[1]
+        local item_bufnr = item.bufnr or vim.fn.bufadd(item.filename)
+
+        -- Save position in jumplist.
+        vim.cmd.normal { "m'", bang = true }
+
+        local winid = vim.api.nvim_get_current_win()
+        local curpos = vim.api.nvim_win_get_cursor(winid)
+        curpos[1] = item_bufnr
+
+        vim.fn.settagstack(winid, {
+            items = {
+                {
+                    bufnr = item_bufnr,
+                    from = curpos,
+                    tagname = vim.fn.expand "<cword>",
+                },
+            },
+        }, "t")
+
+        vim.bo[item_bufnr].buflisted = true
+        vim.api.nvim_win_set_buf(winid, item_bufnr)
+        vim.api.nvim_win_set_cursor(winid, { item.lnum, item.col - 1 })
+    else
+        vim.fn.setqflist({}, " ", what)
+        vim.cmd "bo cope"
+    end
+end
+
 ---@param bufnr integer
 function M.set(bufnr)
-    ---@param what vim.fn.setqflist.what
-    local function on_list(what)
-        vim.list.unique(what.items, function(item)
-            return (":%s:%d:%d:%d:%d:%s"):format(
-                item.filename or "",
-                item.lnum or 0,
-                item.col or 0,
-                item.end_lnum or 0,
-                item.end_col or 0,
-                item.text or ""
-            )
-        end)
-
-        if #what.items == 1 then
-            local item = what.items[1]
-            local item_bufnr = item.bufnr or vim.fn.bufadd(item.filename)
-
-            -- Save position in jumplist.
-            vim.cmd.normal { "m'", bang = true }
-
-            local winid = vim.api.nvim_get_current_win()
-            local curpos = vim.api.nvim_win_get_cursor(winid)
-            curpos[1] = item_bufnr
-
-            vim.fn.settagstack(winid, {
-                items = {
-                    {
-                        bufnr = item_bufnr,
-                        from = curpos,
-                        tagname = vim.fn.expand "<cword>",
-                    },
-                },
-            }, "t")
-
-            vim.bo[item_bufnr].buflisted = true
-            vim.api.nvim_win_set_buf(winid, item_bufnr)
-            vim.api.nvim_win_set_cursor(winid, { item.lnum, item.col - 1 })
-        else
-            vim.fn.setqflist({}, " ", what)
-            vim.cmd "bo cope"
-        end
-    end
-
     local keymaps = {
         {
             "n",
