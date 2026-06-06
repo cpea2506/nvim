@@ -23,7 +23,7 @@ M.on_attach = function(client, bufnr)
 
     if client:supports_method("textDocument/documentHighlight", bufnr) then
         local lib = require "pea.lib"
-        local document_highlight_group = vim.api.nvim_create_augroup("pea_document_highlight", { clear = true })
+        local document_highlight_group = vim.api.nvim_create_augroup("pea_document_highlight", {})
 
         lib.create_autocmds {
             {

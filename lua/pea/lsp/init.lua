@@ -9,7 +9,7 @@ vim.lsp.config("*", {
 
 vim.lsp.codelens = require "pea.lsp.codelens"
 
-local augroup = vim.api.nvim_create_augroup("pea_lsp", { clear = true })
+local augroup = vim.api.nvim_create_augroup("pea_lsp", {})
 
 lib.create_autocmds {
     {

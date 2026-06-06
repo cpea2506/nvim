@@ -1,7 +1,7 @@
 local lib = require "pea.lib"
 
 local function augroup(name)
-    return vim.api.nvim_create_augroup("pea_" .. name, { clear = true })
+    return vim.api.nvim_create_augroup("pea_" .. name, {})
 end
 
 lib.create_autocmds {

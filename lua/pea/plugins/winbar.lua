@@ -81,7 +81,7 @@ return {
             "TabClosed",
             "TabEnter",
         }, {
-            group = vim.api.nvim_create_augroup("pea_winbar", { clear = true }),
+            group = vim.api.nvim_create_augroup("pea_winbar", {}),
             callback = function(args)
                 local bufnr = args.buf
 
