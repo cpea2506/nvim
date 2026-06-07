@@ -1,3 +1,5 @@
+local lib = require "pea.lib"
+
 vim.loader.enable()
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -20,7 +22,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local modules = {
+lib.load_modules("pea", {
     "options",
     "autocmds",
     "keymaps",
@@ -28,11 +30,7 @@ local modules = {
     "events",
     "lsp",
     "ui",
-}
-
-for _, module in pairs(modules) do
-    require("pea." .. module)
-end
+})
 
 require("lazy").setup("pea.plugins", {
     defaults = {

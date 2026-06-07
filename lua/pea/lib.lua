@@ -22,7 +22,7 @@ end
 ---@field [3] string|function
 ---@field [4]? vim.keymap.set.Opts
 
----Set keymaps
+---Set keymaps.
 ---@param keymaps Keymaps[] #List of keymaps.
 function M.set_keymaps(keymaps)
     for _, keymap in ipairs(keymaps) do
@@ -31,6 +31,20 @@ function M.set_keymaps(keymaps)
 
         vim.keymap.set(modes, lhs, rhs, opts)
     end
+end
+
+---Load modules.
+---@param base string #Base module prefix.
+---@param modules string[] #List of modules.
+function M.load_modules(base, modules)
+    local loaded = {}
+
+    base = base .. "."
+    for _, module in ipairs(modules) do
+        table.insert(loaded, require(base .. module))
+    end
+
+    return loaded
 end
 
 return M

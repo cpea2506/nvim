@@ -13,9 +13,9 @@ return {
         end
     end,
     opts = function()
+        local lib = require "pea.lib"
         local colors = require "pea.plugins.lualine.colors"
         local components = require "pea.plugins.lualine.components"
-        local extensions = require "pea.plugins.lualine.extensions"
 
         return {
             options = {
@@ -53,10 +53,7 @@ return {
                 component_separators = "",
                 section_separators = "",
             },
-            extensions = {
-                extensions.lazy,
-                extensions.quickfix,
-            },
+            extensions = lib.load_modules("pea.plugins.lualine.extensions", { "lazy", "quickfix" }),
             sections = {
                 lualine_a = {},
                 lualine_b = {},
