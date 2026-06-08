@@ -3,28 +3,24 @@ return {
         "mason-org/mason.nvim",
         cmd = "Mason",
         build = ":MasonUpdate",
-        opts = function()
-            local icons = require "pea.ui.icons"
-
-            return {
-                registries = {
-                    "github:mason-org/mason-registry",
-                    "github:Crashdummyy/mason-registry",
+        opts = {
+            registries = {
+                "github:mason-org/mason-registry",
+                "github:Crashdummyy/mason-registry",
+            },
+            ui = {
+                border = "rounded",
+                keymaps = {
+                    toggle_package_expand = "o",
+                    uninstall_package = "d",
                 },
-                ui = {
-                    border = "rounded",
-                    keymaps = {
-                        toggle_package_expand = "o",
-                        uninstall_package = "d",
-                    },
-                    icons = {
-                        package_installed = icons.ui.ThinTick,
-                        package_pending = icons.ui.ArrowRight,
-                        package_uninstalled = icons.ui.Close,
-                    },
+                icons = {
+                    package_installed = lib.icons.ui.ThinTick,
+                    package_pending = lib.icons.ui.ArrowRight,
+                    package_uninstalled = lib.icons.ui.Close,
                 },
-            }
-        end,
+            },
+        },
     },
     {
         "mason-org/mason-lspconfig.nvim",

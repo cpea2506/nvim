@@ -3,9 +3,6 @@ local component = require("lualine.component"):extend()
 function component:init(options)
     component.super.init(self, options)
 
-    local icons = require "pea.ui.icons"
-    self.icon = icons.ui.Bug
-
     vim.api.nvim_create_autocmd("User", {
         pattern = "DebugModeChanged",
         group = vim.api.nvim_create_augroup("pea_lualine_debug", {}),
@@ -16,7 +13,7 @@ function component:init(options)
 end
 
 function component:update_status()
-    return self.enabled and self.icon or ""
+    return self.enabled and lib.icons.ui.Bug or ""
 end
 
 return component

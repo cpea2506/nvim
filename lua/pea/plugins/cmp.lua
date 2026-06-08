@@ -14,7 +14,6 @@ return {
             "CmdlineEnter",
         },
         opts = function()
-            local icons = require "pea.ui.icons"
             local devicons = require "nvim-web-devicons"
 
             return {
@@ -74,7 +73,7 @@ return {
                                         end
 
                                         if not icon then
-                                            icon = icons.kind[ctx.kind] or ctx.kind_icon
+                                            icon = lib.icons.kind[ctx.kind] or ctx.kind_icon
                                         end
 
                                         return icon .. ctx.icon_gap .. " "

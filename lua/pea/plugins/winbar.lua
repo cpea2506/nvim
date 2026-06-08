@@ -1,38 +1,34 @@
 return {
     "SmiteshP/nvim-navic",
     event = "LazyFile",
-    opts = function()
-        local icons = require "pea.ui.icons"
-
-        return {
-            icons = vim.iter(icons.kind)
-                :map(function(icon)
-                    return icon .. " "
-                end)
-                :totable(),
-            lsp = {
-                auto_attach = true,
-            },
-            highlight = true,
-            separator = " " .. icons.ui.ChevronRight .. " ",
-            modified_symbol = " " .. icons.ui.Circle,
-            exclude_filetypes = {
-                "",
-                "TelescopePrompt",
-                "dap-repl",
-                "fzf",
-                "help",
-                "lazy",
-                "noice",
-                "fyler",
-                "toggleterm",
-                "qf",
-                "input",
-                "lazygit",
-                "pager",
-            },
-        }
-    end,
+    opts = {
+        icons = vim.iter(lib.icons.kind)
+            :map(function(icon)
+                return icon .. " "
+            end)
+            :totable(),
+        lsp = {
+            auto_attach = true,
+        },
+        highlight = true,
+        separator = " " .. lib.icons.ui.ChevronRight .. " ",
+        modified_symbol = " " .. lib.icons.ui.Circle,
+        exclude_filetypes = {
+            "",
+            "TelescopePrompt",
+            "dap-repl",
+            "fzf",
+            "help",
+            "lazy",
+            "noice",
+            "fyler",
+            "toggleterm",
+            "qf",
+            "input",
+            "lazygit",
+            "pager",
+        },
+    },
     config = function(_, opts)
         local navic = require "nvim-navic"
         navic.setup(opts)

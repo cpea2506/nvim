@@ -31,34 +31,32 @@ return {
     {
         "mfussenegger/nvim-dap",
         config = function()
-            local icons = require "pea.ui.icons"
-
             vim.fn.sign_define("DapBreakpoint", {
-                text = icons.ui.Circle,
+                text = lib.icons.ui.Circle,
                 texthl = "DapBreakpoint",
                 linehl = "Visual",
                 numhl = "DapBreakpoint",
             })
             vim.fn.sign_define("DapBreakpointCondition", {
-                text = icons.ui.CircleInfo,
+                text = lib.icons.ui.CircleInfo,
                 texthl = "DapBreakpoint",
                 linehl = "Visual",
                 numhl = "DapBreakpoint",
             })
             vim.fn.sign_define("DapBreakpointRejected", {
-                text = icons.ui.CircleWarning,
+                text = lib.icons.ui.CircleWarning,
                 texthl = "DapBreakpoint",
                 linehl = "Visual",
                 numhl = "DapBreakpoint",
             })
             vim.fn.sign_define("DapLogPoint", {
-                text = icons.ui.CircleInfo,
+                text = lib.icons.ui.CircleInfo,
                 texthl = "DapLogPoint",
                 linehl = "Visual",
                 numhl = "DapLogPoint",
             })
             vim.fn.sign_define("DapStopped", {
-                text = icons.ui.CirclePlay,
+                text = lib.icons.ui.CirclePlay,
                 texthl = "DapStopped",
                 linehl = "Visual",
                 numhl = "DapStopped",

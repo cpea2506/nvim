@@ -11,54 +11,50 @@ return {
             { "<leader>st", "<cmd>FzfLua live_grep<cr>", desc = "FzfLua Grep" },
             { "<leader>sb", "<cmd>FzfLua buffers<cr>", desc = "FzfLua Buffers" },
         },
-        opts = function()
-            local icons = require "pea.ui.icons"
-
-            return {
-                winopts = {
-                    height = 0.85,
-                    width = 0.5,
-                    row = 0.5,
-                    col = 0.5,
-                    title_flags = false,
-                    treesitter = true,
-                    preview = {
-                        border = "rounded",
-                        layout = "vertical",
-                        vertical = "up:50%",
-                        scrollbar = false,
-                    },
+        opts = {
+            winopts = {
+                height = 0.85,
+                width = 0.5,
+                row = 0.5,
+                col = 0.5,
+                title_flags = false,
+                treesitter = true,
+                preview = {
+                    border = "rounded",
+                    layout = "vertical",
+                    vertical = "up:50%",
+                    scrollbar = false,
                 },
-                file_ignore_patterns = { "%.meta$" },
-                fzf_opts = {
-                    ["--cycle"] = true,
-                    ["--gutter"] = " ",
-                    ["--no-scrollbar"] = true,
-                    ["--pointer"] = icons.ui.ChevronRight,
-                    ["--prompt"] = " " .. icons.ui.Telescope .. " ",
+            },
+            file_ignore_patterns = { "%.meta$" },
+            fzf_opts = {
+                ["--cycle"] = true,
+                ["--gutter"] = " ",
+                ["--no-scrollbar"] = true,
+                ["--pointer"] = lib.icons.ui.ChevronRight,
+                ["--prompt"] = " " .. lib.icons.ui.Telescope .. " ",
+            },
+            fzf_colors = true,
+            files = {
+                cwd_prompt = false,
+                formatter = "path.filename_first",
+            },
+            grep = {
+                hidden = true,
+            },
+            keymap = {
+                builtin = {
+                    true,
+                    ["<C-d>"] = "preview-page-down",
+                    ["<C-u>"] = "preview-page-up",
                 },
-                fzf_colors = true,
-                files = {
-                    cwd_prompt = false,
-                    formatter = "path.filename_first",
+                fzf = {
+                    true,
+                    ["ctrl-d"] = "preview-page-down",
+                    ["ctrl-u"] = "preview-page-up",
                 },
-                grep = {
-                    hidden = true,
-                },
-                keymap = {
-                    builtin = {
-                        true,
-                        ["<C-d>"] = "preview-page-down",
-                        ["<C-u>"] = "preview-page-up",
-                    },
-                    fzf = {
-                        true,
-                        ["ctrl-d"] = "preview-page-down",
-                        ["ctrl-u"] = "preview-page-up",
-                    },
-                },
-            }
-        end,
+            },
+        },
     },
     {
         "nvim-telescope/telescope.nvim",
@@ -78,13 +74,12 @@ return {
             },
         },
         opts = function()
-            local icons = require "pea.ui.icons"
             local actions = require "telescope.actions"
 
             return {
                 defaults = {
-                    prompt_prefix = icons.ui.Telescope .. " ",
-                    selection_caret = icons.ui.ChevronRight .. " ",
+                    prompt_prefix = lib.icons.ui.Telescope .. " ",
+                    selection_caret = lib.icons.ui.ChevronRight .. " ",
                     layout_strategy = "center",
                     sorting_strategy = "ascending",
                     path_display = { "smart" },

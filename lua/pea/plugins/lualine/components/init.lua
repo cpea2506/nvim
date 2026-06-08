@@ -1,5 +1,4 @@
 local colors = require "pea.plugins.lualine.colors"
-local icons = require "pea.ui.icons"
 
 local function buffer_not_empty()
     local buf = vim.fn.expand "%:t"
@@ -16,7 +15,7 @@ end
 local components = {
     leftbar = {
         function()
-            return icons.ui.HeavyLine
+            return lib.icons.ui.HeavyLine
         end,
         color = { fg = colors.blue },
         padding = { left = 0, right = 1 },
@@ -52,7 +51,7 @@ local components = {
                 bg = colors.bg,
             })
 
-            return icons.ui.Evil
+            return lib.icons.ui.Evil
         end,
         color = "LualineMode",
         padding = { right = 1 },
@@ -65,9 +64,9 @@ local components = {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         symbols = {
-            error = icons.diagnostics.ERROR .. " ",
-            warn = icons.diagnostics.WARN .. " ",
-            info = icons.diagnostics.INFO .. " ",
+            error = lib.icons.diagnostics.ERROR .. " ",
+            warn = lib.icons.diagnostics.WARN .. " ",
+            info = lib.icons.diagnostics.INFO .. " ",
         },
         diagnostics_color = {
             color_error = { fg = colors.red },
@@ -105,14 +104,14 @@ local components = {
             local linter_names = require("lint")._resolve_linter_by_ft(vim.bo.filetype)
             vim.list_extend(buf_client_names, linter_names)
 
-            return table.concat(buf_client_names, (" %s "):format(icons.ui.ThinLine))
+            return table.concat(buf_client_names, (" %s "):format(lib.icons.ui.ThinLine))
         end,
-        icon = icons.ui.Setting .. " LSP:",
+        icon = lib.icons.ui.Setting .. " LSP:",
         color = { fg = colors.jungle_green, gui = "bold" },
     },
     branch = {
         "b:gitsigns_head",
-        icon = icons.git.Branch,
+        icon = lib.icons.git.Branch,
         color = { fg = colors.violet, gui = "bold" },
         cond = should_hide_in_width,
     },
@@ -126,7 +125,7 @@ local components = {
     },
     os = {
         function()
-            return lib.is_windows and icons.ui.Windows or icons.ui.Apple
+            return lib.is_windows and lib.icons.ui.Windows or lib.icons.ui.Apple
         end,
         cond = should_hide_in_width,
         color = { fg = lib.is_windows and colors.cerulean or colors.fg },
@@ -141,7 +140,7 @@ local components = {
             local bufnr = vim.api.nvim_get_current_buf()
             local active_status = vim.treesitter.highlighter.active[bufnr]
 
-            return active_status and icons.ui.Treesitter .. " " or ""
+            return active_status and lib.icons.ui.Treesitter .. " " or ""
         end,
         color = { fg = colors.green },
         padding = { right = 0 },
@@ -150,7 +149,7 @@ local components = {
         function()
             local current = vim.api.nvim_win_get_cursor(0)[1]
             local total = vim.api.nvim_buf_line_count(0)
-            local chars = icons.ui.Scrollbar
+            local chars = lib.icons.ui.Scrollbar
             local index = math.ceil(current / total * #chars)
 
             return chars[index]
