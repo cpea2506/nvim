@@ -3,14 +3,7 @@ local M = {}
 ---@param what vim.fn.setqflist.what
 local function on_list(what)
     vim.list.unique(what.items, function(item)
-        return (":%s:%d:%d:%d:%d:%s"):format(
-            item.filename or "",
-            item.lnum or 0,
-            item.col or 0,
-            item.end_lnum or 0,
-            item.end_col or 0,
-            item.text or ""
-        )
+        return (":%s:%d:%s"):format(item.filename, item.lnum, item.text)
     end)
 
     if #what.items == 1 then
