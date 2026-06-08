@@ -1,7 +1,7 @@
 {
   "arborist.nvim": { "branch": "main", "commit": "fdeef56c2840c6772b9f68c5774ed87e9340ec7d" },
   "better-escape.nvim": { "branch": "master", "commit": "3f4bc0b326606264ff75967f59091b5ddada0554" },
-  "blink-ripgrep.nvim": { "branch": "main", "commit": "dc35dbfc4868a54d3401d04e300c3840630f289f" },
+  "blink-ripgrep.nvim": { "branch": "main", "commit": "5a421020f6a56a39a73b1a4cc919a5eee07d507a" },
   "blink.cmp": { "branch": "main", "commit": "3db7326f54b73df4789e0fd6274bedda33975fea" },
   "blink.lib": { "branch": "main", "commit": "b127d48bf8e9ac9cf41f6e0fbead317503f76558" },
   "blink.pairs": { "branch": "main", "commit": "436857a5c2558c8f66a61ce4745d1342789a4881" },
@@ -30,7 +30,7 @@
   "one_monokai.nvim": { "branch": "main", "commit": "903b3e8923d67d3ee4b67f462b2b112012d7a69d" },
   "quicker.nvim": { "branch": "master", "commit": "4a6883cb13fe097a20a046eb55f6dffd239276e3" },
   "relative-toggle.nvim": { "branch": "main", "commit": "669743be90a3a3c5fc0eceec478042e2bc7541a4" },
-  "roslyn.nvim": { "branch": "main", "commit": "dedfc3f539c51a5841feb572e8b73ec58ff2ca9d" },
+  "roslyn.nvim": { "branch": "main", "commit": "9c5da79216e5776e020dcc6c157983f5352f3f11" },
   "select.nvim": { "branch": "main", "commit": "a71d50d0b7140fc8e6a0083654e190f3e2dd2828" },
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" }
 }
