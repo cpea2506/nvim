@@ -1,12 +1,10 @@
-local function augroup(name)
-    return vim.api.nvim_create_augroup("pea_" .. name, {})
-end
+local augroup = vim.api.nvim_create_augroup
 
 lib.create_autocmds {
     {
         "TextYankPost",
         {
-            group = augroup "highlight_yank",
+            group = augroup("pea_highlight_yank", {}),
             callback = function()
                 vim.hl.hl_op()
             end,
@@ -15,7 +13,7 @@ lib.create_autocmds {
     {
         "TextPutPost",
         {
-            group = augroup "highlight_put",
+            group = augroup("pea_highlight_put", {}),
             callback = function()
                 vim.hl.hl_op()
             end,
@@ -24,7 +22,7 @@ lib.create_autocmds {
     {
         "FileType",
         {
-            group = augroup "q_close",
+            group = augroup("pea_q_close", {}),
             pattern = { "help", "man", "qf", "checkhealth" },
             callback = function(args)
                 local bufnr = args.buf
@@ -38,7 +36,7 @@ lib.create_autocmds {
     {
         { "FocusGained", "TermClose", "TermLeave" },
         {
-            group = augroup "checktime",
+            group = augroup("pea_checktime", {}),
             callback = function()
                 if vim.o.buftype ~= "nofile" then
                     vim.cmd.checktime()
@@ -49,7 +47,7 @@ lib.create_autocmds {
     {
         "VimResized",
         {
-            group = augroup "resize_splits",
+            group = augroup("pea_resize_splits", {}),
             callback = function()
                 local current_tab = vim.api.nvim_get_current_tabpage()
 
