@@ -33,7 +33,6 @@ vim.diagnostic.config {
     },
 }
 
-local progress_message_ids = {}
 local augroup = vim.api.nvim_create_augroup("pea_lsp", {})
 
 lib.create_autocmds {
@@ -132,34 +131,25 @@ lib.create_autocmds {
                 ---@type lsp.ProgressParams
                 local params = data.params
                 local value = params.value
-                local progress_id = ("%s.%s"):format(client.id, params.token)
 
-                if value.kind == "end" then
-                    vim.api.nvim_echo({ { "Done", "Type" } }, true, {
-                        id = progress_message_ids[progress_id],
-                        kind = "progress",
-                        status = "success",
-                        percent = 100,
-                        title = ("%s [%s] %s"):format(lib.icons.ui.Tick, client.name, value.title),
-                        source = "lsp",
-                    })
+                local is_done = value.kind == "end"
+                local icon = lib.icons.ui.Tick
 
-                    progress_message_ids[progress_id] = nil
-                else
-                    local percentage = value.percentage or 0
+                if not is_done then
                     local spinner = lib.icons.ui.Spinner
-                    local count = #spinner
-                    local index = math.min(math.floor((percentage / 100) * count) + 1, count)
+                    local frame = math.min(math.floor((value.percentage / 100) * #spinner) + 1, #spinner)
 
-                    progress_message_ids[progress_id] = vim.api.nvim_echo({ { value.message or "", "Type" } }, true, {
-                        id = progress_message_ids[progress_id],
-                        kind = "progress",
-                        status = "running",
-                        percent = percentage,
-                        title = ("%s [%s] %s"):format(spinner[index], client.name, value.title),
-                        source = "lsp",
-                    })
+                    icon = spinner[frame]
                 end
+
+                vim.api.nvim_echo({ { is_done and "Done" or value.message or "", "Type" } }, true, {
+                    id = ("%s.%s"):format(client.id, params.token),
+                    kind = "progress",
+                    status = is_done and "success" or "running",
+                    percent = value.percentage,
+                    title = ("%s [%s] %s"):format(icon, client.name, value.title or ""),
+                    source = "lsp",
+                })
             end,
         },
     },
