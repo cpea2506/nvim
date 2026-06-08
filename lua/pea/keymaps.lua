@@ -1,5 +1,3 @@
-local lib = require "pea.lib"
-
 lib.set_keymaps {
     { "n", "<leader>q", "<cmd>q<cr>" },
     { "n", "<C-s>", "<cmd>w<cr>" },

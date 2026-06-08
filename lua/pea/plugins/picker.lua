@@ -3,8 +3,6 @@ return {
         "ibhagwan/fzf-lua",
         cmd = "FzfLua",
         enabled = function()
-            local lib = require "pea.lib"
-
             return not lib.is_windows
         end,
         keys = {
@@ -66,8 +64,6 @@ return {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
         enabled = function()
-            local lib = require "pea.lib"
-
             return lib.is_windows
         end,
         keys = {

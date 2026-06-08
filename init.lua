@@ -1,6 +1,6 @@
 vim.loader.enable()
 
-local lib = require "pea.lib"
+_G.lib = require "pea.lib"
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 

@@ -1,4 +1,3 @@
-local lib = require "pea.lib"
 local colors = require "pea.plugins.lualine.colors"
 local icons = require "pea.ui.icons"
 

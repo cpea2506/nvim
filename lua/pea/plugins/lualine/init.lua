@@ -13,7 +13,6 @@ return {
         end
     end,
     opts = function()
-        local lib = require "pea.lib"
         local colors = require "pea.plugins.lualine.colors"
         local components = require "pea.plugins.lualine.components"
 

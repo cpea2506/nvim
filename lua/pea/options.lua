@@ -1,5 +1,3 @@
-local lib = require "pea.lib"
-
 local options = {
     vim = {
         clipboard = "unnamedplus",

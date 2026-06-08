@@ -45,8 +45,6 @@ end
 
 ---@param bufnr integer
 function M.set(bufnr)
-    local lib = require "pea.lib"
-
     lib.set_keymaps {
         {
             "n",

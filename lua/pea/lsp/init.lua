@@ -1,4 +1,3 @@
-local lib = require "pea.lib"
 local config = require "pea.lsp.config"
 
 vim.diagnostic.config(config.diagnostics())

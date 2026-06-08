@@ -62,7 +62,6 @@ return {
             highlight = true,
             on_attach = function(conflict)
                 local mid = "^=======$"
-                local lib = require "pea.lib"
 
                 lib.set_keymaps {
                     {
