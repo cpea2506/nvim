@@ -47,7 +47,7 @@ lib.create_autocmds {
                 end
 
                 if client:supports_method("textDocument/documentColor", bufnr) then
-                    vim.lsp.document_color.enable(true, { client_id = client.id }, { style = "virtual" })
+                    vim.lsp.document_color.enable(true, { bufnr = bufnr }, { style = "virtual" })
                 end
 
                 if client:supports_method("textDocument/onTypeFormatting", bufnr) then
@@ -55,7 +55,7 @@ lib.create_autocmds {
                 end
 
                 if client:supports_method("textDocument/codeLens", bufnr) then
-                    vim.lsp.codelens.enable(true, { client_id = client.id })
+                    vim.lsp.codelens.enable(true, { bufnr = bufnr })
                 end
 
                 if client:supports_method("textDocument/documentHighlight", bufnr) then
