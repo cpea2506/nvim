@@ -137,7 +137,8 @@ lib.create_autocmds {
 
                 if not is_done then
                     local spinner = lib.icons.ui.Spinner
-                    local frame = math.min(math.floor((value.percentage / 100) * #spinner) + 1, #spinner)
+                    local percentage = value.percentage or 0
+                    local frame = math.min(math.floor((percentage / 100) * #spinner) + 1, #spinner)
 
                     icon = spinner[frame]
                 end
