@@ -1,9 +1,5 @@
 vim.lsp.codelens = require "pea.lsp.codelens"
 
-vim.lsp.config("*", {
-    capabilities = vim.lsp.protocol.make_client_capabilities(),
-})
-
 vim.diagnostic.config {
     update_in_insert = true,
     signs = {
