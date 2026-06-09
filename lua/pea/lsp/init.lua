@@ -18,14 +18,10 @@ vim.diagnostic.config {
             return lib.icons.diagnostics[severity] .. " " .. diagnostic.message
         end,
     },
-    underline = true,
     severity_sort = true,
     float = {
-        source = true,
+        source = "if_many",
         severity_sort = true,
-        focusable = true,
-        style = "minimal",
-        border = "rounded",
     },
 }
 
