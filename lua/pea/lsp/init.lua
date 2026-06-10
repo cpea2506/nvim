@@ -58,12 +58,10 @@ lib.create_autocmds {
             end
 
             if client:supports_method("textDocument/documentHighlight", bufnr) then
-                local document_highlight_group = vim.api.nvim_create_augroup("pea_lsp_document_highlight", {})
-
                 lib.create_autocmds {
                     {
                         { "CursorHold", "CursorHoldI" },
-                        document_highlight_group,
+                        augroup,
                         {
                             buf = bufnr,
                         },
@@ -71,7 +69,7 @@ lib.create_autocmds {
                     },
                     {
                         "CursorMoved",
-                        document_highlight_group,
+                        augroup,
                         {
                             buf = bufnr,
                         },
@@ -92,15 +90,10 @@ lib.create_autocmds {
                 return
             end
 
-            if client:supports_method("textDocument/documentHighlight", bufnr) then
-                local document_highlight_group =
-                    vim.api.nvim_create_augroup("pea_lsp_document_highlight", { clear = false })
-
-                vim.api.nvim_clear_autocmds {
-                    group = document_highlight_group,
-                    buf = bufnr,
-                }
-            end
+            vim.api.nvim_clear_autocmds {
+                group = augroup,
+                buf = bufnr,
+            }
         end,
     },
     {
