@@ -30,120 +30,116 @@ local augroup = vim.api.nvim_create_augroup("pea_lsp", {})
 lib.create_autocmds {
     {
         "LspAttach",
-        {
-            group = augroup,
-            callback = function(args)
-                local bufnr = args.buf
-                local client = vim.lsp.get_client_by_id(args.data.client_id)
+        augroup,
+        function(args)
+            local bufnr = args.buf
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-                if not client then
-                    return
-                end
+            if not client then
+                return
+            end
 
-                require("pea.lsp.keymaps").set(bufnr)
+            require("pea.lsp.keymaps").set(bufnr)
 
-                if client:supports_method("textDocument/inlayHint", bufnr) then
-                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-                end
+            if client:supports_method("textDocument/inlayHint", bufnr) then
+                vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+            end
 
-                if client:supports_method("textDocument/documentColor", bufnr) then
-                    vim.lsp.document_color.enable(true, { bufnr = bufnr }, { style = "virtual" })
-                end
+            if client:supports_method("textDocument/documentColor", bufnr) then
+                vim.lsp.document_color.enable(true, { bufnr = bufnr }, { style = "virtual" })
+            end
 
-                if client:supports_method("textDocument/onTypeFormatting", bufnr) then
-                    vim.lsp.on_type_formatting.enable(true, { client_id = client.id })
-                end
+            if client:supports_method("textDocument/onTypeFormatting", bufnr) then
+                vim.lsp.on_type_formatting.enable(true, { client_id = client.id })
+            end
 
-                if client:supports_method("textDocument/codeLens", bufnr) then
-                    vim.lsp.codelens.enable(true, { bufnr = bufnr })
-                end
+            if client:supports_method("textDocument/codeLens", bufnr) then
+                vim.lsp.codelens.enable(true, { bufnr = bufnr })
+            end
 
-                if client:supports_method("textDocument/documentHighlight", bufnr) then
-                    local document_highlight_group = vim.api.nvim_create_augroup("pea_lsp_document_highlight", {})
+            if client:supports_method("textDocument/documentHighlight", bufnr) then
+                local document_highlight_group = vim.api.nvim_create_augroup("pea_lsp_document_highlight", {})
 
-                    lib.create_autocmds {
+                lib.create_autocmds {
+                    {
+                        { "CursorHold", "CursorHoldI" },
+                        document_highlight_group,
                         {
-                            { "CursorHold", "CursorHoldI" },
-                            {
-                                group = document_highlight_group,
-                                buf = bufnr,
-                                callback = vim.lsp.buf.document_highlight,
-                            },
+                            buf = bufnr,
                         },
+                        vim.lsp.buf.document_highlight,
+                    },
+                    {
+                        "CursorMoved",
+                        document_highlight_group,
                         {
-                            "CursorMoved",
-                            {
-                                group = document_highlight_group,
-                                buf = bufnr,
-                                callback = vim.lsp.buf.clear_references,
-                            },
+                            buf = bufnr,
                         },
-                    }
-                end
-            end,
-        },
+                        vim.lsp.buf.clear_references,
+                    },
+                }
+            end
+        end,
     },
     {
         "LspDetach",
-        {
-            group = augroup,
-            callback = function(args)
-                local bufnr = args.buf
-                local client = vim.lsp.get_client_by_id(args.data.client_id)
+        augroup,
+        function(args)
+            local bufnr = args.buf
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-                if not client then
-                    return
-                end
+            if not client then
+                return
+            end
 
-                if client:supports_method("textDocument/documentHighlight", bufnr) then
-                    local document_highlight_group =
-                        vim.api.nvim_create_augroup("pea_lsp_document_highlight", { clear = false })
+            if client:supports_method("textDocument/documentHighlight", bufnr) then
+                local document_highlight_group =
+                    vim.api.nvim_create_augroup("pea_lsp_document_highlight", { clear = false })
 
-                    vim.api.nvim_clear_autocmds {
-                        group = document_highlight_group,
-                        buf = bufnr,
-                    }
-                end
-            end,
-        },
+                vim.api.nvim_clear_autocmds {
+                    group = document_highlight_group,
+                    buf = bufnr,
+                }
+            end
+        end,
     },
     {
         "LspProgress",
+        augroup,
         {
-            group = augroup,
             pattern = { "begin", "report", "end" },
-            callback = function(args)
-                local data = args.data
-                local client = vim.lsp.get_client_by_id(data.client_id)
-
-                if not client then
-                    return
-                end
-
-                ---@type lsp.ProgressParams
-                local params = data.params
-                local value = params.value
-
-                local is_done = value.kind == "end"
-                local icon = lib.icons.ui.Tick
-
-                if not is_done then
-                    local spinner = lib.icons.ui.Spinner
-                    local percentage = value.percentage or 0
-                    local frame = math.min(math.floor((percentage / 100) * #spinner) + 1, #spinner)
-
-                    icon = spinner[frame]
-                end
-
-                vim.api.nvim_echo({ { is_done and "Done" or value.message or "", "Type" } }, true, {
-                    id = ("%s.%s"):format(client.id, params.token),
-                    kind = "progress",
-                    status = is_done and "success" or "running",
-                    percent = value.percentage,
-                    title = ("%s [%s] %s"):format(icon, client.name, value.title or ""),
-                    source = "lsp",
-                })
-            end,
         },
+        function(args)
+            local data = args.data
+            local client = vim.lsp.get_client_by_id(data.client_id)
+
+            if not client then
+                return
+            end
+
+            ---@type lsp.ProgressParams
+            local params = data.params
+            local value = params.value
+
+            local is_done = value.kind == "end"
+            local icon = lib.icons.ui.Tick
+
+            if not is_done then
+                local spinner = lib.icons.ui.Spinner
+                local percentage = value.percentage or 0
+                local frame = math.min(math.floor((percentage / 100) * #spinner) + 1, #spinner)
+
+                icon = spinner[frame]
+            end
+
+            vim.api.nvim_echo({ { is_done and "Done" or value.message or "", "Type" } }, true, {
+                id = ("%s.%s"):format(client.id, params.token),
+                kind = "progress",
+                status = is_done and "success" or "running",
+                percent = value.percentage,
+                title = ("%s [%s] %s"):format(icon, client.name, value.title or ""),
+                source = "lsp",
+            })
+        end,
     },
 }

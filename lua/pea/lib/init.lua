@@ -1,5 +1,7 @@
 local M = {}
 
+local on = require("vim._core.util").nvim_on
+
 ---List of icons.
 M.icons = require "pea.lib.icons"
 
@@ -8,15 +10,17 @@ M.is_windows = jit.os:find "Windows" ~= nil
 
 ---@class Autocmd
 ---@field [1] vim.api.keyset.events|vim.api.keyset.events[]
----@field [2] vim.api.keyset.create_autocmd
+---@field [2] string|integer?
+---@field [3] vim.api.keyset.create_autocmd|fun(ev: vim.api.keyset.create_autocmd.callback_args): boolean?
+---@field [4]? fun(ev: vim.api.keyset.create_autocmd.callback_args): boolean?
 
 ---Create autocmds.
 ---@param autocmds Autocmd[] #List of autocmds.
 function M.create_autocmds(autocmds)
     for _, autocmd in ipairs(autocmds) do
-        local event, opts = unpack(autocmd)
+        local events, group, opts_or_fn, fn = unpack(autocmd)
 
-        vim.api.nvim_create_autocmd(event, opts)
+        on(events, group, opts_or_fn, fn)
     end
 end
 
