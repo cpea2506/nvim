@@ -36,14 +36,13 @@ function M.set_keymaps(keymaps)
 end
 
 ---Load modules.
----@param base string #Base module prefix.
+---@param root string #Root module.
 ---@param modules string[] #List of modules.
-function M.load_modules(base, modules)
+function M.load_modules(root, modules)
     local loaded = {}
 
-    base = base .. "."
     for _, module in ipairs(modules) do
-        table.insert(loaded, require(base .. module))
+        table.insert(loaded, require(("%s.%s"):format(root, module)))
     end
 
     return loaded
