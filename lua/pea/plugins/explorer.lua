@@ -1,6 +1,5 @@
 return {
     "A7Lavinraj/fyler.nvim",
-    event = "LazyFile",
     keys = {
         { "<leader>e", "<cmd>Fyler<cr>", desc = "Open Explorer" },
     },
