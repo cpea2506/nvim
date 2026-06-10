@@ -1,7 +1,9 @@
 local M = {}
 
+---List of icons.
 M.icons = require "pea.lib.icons"
 
+---Whether current OS is Windows.
 M.is_windows = jit.os:find "Windows" ~= nil
 
 ---@class Autocmd
