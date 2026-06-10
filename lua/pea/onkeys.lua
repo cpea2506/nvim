@@ -1,6 +1,4 @@
-local function namespace(name)
-    return vim.api.nvim_create_namespace("pea_" .. name)
-end
+local namespace = vim.api.nvim_create_namespace
 
 local listeners = {
     {
@@ -15,7 +13,7 @@ local listeners = {
                 end
             end
         end,
-        namespace "auto_hlsearch",
+        namespace "pea_auto_hlsearch",
     },
 }
 
