@@ -26,7 +26,6 @@ lib.load_modules("pea", {
     "options",
     "autocmds",
     "keymaps",
-    "onkeys",
     "events",
     "lsp",
     "ui",
