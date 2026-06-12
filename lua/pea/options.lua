@@ -40,12 +40,8 @@ local options = {
 if lib.is_windows then
     options = vim.tbl_deep_extend("force", options, {
         vim = {
-            shell = "pwsh",
-            shellcmdflag = "-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';",
-            shellpipe = "2>&1 | %%{ '$_' } | Tee-Object %%s; exit $LastExitCode",
-            shellquote = "",
-            shellredir = "2>&1 | %%{ '$_' } | Out-File %%s; exit $LastExitCode",
-            shellxquote = "",
+            shell = "pwsh -NoLogo",
+            shellcmdflag = "-ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';$PSStyle.OutputRendering = 'PlainText';",
         },
     })
 end
