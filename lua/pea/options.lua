@@ -34,6 +34,7 @@ local options = {
     },
     global = {
         mapleader = " ",
+        health = { style = "float" },
     },
 }
 
