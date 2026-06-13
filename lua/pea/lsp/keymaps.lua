@@ -71,7 +71,14 @@ function M.set(bufnr)
             end,
             { buf = bufnr, desc = "Implementation" },
         },
-        { "n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" } },
+        {
+            "n",
+            "gl",
+            function()
+                vim.diagnostic.open_float { bufnr = bufnr }
+            end,
+            { buf = bufnr, desc = "Line Diagnostics" },
+        },
         {
             "n",
             "gw",
@@ -80,8 +87,22 @@ function M.set(bufnr)
             end,
             { buf = bufnr, desc = "Workspace Diagnostics" },
         },
-        { "n", "gn", vim.lsp.buf.rename, { desc = "Rename" } },
-        { { "n", "v" }, "ga", vim.lsp.buf.code_action, { desc = "Code Action" } },
+        {
+            "n",
+            "gn",
+            function()
+                vim.lsp.buf.rename(nil, { bufnr = bufnr })
+            end,
+            { buf = bufnr, desc = "Rename" },
+        },
+        {
+            { "n", "v" },
+            "ga",
+            function()
+                vim.lsp.buf.code_action()
+            end,
+            { buf = bufnr, desc = "Code Action" },
+        },
     }
 end
 
