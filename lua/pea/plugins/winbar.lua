@@ -95,7 +95,7 @@ return {
                     winbar = winbar .. "%#LspCodeLens#" .. opts.modified_symbol .. "%*"
                 end
 
-                vim.api.nvim_set_option_value("winbar", winbar, { scope = "local" })
+                vim.o.winbar = winbar
             end,
         })
     end,
