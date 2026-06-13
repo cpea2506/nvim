@@ -2,15 +2,8 @@ local augroup = vim.api.nvim_create_augroup
 
 lib.create_autocmds {
     {
-        "TextYankPost",
-        augroup("pea_highlight_yank", {}),
-        function()
-            vim.hl.hl_op()
-        end,
-    },
-    {
-        "TextPutPost",
-        augroup("pea_highlight_put", {}),
+        { "TextYankPost", "TextPutPost" },
+        augroup("pea_highlight_op", {}),
         function()
             vim.hl.hl_op()
         end,
@@ -30,23 +23,11 @@ lib.create_autocmds {
         end,
     },
     {
-        { "FocusGained", "TermClose", "TermLeave" },
-        augroup("pea_checktime", {}),
-        function()
-            if vim.o.buftype ~= "nofile" then
-                vim.cmd.checktime()
-            end
-        end,
-    },
-    {
         "VimResized",
-
         augroup("pea_resize_splits", {}),
         function()
-            local current_tab = vim.api.nvim_get_current_tabpage()
-
             vim.cmd.tabdo "wincmd ="
-            vim.cmd.tabnext(current_tab)
+            vim.cmd.tabnext(vim.api.nvim_get_current_tabpage())
         end,
     },
 }
