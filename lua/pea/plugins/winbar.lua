@@ -21,7 +21,7 @@ return {
             "help",
             "lazy",
             "noice",
-            "fyler",
+            "fyler_finder",
             "toggleterm",
             "qf",
             "input",
