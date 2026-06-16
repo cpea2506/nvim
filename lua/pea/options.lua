@@ -41,8 +41,7 @@ local options = {
 if lib.is_windows then
     options = vim.tbl_deep_extend("force", options, {
         vim = {
-            shell = "pwsh -NoLogo",
-            shellcmdflag = "-ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';$PSStyle.OutputRendering = 'PlainText';",
+            shell = "pwsh -NoLogo -ExecutionPolicy RemoteSigned",
         },
     })
 end
