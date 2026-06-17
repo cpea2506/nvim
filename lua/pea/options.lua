@@ -38,14 +38,6 @@ local options = {
     },
 }
 
-if lib.is_windows then
-    options = vim.tbl_deep_extend("force", options, {
-        vim = {
-            shell = "pwsh -NoLogo -ExecutionPolicy RemoteSigned",
-        },
-    })
-end
-
 for option, value in pairs(options.vim) do
     vim.o[option] = value
 end
