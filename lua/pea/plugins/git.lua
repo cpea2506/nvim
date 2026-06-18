@@ -37,7 +37,9 @@ return {
                 delay = 500,
                 ignore_whitespace = false,
             },
-            current_line_blame_formatter = "<author>, <author_time:%R> " .. lib.icons.ui.CircleMedium .. " <summary>",
+            current_line_blame_formatter = "<author>, <author_time:%d-%m-%Y> (<author_time:%R>) "
+                .. lib.icons.ui.CircleMedium
+                .. " <summary>",
             sign_priority = 6,
             status_formatter = nil,
             update_debounce = 100,
