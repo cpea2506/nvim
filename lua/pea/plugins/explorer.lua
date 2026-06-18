@@ -20,5 +20,8 @@ return {
                 ["|"] = { action = "select", args = { vsplit = true } },
             },
         },
+        ui = {
+            indent_guides = true,
+        },
     },
 }
