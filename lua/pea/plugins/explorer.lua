@@ -7,6 +7,11 @@ return {
         integrations = {
             icon = "nvim_web_devicons",
         },
+        extensions = {
+            trash = {
+                enabled = true,
+            },
+        },
         kind = "floating",
         kind_presets = {
             floating = {
@@ -15,9 +20,7 @@ return {
         },
         mappings = {
             n = {
-                ["<C-s>"] = { action = "" },
-                ["<C-v>"] = { action = "" },
-                ["|"] = { action = "select", args = { vsplit = true } },
+                ["<C-s>"] = { disabled = true },
             },
         },
         ui = {
