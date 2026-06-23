@@ -26,6 +26,7 @@ vim.diagnostic.config {
 }
 
 local augroup = vim.api.nvim_create_augroup("pea_lsp", {})
+local namespace = vim.api.nvim_create_namespace "pea_lsp"
 
 lib.create_autocmds {
     {
@@ -133,6 +134,35 @@ lib.create_autocmds {
                 title = ("%s [%s] %s"):format(icon, client.name, value.title or ""),
                 source = "lsp",
             })
+        end,
+    },
+    {
+        "CursorHold",
+        augroup,
+        function(args)
+            local buf = args.buf
+            local current_line = vim.api.nvim_win_get_cursor(0)[1] - 1
+
+            ---@type { [any]: any }
+            local params = vim.lsp.util.make_range_params(0, "utf-8")
+            params.context = {
+                diagnostics = vim.lsp.diagnostic.from(vim.diagnostic.get(buf, { lnum = current_line })),
+            }
+
+            vim.lsp.buf_request_all(buf, "textDocument/codeAction", params, function(responses)
+                vim.api.nvim_buf_clear_namespace(buf, namespace, 0, -1)
+
+                for _, response in pairs(responses) do
+                    if response.result and not vim.tbl_isempty(response.result) then
+                        vim.api.nvim_buf_set_extmark(buf, namespace, current_line, 0, {
+                            sign_text = "💡",
+                            priority = 200,
+                        })
+
+                        break
+                    end
+                end
+            end)
         end,
     },
 }
