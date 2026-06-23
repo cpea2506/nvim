@@ -16,24 +16,42 @@ local function toggle_lazygit()
     lazygit:toggle()
 end
 
-local function toggle_copilot()
+local function toggle_ai(start_new_session)
     local terminal = require("toggleterm.terminal").Terminal
+    local cmd = "opencode"
 
-    local copilot = terminal:new {
-        cmd = "opencode",
+    if not start_new_session then
+        cmd = cmd .. " --continue"
+    end
+
+    local ai = terminal:new {
+        cmd = cmd,
         hidden = true,
         direction = "vertical",
     }
 
-    copilot:toggle(80)
+    ai:toggle(80)
 end
 
 return {
     "akinsho/toggleterm.nvim",
     keys = {
         "<C-t>",
-        { "<leader>gg", toggle_lazygit, desc = "Lazygit Toggle" },
-        { "<leader>ai", toggle_copilot, desc = "Copilot Toggle" },
+        { "<leader>gg", toggle_lazygit, desc = "Toggle Lazygit" },
+        {
+            "<leader>ai",
+            function()
+                toggle_ai(true)
+            end,
+            desc = "Toggle New AI Session",
+        },
+        {
+            "<leader>ac",
+            function()
+                toggle_ai(false)
+            end,
+            desc = "Toggle Last AI Session",
+        },
     },
     opts = {
         open_mapping = "<C-t>",
