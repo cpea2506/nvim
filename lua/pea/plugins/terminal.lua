@@ -20,7 +20,7 @@ local function toggle_copilot()
     local terminal = require("toggleterm.terminal").Terminal
 
     local copilot = terminal:new {
-        cmd = "copilot --banner",
+        cmd = "opencode",
         hidden = true,
         direction = "vertical",
     }
