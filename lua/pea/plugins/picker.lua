@@ -14,15 +14,13 @@ return {
             row = 0.5,
             col = 0.5,
             title_flags = false,
-            treesitter = true,
             preview = {
-                border = "rounded",
                 layout = "vertical",
                 vertical = "up:50%",
                 scrollbar = false,
             },
         },
-        file_ignore_patterns = { "%.meta$" },
+        file_ignore_patterns = { "%.meta$", "%.fbx$", "%.png$", "%.jpg$" },
         fzf_opts = {
             ["--cycle"] = true,
             ["--gutter"] = " ",
@@ -32,6 +30,7 @@ return {
         },
         fzf_colors = true,
         files = {
+            previewer = lib.is_windows and "bat" or "builtin",
             cwd_prompt = false,
             formatter = "path.filename_first",
         },
