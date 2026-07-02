@@ -86,6 +86,7 @@ return {
                         return vim.bo[bufnr].filetype == v
                     end)
                 then
+                    vim.o.winbar = ""
                     return
                 end
 

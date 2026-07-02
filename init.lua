@@ -25,12 +25,12 @@ vim.loader.enable()
 _G.lib = require "pea.lib"
 
 lib.load_modules("pea", {
+    "ui",
     "options",
     "autocmds",
     "keymaps",
     "events",
     "lsp",
-    "ui",
 })
 
 require("lazy").setup("pea.plugins", {

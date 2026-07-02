@@ -15,11 +15,11 @@ lib.create_autocmds {
             pattern = { "help", "man", "qf", "checkhealth" },
         },
         function(args)
-            local bufnr = args.buf
+            local buf = args.buf
 
             vim.keymap.set("n", "q", function()
-                vim.cmd.bd(bufnr)
-            end, { buf = bufnr, silent = true })
+                vim.api.nvim_buf_delete(buf, { force = true })
+            end, { buf = buf, silent = true })
         end,
     },
     {
@@ -28,6 +28,15 @@ lib.create_autocmds {
         function()
             vim.cmd.tabdo "wincmd ="
             vim.cmd.tabnext(vim.api.nvim_get_current_tabpage())
+        end,
+    },
+    {
+        "TermClose",
+        augroup("pea_term_close", {}),
+        function(args)
+            local buf = args.buf
+
+            vim.api.nvim_buf_delete(buf, { force = true })
         end,
     },
 }
