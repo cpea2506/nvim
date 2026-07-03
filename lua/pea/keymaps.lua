@@ -2,7 +2,7 @@ local function open_term(cmd, opts)
     opts = opts or {}
 
     if opts.size then
-        vim.cmd(("%d vsplit | term %s"):format(opts.size, cmd))
+        vim.cmd(("botright %d vsplit | term %s"):format(opts.size, cmd))
     else
         vim.cmd(("tabnew | term %s"):format(cmd))
     end
