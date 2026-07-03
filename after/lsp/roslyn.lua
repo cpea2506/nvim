@@ -61,4 +61,31 @@ return {
             end,
         })
     end,
+    handlers = {
+        ["workspace/projectInitializationComplete"] = function(_, _, ctx)
+            vim.notify("Roslyn project initialization complete", vim.log.levels.INFO, { title = "roslyn.nvim" })
+
+            vim.api.nvim_exec_autocmds("User", {
+                pattern = "RoslynInitialized",
+                modeline = false,
+                data = { client_id = ctx.client_id },
+            })
+
+            -- Lsp provides stale diagnostics before it is fully initialized.
+            local lsp_client = assert(vim.lsp.get_client_by_id(ctx.client_id))
+
+            for bufnr, _ in pairs(lsp_client.attached_buffers) do
+                ---@param opts lsp.DiagnosticRegistrationOptions
+                lsp_client:_provider_foreach("textDocument/diagnostic", function(opts)
+                    ---@type lsp.DocumentDiagnosticParams
+                    local params = {
+                        identifier = opts.identifier,
+                        textDocument = vim.lsp.util.make_text_document_params(bufnr),
+                    }
+
+                    lsp_client:request("textDocument/diagnostic", params, nil, bufnr)
+                end)
+            end
+        end,
+    },
 }
