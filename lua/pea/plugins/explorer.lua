@@ -21,6 +21,8 @@ return {
         mappings = {
             n = {
                 ["<C-s>"] = { disabled = true },
+                ["<C-v>"] = { disabled = true },
+                ["|"] = { action = "select", args = { vsplit = true } },
             },
         },
         ui = {
