@@ -23,13 +23,20 @@ return {
         },
     },
     {
-        "mason-org/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
-        opts = {},
-        dependencies = {
-            "mason-org/mason.nvim",
-            "neovim/nvim-lspconfig",
-        },
+        config = function()
+            local registry = require "mason-registry"
+
+            vim.iter(registry.get_installed_packages()):each(function(pkg)
+                local spec = pkg.spec
+                local server = spec.neovim and spec.neovim.lspconfig
+
+                if server then
+                    vim.lsp.enable(server, true)
+                end
+            end)
+        end,
     },
     {
         "seblyng/roslyn.nvim",
