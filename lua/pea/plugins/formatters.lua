@@ -2,9 +2,6 @@ return {
     "stevearc/conform.nvim",
     event = "BufWritePre",
     cmd = "ConformInfo",
-    init = function()
-        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    end,
     opts = {
         formatters_by_ft = {
             json = { "prettier" },
