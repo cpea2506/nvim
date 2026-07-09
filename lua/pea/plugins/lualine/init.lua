@@ -1,17 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    init = function()
-        vim.g.lualine_laststatus = vim.o.laststatus
-
-        if vim.fn.argc(-1) > 0 then
-            -- Set an empty statusline till lualine loads.
-            vim.o.statusline = " "
-        else
-            -- Hide the statusline on the starter page.
-            vim.o.laststatus = 0
-        end
-    end,
     opts = function()
         local colors = require "pea.plugins.lualine.colors"
         local components = require "pea.plugins.lualine.components"
@@ -28,24 +17,15 @@ return {
                 },
                 disabled_filetypes = {
                     "",
-                    "input",
-                    "select",
-                    "TelescopePrompt",
                     "checkhealth",
-                    "dap-repl",
-                    "dapui_breakpoints",
-                    "dapui_console",
-                    "dapui_scopes",
-                    "dapui_stacks",
-                    "dapui_watches",
-                    "fzf",
-                    "help",
-                    "lspinfo",
-                    "mason",
-                    "noice",
                     "fyler_finder",
-                    "toggleterm",
+                    "fzf",
+                    "gitsigns-blame",
+                    "help",
+                    "input",
+                    "mason",
                     "pager",
+                    "select",
                 },
                 globalstatus = true,
                 component_separators = "",
