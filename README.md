@@ -1,211 +1,175 @@
 # peaNvim
 
-My Neovim config built around **lazy.nvim** with LSP, completion, formatting, and a focused plugin set.
+Neovim config built on **lazy.nvim** — LSP, completion, formatting, and a focused plugin set.
 
-## ✅ Requirements
+## Requirements
 
-- **Neovim nightly**
-- **`git`**
-- **`ripgrep`**
-- **`cargo`**: building `blink.cmp` and `blink.pairs`
-- **`lazygit`**
-- **`dotnet`**: C# debug and Roslyn
+- **Neovim nightly** + `git`
+- **`ripgrep`** - fzf-lua grep backend
+- **`cargo`** - building `blink.cmp` / `blink.pairs`
+- **`lazygit`** - git UI in terminal tab
 
-**Windows note:** PowerShell is recommended. Shell settings are configured in [`lua/pea/options.lua`](lua/pea/options.lua).
+## Quick start
 
-## 🚀 Quick start
+```sh
+# macOS / Linux
+git clone https://github.com/cpea2506/nvim.git ~/.config/nvim
 
-1. Clone this repo to your Neovim config directory:
-   - macOS/Linux:
+# Windows (PowerShell)
+git clone https://github.com/cpea2506/nvim.git $env:USERPROFILE\.config\nvim
+```
 
-     ```sh
-     git clone https://github.com/cpea2506/nvim.git ~/.config/nvim
-     ```
+Start Neovim - `lazy.nvim` bootstraps on first launch. Then run `:Mason` to install LSP servers and external tools.
 
-   - Windows (PowerShell):
+## What's inside
 
-     ```sh
-     git clone https://github.com/cpea2506/nvim.git $env:USERPROFILE\.config\nvim
-     ```
+Plugin definitions live in [`lua/pea/plugins/`](lua/pea/plugins).
 
-2. Start Neovim. `lazy.nvim` bootstraps automatically on first launch.
-3. Run `:Mason` to install LSP servers and external tools.
+| Area           | Plugins                                                                                             |
+| -------------- | --------------------------------------------------------------------------------------------------- |
+| **Manager**    | `lazy.nvim`                                                                                         |
+| **UI**         | `one_monokai`, `lualine`, `nvim-navic`, `nvim-web-devicons`                                         |
+| **Navigation** | `fyler`, `fzf-lua`                                                                                  |
+| **Git**        | `gitsigns`                                                                                          |
+| **Syntax**     | `arborist.nvim`, `nvim-treesitter-context`                                                          |
+| **LSP**        | `mason.nvim`, `mason-lspconfig`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                     |
+| **Completion** | `blink.lib`, `blink.cmp`, `blink.pairs`, `blink-ripgrep`, `friendly-snippets`                       |
+| **Editing**    | `better-escape`, `select.nvim`, `input.nvim`, `nvim-surround`, `numb`, `relative-toggle`, `quicker` |
+| **Formatting** | `conform.nvim`                                                                                      |
+| **Linting**    | `nvim-lint`                                                                                         |
+| **Debug**      | `debugmaster.nvim`, `nvim-dap`, `nvim-dap-unity`                                                    |
 
-## 📦 What’s included
+Custom [`LazyFile`](lua/pea/events.lua) event deferred-loads most plugins on `BufReadPost` / `BufNewFile` / `BufWritePre`.
 
-Plugins and features are defined in [`lua/pea/plugins/`](lua/pea/plugins).
+## Keymaps
 
-| Area            | Plugins                                                                                             |
-| --------------- | --------------------------------------------------------------------------------------------------- |
-| Plugin manager  | **lazy.nvim**                                                                                       |
-| UI              | `one_monokai`, `lualine`, `nvim-navic`, `nvim-web-devicons`                                         |
-| Navigation      | `fyler`, `fzf-lua` (non-Windows), `telescope.nvim` (Windows)                                        |
-| Git             | `gitsigns`, `conflict-marker`                                                                       |
-| Syntax          | `arborist.nvim`, `nvim-treesitter-context`                                                          |
-| LSP             | `mason.nvim`, `mason-lspconfig`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                     |
-| Completion      | `blink.lib`, `blink.cmp`, `blink.pairs`, `blink-ripgrep`, `friendly-snippets`                       |
-| Editing UX      | `better-escape`, `select.nvim`, `input.nvim`, `nvim-surround`, `numb`, `relative-toggle`, `quicker` |
-| Terminal        | `toggleterm.nvim`                                                                                   |
-| Formatting      | `conform.nvim`                                                                                      |
-| Linting         | `nvim-lint`                                                                                         |
-| Debugging       | `debugmaster.nvim`, `nvim-dap`, `nvim-dap-unity`                                                    |
-| CLI integration | Copilot CLI in ToggleTerm (`copilot --banner`)                                                      |
+Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 
-## ⌨️ Keymaps
+### Window & buffer
 
-Leader is `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
+| Key           | Mode | Action                      |
+| ------------- | ---- | --------------------------- |
+| `<C-h/j/k/l>` | n    | Navigate windows            |
+| `<C-s>`       | n    | Save                        |
+| `<C-e>`       | n    | Close buffer                |
+| `<C-x>`       | t    | Exit terminal mode          |
+| `< / >`       | v    | Indent left/right, reselect |
+| `<leader>q`   | n    | Quit                        |
 
-### Navigation & Editing
+### LSP (buffer-local on attach)
 
-Global keymaps ([`lua/pea/keymaps.lua`](lua/pea/keymaps.lua)):
+[`lua/pea/lsp/keymaps.lua`](lua/pea/lsp/keymaps.lua)
 
-| Key         | Mode | Action                    |
-| ----------- | ---- | ------------------------- |
-| `<C-h>`     | n    | Window left               |
-| `<C-j>`     | n    | Window down               |
-| `<C-k>`     | n    | Window up                 |
-| `<C-l>`     | n    | Window right              |
-| `<C-s>`     | n    | Save                      |
-| `<C-e>`     | n    | Delete buffer             |
-| `<C-t>`     | n    | Toggle terminal           |
-| `<C-x>`     | t    | Terminal normal mode      |
-| `<`         | v    | Indent left and reselect  |
-| `>`         | v    | Indent right and reselect |
-| `<leader>q` | n    | Quit                      |
+| Key  | Action                           |
+| ---- | -------------------------------- |
+| `gd` | Definition                       |
+| `gD` | Type definition                  |
+| `gr` | References                       |
+| `gi` | Implementation                   |
+| `gl` | Line diagnostics                 |
+| `gw` | Workspace diagnostics → quickfix |
+| `gn` | Rename                           |
+| `ga` | Code action (n/v)                |
 
-### Code Navigation
+### Search & files
 
-LSP keymaps (buffer-local on attach, [`lua/pea/lsp/keymaps.lua`](lua/pea/lsp/keymaps.lua)):
+[`lua/pea/plugins/picker.lua`](lua/pea/plugins/picker.lua)
 
-| Key  | Mode | Action                            |
-| ---- | ---- | --------------------------------- |
-| `gd` | n    | Definition                        |
-| `gD` | n    | Type definition                   |
-| `gr` | n    | References                        |
-| `gi` | n    | Implementation                    |
-| `gl` | n    | Line diagnostics                  |
-| `gw` | n    | Workspace diagnostics to quickfix |
-| `gn` | n    | Rename                            |
-| `ga` | n/v  | Code action                       |
-| `gk` | n    | Run codelens                      |
+| Key          | Action              |
+| ------------ | ------------------- |
+| `<leader>e`  | Open Fyler explorer |
+| `<leader>sg` | Global grep         |
+| `<leader>sf` | File search         |
+| `<leader>st` | Live grep           |
+| `<leader>sb` | Buffers             |
 
-### Searching & Projects
+### Terminal
 
-| Key          | Mode | Plugin           | Action                      |
-| ------------ | ---- | ---------------- | --------------------------- |
-| `<leader>e`  | n    | Fyler            | Open explorer               |
-| `<leader>sg` | n    | FzfLua           | Global search (non-Windows) |
-| `<leader>sf` | n    | FzfLua/Telescope | File search                 |
-| `<leader>st` | n    | FzfLua/Telescope | Live grep                   |
-| `<leader>sb` | n    | FzfLua/Telescope | Buffers                     |
+[`lua/pea/keymaps.lua`](lua/pea/keymaps.lua) - uses native `term`.
 
-### Tools & Utilities
-
-| Key          | Mode | Plugin             | Action             |
-| ------------ | ---- | ------------------ | ------------------ |
-| `<leader>gg` | n    | ToggleTerm         | Toggle Lazygit     |
-| `<leader>ai` | n    | ToggleTerm         | Toggle Copilot CLI |
-| `<leader>d`  | n    | Debugmaster        | Toggle Debug Mode  |
-| `[c`         | n    | Treesitter-context | Go to context      |
-
-### Plugins & Manager
-
-| Key          | Mode | Action       |
-| ------------ | ---- | ------------ |
-| `<leader>ph` | n    | Open Lazy UI |
-| `<leader>ps` | n    | Lazy sync    |
-
-### Autocommands
-
-Close buffer (buffer-local, [`lua/pea/autocmds.lua`](lua/pea/autocmds.lua)):
-
-| Key | Mode | FileType                           |
-| --- | ---- | ---------------------------------- |
-| `q` | n    | `help`, `man`, `qf`, `checkhealth` |
-
-### Conflicts
-
-`conflict-marker` buffer-local keymaps:
-
-| Key     | Mode | Action                              |
-| ------- | ---- | ----------------------------------- |
-| `<C-j>` | n    | Jump to next conflict separator     |
-| `<C-k>` | n    | Jump to previous conflict separator |
-| `co`    | n    | Choose ours                         |
-| `ct`    | n    | Choose theirs                       |
-| `cb`    | n    | Choose both                         |
-| `cn`    | n    | Choose none                         |
+| Key          | Action                                 |
+| ------------ | -------------------------------------- |
+| `<leader>gg` | Lazygit (tab)                          |
+| `<leader>ai` | opencode (vsplit, width 80)            |
+| `<leader>ac` | opencode --continue (vsplit, width 80) |
 
 ### Completion
 
-Insert mode ([`lua/pea/plugins/cmp.lua`](lua/pea/plugins/cmp.lua)):
+[`lua/pea/plugins/cmp.lua`](lua/pea/plugins/cmp.lua)
 
-| Key       | Mode | Action                 |
-| --------- | ---- | ---------------------- |
-| `<C-k>`   | i    | Select previous        |
-| `<C-j>`   | i    | Select next            |
-| `<C-d>`   | i    | Scroll docs up         |
-| `<C-f>`   | i    | Scroll docs down       |
-| `<CR>`    | i    | Accept                 |
-| `<Tab>`   | i    | Accept/snippet forward |
-| `<S-Tab>` | i    | Snippet backward       |
+**Insert mode:**
 
-Cmdline mode:
+| Key               | Action                   |
+| ----------------- | ------------------------ |
+| `<C-k>` / `<C-j>` | Navigate                 |
+| `<C-d>` / `<C-f>` | Scroll docs              |
+| `<CR>` / `<Tab>`  | Accept / snippet forward |
+| `<S-Tab>`         | Snippet backward         |
 
-| Key     | Mode | Action           |
-| ------- | ---- | ---------------- |
-| `<C-k>` | c    | Select previous  |
-| `<C-j>` | c    | Select next      |
-| `<Tab>` | c    | Accept           |
-| `<CR>`  | c    | Accept and enter |
+**Cmdline mode:**
 
-### Plugin UI
+| Key               | Action           |
+| ----------------- | ---------------- |
+| `<C-k>` / `<C-j>` | Navigate         |
+| `<Tab>`           | Accept           |
+| `<CR>`            | Accept and enter |
 
-| Key      | Mode | Plugin        | Action                |
-| -------- | ---- | ------------- | --------------------- |
-| `o`      | n    | Mason         | Toggle package expand |
-| `d`      | n    | Mason         | Uninstall package     |
-| `<C-d>`  | n    | FzfLua picker | Preview page down     |
-| `<C-u>`  | n    | FzfLua picker | Preview page up       |
-| `ctrl-d` | n    | FzfLua (fzf)  | Preview page down     |
-| `ctrl-u` | n    | FzfLua (fzf)  | Preview page up       |
+### Tools & plugin UI
 
-## 🧠 LSP servers and filetypes
+| Key               | Context            | Action                 |
+| ----------------- | ------------------ | ---------------------- |
+| `<leader>ph`      | -                  | Open Lazy UI           |
+| `<leader>ps`      | -                  | Lazy sync              |
+| `<leader>d`       | -                  | Toggle debug mode      |
+| `[c`              | Treesitter-context | Jump to context        |
+| `o`               | Mason              | Toggle package expand  |
+| `d`               | Mason              | Uninstall package      |
+| `<C-d>` / `<C-u>` | FzfLua picker      | Preview page down / up |
 
-Server overrides live in [`after/lsp/`](after/lsp):
+### Autocommands
 
-- `lua_ls` (Lua)
-- `roslyn` (C#)
-- `shaderls` (ShaderLab/GLSL)
+[`lua/pea/autocmds.lua`](lua/pea/autocmds.lua)
 
-Custom filetype detection lives in [`ftdetect/`](ftdetect):
+| Behavior             | Detail                                    |
+| -------------------- | ----------------------------------------- |
+| Yank highlight       | `TextYankPost` / `TextPutPost`            |
+| Close help buffers   | `q` in `help`, `man`, `qf`, `checkhealth` |
+| Equalize splits      | `VimResized` → `tabdo wincmd =`           |
+| Auto-delete terminal | `TermClose` → `bwipeout!`                 |
 
-- `shaderlab.lua`
-- `jslib.lua`
+## LSP servers
 
-Install servers through `:Mason`, then tweak in `after/lsp/<server>.lua`.
+Server configs: [`after/lsp/`](after/lsp)
 
-## 🧹 Formatting & linting
+| Server     | Language         |
+| ---------- | ---------------- |
+| `lua_ls`   | Lua              |
+| `roslyn`   | C#               |
+| `shaderls` | ShaderLab / GLSL |
 
-### Formatting
+Custom filetypes ([`ftdetect/`](ftdetect)):
 
-Formatting uses **Conform** on save with LSP fallback ([`lua/pea/plugins/formatters.lua`](lua/pea/plugins/formatters.lua)).
+| Pattern             | Filetype     | Notes                  |
+| ------------------- | ------------ | ---------------------- |
+| `*.shader`          | `glsl`       | Enables `shaderls` LSP |
+| `*.jslib`, `*.jpre` | `javascript` |                        |
 
-| Language/Type | Formatter      |
-| ------------- | -------------- |
-| JSON/JSONC    | `prettier`     |
-| Markdown      | `prettier`     |
-| JavaScript    | `prettier`     |
-| TypeScript    | `prettier`     |
-| Svelte        | `prettier`     |
-| CSS           | `prettier`     |
-| C/C++         | `clang-format` |
-| TOML          | `taplo`        |
-| Shell         | `shfmt`        |
+Install via `:Mason`, override in `after/lsp/<server>.lua`.
 
-### Linting
+## Formatting
 
-Linting uses **nvim-lint** on save/read/insert leave ([`lua/pea/plugins/lints.lua`](lua/pea/plugins/lints.lua)).
+**Conform** runs on save with LSP fallback ([`lua/pea/plugins/formatters.lua`](lua/pea/plugins/formatters.lua)).
+
+| Language                                  | Formatter      |
+| ----------------------------------------- | -------------- |
+| JSON/JSONC, Markdown, JS, TS, Svelte, CSS | `prettier`     |
+| C/C++                                     | `clang-format` |
+| TOML                                      | `taplo`        |
+| Shell                                     | `shfmt`        |
+
+## Linting
+
+**nvim-lint** runs on save / read / insert leave ([`lua/pea/plugins/lints.lua`](lua/pea/plugins/lints.lua)).
 
 | Language | Linter       |
 | -------- | ------------ |
