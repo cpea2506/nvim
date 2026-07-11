@@ -1,9 +1,10 @@
-return {
-    "FylerOrg/fyler.nvim",
-    keys = {
-        { "<leader>e", "<cmd>Fyler<cr>", desc = "Open Explorer" },
-    },
-    opts = {
+vim.schedule(function()
+    vim.pack.add {
+        "https://github.com/nvim-tree/nvim-web-devicons",
+        "https://github.com/FylerOrg/fyler.nvim",
+    }
+
+    require("fyler").setup {
         integrations = {
             icon = "nvim_web_devicons",
         },
@@ -28,5 +29,7 @@ return {
         ui = {
             indent_guides = true,
         },
-    },
-}
+    }
+
+    vim.keymap.set("n", "<leader>e", "<cmd>Fyler<cr>", { desc = "Open Explorer" })
+end)

@@ -1,4 +1,4 @@
-local colors = require "pea.plugins.lualine.colors"
+local colors = require "pea.plugin.lualine.colors"
 
 local function buffer_not_empty()
     local buf = vim.fn.expand "%:t"
@@ -167,7 +167,7 @@ local components = {
         draw_empty = false,
     },
     debug = {
-        require "pea.plugins.lualine.components.debug",
+        require "pea.plugin.lualine.components.debug",
         color = { fg = colors.magenta },
         draw_empty = false,
     },

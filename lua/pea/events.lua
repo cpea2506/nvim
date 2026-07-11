@@ -1,12 +1,3 @@
-local event_handler = require "lazy.core.handler.event"
-local lazy_file_mapping = {
-    id = "LazyFile",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-}
-
-event_handler.mappings.LazyFile = lazy_file_mapping
-event_handler.mappings["User LazyFile"] = lazy_file_mapping
-
 vim.on_key(function(char)
     if vim.api.nvim_get_mode().mode ~= "n" then
         return

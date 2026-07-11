@@ -1,13 +1,7 @@
-return {
-    "ibhagwan/fzf-lua",
-    cmd = "FzfLua",
-    keys = {
-        { "<leader>sg", "<cmd>FzfLua global<cr>", desc = "FzfLua Global" },
-        { "<leader>sf", "<cmd>FzfLua files<cr>", desc = "FzfLua Files" },
-        { "<leader>st", "<cmd>FzfLua live_grep<cr>", desc = "FzfLua Grep" },
-        { "<leader>sb", "<cmd>FzfLua buffers<cr>", desc = "FzfLua Buffers" },
-    },
-    opts = {
+vim.schedule(function()
+    vim.pack.add { "https://github.com/ibhagwan/fzf-lua" }
+
+    require("fzf-lua").setup {
         winopts = {
             height = 0.85,
             width = 0.5,
@@ -49,5 +43,12 @@ return {
                 ["ctrl-u"] = "preview-page-up",
             },
         },
-    },
-}
+    }
+
+    lib.set_keymaps {
+        { "n", "<leader>sg", "<cmd>FzfLua global<cr>", { desc = "FzfLua Global" } },
+        { "n", "<leader>sf", "<cmd>FzfLua files<cr>", { desc = "FzfLua Files" } },
+        { "n", "<leader>st", "<cmd>FzfLua live_grep<cr>", { desc = "FzfLua Grep" } },
+        { "n", "<leader>sb", "<cmd>FzfLua buffers<cr>", { desc = "FzfLua Buffers" } },
+    }
+end)

@@ -1,6 +1,6 @@
 # peaNvim
 
-Neovim config built on **lazy.nvim** — LSP, completion, formatting, and a focused plugin set.
+Neovim config using native `vim.pack` - LSP, completion, formatting, and a focused plugin set.
 
 ## Requirements
 
@@ -12,34 +12,28 @@ Neovim config built on **lazy.nvim** — LSP, completion, formatting, and a focu
 ## Quick start
 
 ```sh
-# macOS / Linux
 git clone https://github.com/cpea2506/nvim.git ~/.config/nvim
-
-# Windows (PowerShell)
-git clone https://github.com/cpea2506/nvim.git $env:USERPROFILE\.config\nvim
 ```
 
-Start Neovim - `lazy.nvim` bootstraps on first launch. Then run `:Mason` to install LSP servers and external tools.
+Start Neovim - plugins bootstraps on first launch. Run `:Mason` to install LSP servers.
 
 ## What's inside
 
-Plugin definitions live in [`lua/pea/plugins/`](lua/pea/plugins).
+Plugin definitions live in [`plugin/`](plugin).
 
-| Area           | Plugins                                                                                             |
-| -------------- | --------------------------------------------------------------------------------------------------- |
-| **Manager**    | `lazy.nvim`                                                                                         |
-| **UI**         | `one_monokai`, `lualine`, `nvim-navic`, `nvim-web-devicons`                                         |
-| **Navigation** | `fyler`, `fzf-lua`                                                                                  |
-| **Git**        | `gitsigns`                                                                                          |
-| **Syntax**     | `arborist.nvim`, `nvim-treesitter-context`                                                          |
-| **LSP**        | `mason.nvim`, `mason-lspconfig`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                     |
-| **Completion** | `blink.lib`, `blink.cmp`, `blink.pairs`, `blink-ripgrep`, `friendly-snippets`                       |
-| **Editing**    | `better-escape`, `select.nvim`, `input.nvim`, `nvim-surround`, `numb`, `relative-toggle`, `quicker` |
-| **Formatting** | `conform.nvim`                                                                                      |
-| **Linting**    | `nvim-lint`                                                                                         |
-| **Debug**      | `debugmaster.nvim`, `nvim-dap`, `nvim-dap-unity`                                                    |
-
-Custom [`LazyFile`](lua/pea/events.lua) event deferred-loads most plugins on `BufReadPost` / `BufNewFile` / `BufWritePre`.
+| Area            | Plugins                                                                                             |
+| --------------- | --------------------------------------------------------------------------------------------------- |
+| Package manager | `vim.pack`                                                                                          |
+| UI              | `one_monokai`, `lualine`, `nvim-web-devicons`                                                       |
+| Navigation      | `fyler`, `fzf-lua`                                                                                  |
+| Git             | `gitsigns`                                                                                          |
+| Syntax          | `arborist.nvim`, `nvim-treesitter-context`                                                          |
+| LSP             | `mason.nvim`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                                        |
+| Completion      | `blink.cmp`, `blink.pairs`, `blink-ripgrep`, `friendly-snippets`                                    |
+| Editing         | `better-escape`, `select.nvim`, `input.nvim`, `nvim-surround`, `numb`, `relative-toggle`, `quicker` |
+| Formatting      | `conform.nvim`                                                                                      |
+| Linting         | `nvim-lint`                                                                                         |
+| Debug           | `debugmaster.nvim`, `nvim-dap`, `nvim-dap-unity`                                                    |
 
 ## Keymaps
 
@@ -73,7 +67,7 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 
 ### Search & files
 
-[`lua/pea/plugins/picker.lua`](lua/pea/plugins/picker.lua)
+[`plugin/picker.lua`](plugin/picker.lua)
 
 | Key          | Action              |
 | ------------ | ------------------- |
@@ -95,7 +89,7 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 
 ### Completion
 
-[`lua/pea/plugins/cmp.lua`](lua/pea/plugins/cmp.lua)
+[`plugin/cmp.lua`](plugin/cmp.lua)
 
 **Insert mode:**
 
@@ -118,8 +112,8 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 
 | Key               | Context            | Action                 |
 | ----------------- | ------------------ | ---------------------- |
-| `<leader>ph`      | -                  | Open Lazy UI           |
-| `<leader>ps`      | -                  | Lazy sync              |
+| `<leader>ph`      | -                  | Update packages        |
+| `<leader>ps`      | -                  | Sync packages          |
 | `<leader>d`       | -                  | Toggle debug mode      |
 | `[c`              | Treesitter-context | Jump to context        |
 | `o`               | Mason              | Toggle package expand  |
@@ -158,7 +152,7 @@ Install via `:Mason`, override in `after/lsp/<server>.lua`.
 
 ## Formatting
 
-**Conform** runs on save with LSP fallback ([`lua/pea/plugins/formatters.lua`](lua/pea/plugins/formatters.lua)).
+**Conform** runs on save with LSP fallback ([`plugin/formatters.lua`](plugin/formatters.lua)).
 
 | Language                                  | Formatter      |
 | ----------------------------------------- | -------------- |
@@ -169,7 +163,7 @@ Install via `:Mason`, override in `after/lsp/<server>.lua`.
 
 ## Linting
 
-**nvim-lint** runs on save / read / insert leave ([`lua/pea/plugins/lints.lua`](lua/pea/plugins/lints.lua)).
+**nvim-lint** runs on save / read / insert leave ([`plugin/lints.lua`](plugin/lints.lua)).
 
 | Language | Linter       |
 | -------- | ------------ |

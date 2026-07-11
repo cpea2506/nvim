@@ -12,7 +12,7 @@ lib.create_autocmds {
         "FileType",
         augroup("pea_q_close", {}),
         {
-            pattern = { "help", "man", "qf", "checkhealth" },
+            pattern = { "help", "man", "qf", "checkhealth", "nvim-pack" },
         },
         function(args)
             local buf = args.buf

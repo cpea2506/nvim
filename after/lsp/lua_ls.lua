@@ -11,7 +11,7 @@ return {
             workspace = {
                 checkThirdParty = "ApplyInMemory",
                 library = {
-                    vim.env.VIMRUNTIME
+                    vim.env.VIMRUNTIME,
                 },
             },
             codeLens = {

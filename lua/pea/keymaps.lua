@@ -25,8 +25,8 @@ lib.set_keymaps {
 
     { "t", "<C-\\>", "<C-\\><C-n>" },
 
-    { "n", "<leader>ph", "<cmd>Lazy<cr>" },
-    { "n", "<leader>ps", "<cmd>Lazy sync<cr>" },
+    { "n", "<leader>ph", "<cmd>packupdate ++offline<cr>" },
+    { "n", "<leader>ps", "<cmd>packupdate<cr>" },
 
     {
         "n",

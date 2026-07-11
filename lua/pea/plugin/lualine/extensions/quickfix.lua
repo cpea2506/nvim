@@ -1,5 +1,5 @@
-local colors = require "pea.plugins.lualine.colors"
-local components = require "pea.plugins.lualine.components"
+local colors = require "pea.plugin.lualine.colors"
+local components = require "pea.plugin.lualine.components"
 
 local label = {
     function()

@@ -1,7 +1,7 @@
-return {
-    "lewis6991/gitsigns.nvim",
-    event = "LazyFile",
-    opts = {
+vim.schedule(function()
+    vim.pack.add { "https://github.com/lewis6991/gitsigns.nvim" }
+
+    require("gitsigns").setup {
         signs = {
             add = {
                 text = lib.icons.ui.BoldLine,
@@ -50,5 +50,5 @@ return {
             row = 0,
             col = 1,
         },
-    },
-}
+    }
+end)
