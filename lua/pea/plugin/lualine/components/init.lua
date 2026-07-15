@@ -79,32 +79,34 @@ local components = {
     },
     lsp = {
         function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local buf_clients = vim.lsp.get_clients { bufnr = bufnr }
-            local buf_client_names = { "LS Inactive" }
+            local buf = vim.api.nvim_get_current_buf()
+            local clients = vim.lsp.get_clients { bufnr = buf }
+            local client_names = { "LS Inactive" }
 
-            if #buf_clients ~= 0 then
-                buf_client_names = {}
+            if #clients ~= 0 then
+                client_names = {}
             end
 
-            for _, client in pairs(buf_clients) do
-                buf_client_names[#buf_client_names + 1] = client.name
+            for _, client in pairs(clients) do
+                client_names[#client_names + 1] = client.name
             end
 
-            -- Add formatters.
-            local formatters = require("conform").list_formatters(bufnr)
-            local formatter_names = vim.iter(formatters)
-                :map(function(v)
-                    return v.name
-                end)
-                :totable()
-            vim.list_extend(buf_client_names, formatter_names)
+            pcall(function()
+                -- Add formatters.
+                local formatters = require("conform").list_formatters(buf)
+                local formatter_names = vim.iter(formatters)
+                    :map(function(v)
+                        return v.name
+                    end)
+                    :totable()
+                vim.list_extend(client_names, formatter_names)
 
-            -- Add linters.
-            local linter_names = require("lint")._resolve_linter_by_ft(vim.bo.filetype)
-            vim.list_extend(buf_client_names, linter_names)
+                -- Add linters.
+                local linter_names = require("lint")._resolve_linter_by_ft(vim.bo[buf].filetype)
+                vim.list_extend(client_names, linter_names)
+            end)
 
-            return table.concat(buf_client_names, (" %s "):format(lib.icons.ui.ThinLine))
+            return table.concat(client_names, (" %s "):format(lib.icons.ui.ThinLine))
         end,
         icon = lib.icons.ui.Setting .. " LSP:",
         color = { fg = colors.jungle_green, gui = "bold" },

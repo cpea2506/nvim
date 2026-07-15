@@ -1,16 +1,23 @@
+local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
+
 vim.pack.add { "https://github.com/cpea2506/relative-toggle.nvim" }
 
 vim.schedule(function()
     vim.pack.add {
         "https://github.com/cpea2506/input.nvim",
         "https://github.com/cpea2506/select.nvim",
-        "https://github.com/kylechui/nvim-surround",
     }
 end)
 
-local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
-
 lib.create_autocmds {
+    {
+        { "BufReadPost", "BufNewFile" },
+        augroup,
+        { once = true },
+        function()
+            vim.pack.add { "https://github.com/kylechui/nvim-surround" }
+        end,
+    },
     {
         "CmdlineEnter",
         augroup,

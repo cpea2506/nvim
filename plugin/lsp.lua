@@ -1,8 +1,7 @@
+local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
+
 vim.schedule(function()
-    vim.pack.add {
-        "https://github.com/neovim/nvim-lspconfig",
-        "https://github.com/mason-org/mason.nvim",
-    }
+    vim.pack.add { "https://github.com/mason-org/mason.nvim" }
 
     require("mason").setup {
         registries = {
@@ -22,22 +21,28 @@ vim.schedule(function()
             },
         },
     }
-
-    local registry = require "mason-registry"
-
-    vim.iter(registry.get_installed_packages()):each(function(pkg)
-        local spec = pkg.spec
-        local server = spec.neovim and spec.neovim.lspconfig
-
-        if server then
-            vim.lsp.enable(server, true)
-        end
-    end)
 end)
 
-local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
-
 lib.create_autocmds {
+    {
+        { "BufReadPost", "BufNewFile" },
+        augroup,
+        { once = true },
+        vim.schedule_wrap(function()
+            vim.pack.add { "https://github.com/neovim/nvim-lspconfig" }
+
+            local registry = require "mason-registry"
+
+            vim.iter(registry.get_installed_packages()):each(function(pkg)
+                local spec = pkg.spec
+                local server = spec.neovim and spec.neovim.lspconfig
+
+                if server then
+                    vim.lsp.enable(server, true)
+                end
+            end)
+        end),
+    },
     {
         "FileType",
         augroup,
