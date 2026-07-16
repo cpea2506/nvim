@@ -54,34 +54,15 @@ lib.create_autocmds {
                     },
                 },
                 keymap = {
-                    preset = "none",
-                    ["<C-k>"] = { "select_prev", "fallback" },
-                    ["<C-j>"] = { "select_next", "fallback" },
-                    ["<C-d>"] = { "scroll_documentation_up", "fallback" },
-                    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+                    preset = "super-tab",
                     ["<CR>"] = { "accept", "fallback" },
-                    ["<Tab>"] = {
-                        function(cmp)
-                            if cmp.snippet_active() then
-                                return cmp.accept()
-                            else
-                                return cmp.select_and_accept()
-                            end
-                        end,
-                        "snippet_forward",
-                        "fallback",
-                    },
-                    ["<S-Tab>"] = { "snippet_backward", "fallback" },
                 },
                 completion = {
                     accept = {
                         dot_repeat = false,
-                        resolve_timeout_ms = 1000,
                     },
                     ghost_text = {
                         enabled = true,
-                        show_with_selection = true,
-                        show_without_selection = false,
                     },
                     menu = {
                         draw = {
@@ -152,7 +133,6 @@ lib.create_autocmds {
                     },
                     documentation = {
                         auto_show = true,
-                        auto_show_delay_ms = 250,
                     },
                 },
                 signature = {
@@ -201,7 +181,6 @@ lib.create_autocmds {
                         list = {
                             selection = {
                                 preselect = false,
-                                auto_insert = true,
                             },
                         },
                     },
@@ -219,12 +198,6 @@ lib.create_autocmds {
 
                             return {}
                         end,
-                    },
-                    keymap = {
-                        ["<C-k>"] = { "select_prev", "fallback" },
-                        ["<C-j>"] = { "select_next", "fallback" },
-                        ["<Tab>"] = { "select_and_accept", "fallback" },
-                        ["<CR>"] = { "accept_and_enter", "fallback" },
                     },
                 },
             }
