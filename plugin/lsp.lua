@@ -25,7 +25,7 @@ end)
 
 lib.create_autocmds {
     {
-        { "BufReadPost", "BufNewFile" },
+        { "BufReadPre", "BufNewFile" },
         augroup,
         { once = true },
         vim.schedule_wrap(function()
