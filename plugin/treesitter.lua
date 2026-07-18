@@ -1,4 +1,4 @@
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
     once = true,
     callback = function()
