@@ -31,25 +31,6 @@ lib.create_autocmds {
         end,
     },
     {
-        "InsertEnter",
-        augroup,
-        { once = true },
-        function()
-            vim.pack.add { "https://github.com/max397574/better-escape.nvim" }
-
-            require("better_escape").setup {
-                default_mappings = false,
-                mappings = {
-                    i = {
-                        j = {
-                            k = "<Esc>",
-                        },
-                    },
-                },
-            }
-        end,
-    },
-    {
         "FileType",
         augroup,
         { pattern = "qf", once = true },
