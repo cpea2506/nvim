@@ -30,13 +30,4 @@ lib.create_autocmds {
             vim.cmd.tabnext(vim.api.nvim_get_current_tabpage())
         end,
     },
-    {
-        "TermClose",
-        augroup("pea_term_close", {}),
-        function(args)
-            local buf = args.buf
-
-            vim.api.nvim_buf_delete(buf, { force = true })
-        end,
-    },
 }
