@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
                 end
 
                 local bufnr = args.buf
-                local exclude_filetypes = { "", "fyler_finder", "fzf", "help", "pager", "qf" }
+                local exclude_filetypes = { "", "fyler_finder", "fzf", "help", "pager", "qf", "nvim-pack" }
 
                 if
                     vim.iter(exclude_filetypes):any(function(v)
