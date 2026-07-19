@@ -135,11 +135,11 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 
 Server configs: [`after/lsp/`](after/lsp)
 
-| Server     | Language         |
-| ---------- | ---------------- |
-| `lua_ls`   | Lua              |
-| `roslyn`   | C#               |
-| `shaderls` | ShaderLab / GLSL |
+| Server       | Language         |
+| ------------ | ---------------- |
+| `emmylua_ls` | Lua              |
+| `roslyn`     | C#               |
+| `shaderls`   | ShaderLab / GLSL |
 
 Custom filetypes ([`ftdetect/`](ftdetect)):
 
