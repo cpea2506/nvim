@@ -58,14 +58,12 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         vim.api.nvim_create_autocmd({ "BufWinEnter", "CursorHold", "CursorHoldI", "BufWritePost" }, {
             group = vim.api.nvim_create_augroup("pea_winbar", {}),
             callback = function(args)
+                if vim.fn.win_gettype() == "popup" then
+                    return
+                end
+
                 local bufnr = args.buf
-                local exclude_filetypes = {
-                    "",
-                    "fyler_finder",
-                    "fzf",
-                    "help",
-                    "pager",
-                }
+                local exclude_filetypes = { "", "fyler_finder", "fzf", "help", "pager", "qf" }
 
                 if
                     vim.iter(exclude_filetypes):any(function(v)
