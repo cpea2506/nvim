@@ -27,6 +27,9 @@ vim.schedule(function()
             },
         },
         ui = {
+            hidden_items = {
+                switches = {},
+            },
             indent_guides = true,
         },
     }
