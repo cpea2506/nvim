@@ -83,7 +83,11 @@ function M.set(bufnr)
             "n",
             "gw",
             function()
-                vim.diagnostic.setqflist()
+                vim.diagnostic.setqflist {
+                    severity = {
+                        min = vim.diagnostic.severity.WARN,
+                    },
+                }
             end,
             { buf = bufnr, desc = "Workspace Diagnostics" },
         },
