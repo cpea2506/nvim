@@ -17,6 +17,7 @@ return {
                 },
             },
             runtime = {
+                version = "LuaJIT",
                 requirePattern = {
                     "?.lua",
                     "?/init.lua",
