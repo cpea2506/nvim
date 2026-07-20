@@ -1,8 +1,20 @@
 return {
     settings = {
         emmylua = {
+            format = {
+                externalTool = {
+                    program = "stylua",
+                    args = {
+                        "-",
+                        "--stdin-filepath",
+                        "${file}",
+                    },
+                },
+            },
             workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
+                library = {
+                    vim.env.VIMRUNTIME,
+                },
             },
             runtime = {
                 requirePattern = {
