@@ -13,7 +13,7 @@
       "src": "https://github.com/saghen/blink.lib"
     },
     "blink.pairs": {
-      "rev": "d0f00431105f773ae50cdc0fa03208448f5f829e",
+      "rev": "dd57684daf1297e854e46c85511e7875efb4de75",
       "src": "https://github.com/saghen/blink.pairs"
     },
     "codediff.nvim": {
@@ -77,7 +77,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "e7ca2c95ba316a8b846d3f3546d407908c5c4ccb",
+      "rev": "98b0b8a52742afc9e2e2078e2e451f91beef1717",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-navic": {
@@ -109,7 +109,7 @@
       "src": "https://github.com/cpea2506/relative-toggle.nvim"
     },
     "roslyn.nvim": {
-      "rev": "b4954e97e145bd8129b3bbe99809759f6ced2235",
+      "rev": "386cd91fcab17bcbaac82851a75764850a08e983",
       "src": "https://github.com/seblyng/roslyn.nvim"
     },
     "select.nvim": {
