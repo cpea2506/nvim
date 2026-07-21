@@ -4,13 +4,13 @@ local components = require "pea.plugin.lualine.components"
 local status = {
     function()
         local plugins = vim.pack.get(nil, { info = false })
-        local active_plugins = vim.iter(plugins)
+        local active_plugins_count = vim.iter(plugins)
             :filter(function(p)
                 return p.active
             end)
-            :totable()
+            :count()
 
-        return #active_plugins .. "/" .. #plugins .. " loaded"
+        return active_plugins_count .. "/" .. #plugins .. " loaded"
     end,
     color = { fg = colors.fg },
 }
