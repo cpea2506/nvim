@@ -33,38 +33,38 @@ lib.create_autocmds {
         "LspAttach",
         augroup,
         function(args)
-            local bufnr = args.buf
+            local buf = args.buf
             local client = vim.lsp.get_client_by_id(args.data.client_id)
 
             if not client then
                 return
             end
 
-            require("pea.lsp.keymaps").set(bufnr)
+            require("pea.lsp.keymaps").set(buf)
 
-            if client:supports_method("textDocument/inlayHint", bufnr) then
-                vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+            if client:supports_method("textDocument/inlayHint", buf) then
+                vim.lsp.inlay_hint.enable(true, { bufnr = buf })
             end
 
-            if client:supports_method("textDocument/documentColor", bufnr) then
-                vim.lsp.document_color.enable(true, { bufnr = bufnr, client_id = client.id }, { style = "virtual" })
+            if client:supports_method("textDocument/documentColor", buf) then
+                vim.lsp.document_color.enable(true, { bufnr = buf, client_id = client.id }, { style = "virtual" })
             end
 
-            if client:supports_method("textDocument/onTypeFormatting", bufnr) then
+            if client:supports_method("textDocument/onTypeFormatting", buf) then
                 vim.lsp.on_type_formatting.enable(true, { client_id = client.id })
             end
 
-            if client:supports_method("textDocument/codeLens", bufnr) then
-                vim.lsp.codelens.enable(true, { bufnr = bufnr, client_id = client.id })
+            if client:supports_method("textDocument/codeLens", buf) then
+                vim.lsp.codelens.enable(true, { bufnr = buf, client_id = client.id })
             end
 
-            if client:supports_method("textDocument/documentHighlight", bufnr) then
+            if client:supports_method("textDocument/documentHighlight", buf) then
                 lib.create_autocmds {
                     {
                         { "CursorHold", "CursorHoldI" },
                         augroup,
                         {
-                            buf = bufnr,
+                            buf = buf,
                         },
                         vim.lsp.buf.document_highlight,
                     },
@@ -72,11 +72,38 @@ lib.create_autocmds {
                         "CursorMoved",
                         augroup,
                         {
-                            buf = bufnr,
+                            buf = buf,
                         },
                         vim.lsp.buf.clear_references,
                     },
                 }
+            end
+
+            if client:supports_method("textDocument/codeAction", buf) then
+                lib.create_autocmd("CursorHold", augroup, { buf = buf }, function()
+                    local current_line = vim.api.nvim_win_get_cursor(0)[1] - 1
+
+                    ---@type { [any]: any }
+                    local params = vim.lsp.util.make_range_params(0, "utf-8")
+                    params.context = {
+                        diagnostics = vim.lsp.diagnostic.from(vim.diagnostic.get(buf, { lnum = current_line })),
+                    }
+
+                    vim.lsp.buf_request(buf, "textDocument/codeAction", params, function(err, result)
+                        if err or not result then
+                            return
+                        end
+
+                        vim.api.nvim_buf_clear_namespace(buf, namespace, 0, -1)
+
+                        if not vim.tbl_isempty(result) then
+                            vim.api.nvim_buf_set_extmark(buf, namespace, current_line, 0, {
+                                sign_text = "💡",
+                                priority = 200,
+                            })
+                        end
+                    end)
+                end)
             end
         end,
     },
@@ -134,35 +161,6 @@ lib.create_autocmds {
                 title = ("%s [%s] %s"):format(icon, client.name, value.title or ""),
                 source = "lsp",
             })
-        end,
-    },
-    {
-        "CursorHold",
-        augroup,
-        function(args)
-            local buf = args.buf
-            local current_line = vim.api.nvim_win_get_cursor(0)[1] - 1
-
-            ---@type { [any]: any }
-            local params = vim.lsp.util.make_range_params(0, "utf-8")
-            params.context = {
-                diagnostics = vim.lsp.diagnostic.from(vim.diagnostic.get(buf, { lnum = current_line })),
-            }
-
-            vim.lsp.buf_request_all(buf, "textDocument/codeAction", params, function(responses)
-                vim.api.nvim_buf_clear_namespace(buf, namespace, 0, -1)
-
-                for _, response in pairs(responses) do
-                    if response.result and not vim.tbl_isempty(response.result) then
-                        vim.api.nvim_buf_set_extmark(buf, namespace, current_line, 0, {
-                            sign_text = "💡",
-                            priority = 200,
-                        })
-
-                        break
-                    end
-                end
-            end)
         end,
     },
 }
