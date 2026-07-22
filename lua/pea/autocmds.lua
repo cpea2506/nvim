@@ -17,7 +17,7 @@ lib.create_autocmds {
         function(args)
             local buf = args.buf
 
-            vim.keymap.set("n", "q", function()
+            lib.set_keymap("n", "q", function()
                 vim.api.nvim_buf_delete(buf, { force = true })
             end, { buf = buf, silent = true })
         end,

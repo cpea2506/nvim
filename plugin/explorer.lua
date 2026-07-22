@@ -34,5 +34,5 @@ vim.schedule(function()
         },
     }
 
-    vim.keymap.set("n", "<leader>e", "<cmd>Fyler<cr>", { desc = "Open Explorer" })
+    lib.set_keymap("n", "<leader>e", "<cmd>Fyler<cr>", { desc = "Open Explorer" })
 end)

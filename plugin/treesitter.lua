@@ -33,7 +33,7 @@ lib.create_autocmd("FileType", vim.api.nvim_create_augroup("pea_plugin", { clear
         max_lines = 3,
     }
 
-    vim.keymap.set("n", "[c", function()
+    lib.set_keymap("n", "[c", function()
         require("treesitter-context").go_to_context(vim.v.count1)
     end, { desc = "Go To Context" })
 end)

@@ -31,7 +31,7 @@ vim.fn.sign_define("DapStopped", {
     numhl = "DapStopped",
 })
 
-vim.keymap.set("n", "<leader>d", function()
+lib.set_keymap("n", "<leader>d", function()
     vim.pack.add {
         "https://github.com/mfussenegger/nvim-dap",
         "https://github.com/MironPascalCaseFan/debugmaster.nvim",
