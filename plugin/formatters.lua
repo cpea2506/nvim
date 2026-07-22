@@ -1,7 +1,8 @@
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
-    group = vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
-    once = true,
-    callback = function()
+lib.create_autocmd(
+    { "BufReadPost", "BufNewFile" },
+    vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
+    { once = true },
+    function()
         vim.pack.add { "https://github.com/stevearc/conform.nvim" }
 
         require("conform").setup {
@@ -22,5 +23,5 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
                 lsp_format = "fallback",
             },
         }
-    end,
-})
+    end
+)

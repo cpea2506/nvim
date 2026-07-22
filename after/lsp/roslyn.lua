@@ -29,12 +29,12 @@ return {
             dotnet_search_reference_assemblies = true,
         },
     },
-    on_attach = function(client, bufnr)
-        vim.api.nvim_create_autocmd("InsertCharPre", {
-            group = vim.api.nvim_create_augroup("pea_lsp", { clear = false }),
-            desc = "Trigger an auto insert on '/'.",
-            buf = bufnr,
-            callback = function()
+    on_attach = function(client, buf)
+        lib.create_autocmd(
+            "InsertCharPre",
+            vim.api.nvim_create_augroup("pea_lsp", { clear = false }),
+            { buf = buf },
+            function()
                 local char = vim.v.char
 
                 if char ~= "/" then
@@ -43,7 +43,7 @@ return {
 
                 local row, col = unpack(vim.api.nvim_win_get_cursor(0))
                 local params = {
-                    _vs_textDocument = vim.lsp.util.make_text_document_params(bufnr),
+                    _vs_textDocument = vim.lsp.util.make_text_document_params(buf),
                     _vs_position = { line = row - 1, character = col + 1 },
                     _vs_ch = char,
                 }
@@ -56,9 +56,9 @@ return {
 
                         local newText = result._vs_textEdit.newText:gsub("\r?\n%s*", "\n")
                         vim.snippet.expand(newText)
-                    end, bufnr)
+                    end, buf)
                 end)
-            end,
-        })
+            end
+        )
     end,
 }

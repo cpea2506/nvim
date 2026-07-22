@@ -40,25 +40,15 @@ vim.keymap.set("n", "<leader>d", function()
     require("debugmaster").mode.toggle()
 end, { desc = "Toggle Debug Mode" })
 
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup,
-    pattern = "cs",
-    once = true,
-    callback = function()
-        vim.api.nvim_create_autocmd("User", {
-            group = augroup,
-            pattern = "DebugModeChanged",
-            once = true,
-            callback = function(args)
-                if args.data.enabled then
-                    vim.pack.add { "https://github.com/ownself/nvim-dap-unity" }
+lib.create_autocmd("FileType", augroup, { pattern = "cs", once = true }, function()
+    lib.create_autocmd("User", augroup, { pattern = "DebugModeChanged", once = true }, function(args)
+        if args.data.enabled then
+            vim.pack.add { "https://github.com/ownself/nvim-dap-unity" }
 
-                    require("nvim-dap-unity").setup {
-                        auto_install_on_start = true,
-                        add_default_cs_configuration = true,
-                    }
-                end
-            end,
-        })
-    end,
-})
+            require("nvim-dap-unity").setup {
+                auto_install_on_start = true,
+                add_default_cs_configuration = true,
+            }
+        end
+    end)
+end)

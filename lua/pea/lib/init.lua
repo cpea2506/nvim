@@ -6,10 +6,6 @@ M.icons = require "pea.lib.icons"
 ---Whether current OS is Windows.
 M.is_windows = jit.os:find "Windows" ~= nil
 
----@alias Lib.Autocmd
---- | [vim.api.keyset.events|vim.api.keyset.events[], string|integer?, vim.api.keyset.create_autocmd, fun(ev: vim.api.keyset.create_autocmd.callback_args): boolean?]
---- | [vim.api.keyset.events|vim.api.keyset.events[], string|integer?, fun(ev: vim.api.keyset.create_autocmd.callback_args): boolean?]
-
 M.create_autocmd = require("vim._core.util").nvim_on
 
 ---Create autocmds.
@@ -27,8 +23,6 @@ function M.create_autocmds(autocmds)
 end
 
 M.set_keymap = vim.keymap.set
-
----@alias Lib.Keymap [string|string[], string, string|function, vim.keymap.set.Opts]
 
 ---Set keymaps.
 ---@param keymaps Lib.Keymap[] #List of keymaps.

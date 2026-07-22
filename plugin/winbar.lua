@@ -1,7 +1,8 @@
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
-    group = vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
-    once = true,
-    callback = function()
+lib.create_autocmd(
+    { "BufReadPost", "BufNewFile" },
+    vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
+    { once = true },
+    function()
         vim.pack.add {
             "https://github.com/nvim-tree/nvim-web-devicons",
             "https://github.com/SmiteshP/nvim-navic",
@@ -55,9 +56,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
             return filename .. "%#NavicSeparator# " .. lib.icons.ui.ChevronRight .. " %*" .. locations
         end
 
-        vim.api.nvim_create_autocmd({ "BufWinEnter", "CursorHold", "CursorHoldI", "BufWritePost" }, {
-            group = vim.api.nvim_create_augroup("pea_winbar", {}),
-            callback = function(args)
+        lib.create_autocmd(
+            { "BufWinEnter", "CursorHold", "CursorHoldI", "BufWritePost" },
+            vim.api.nvim_create_augroup "pea_winbar",
+            function(args)
                 if vim.fn.win_gettype() == "popup" then
                     return
                 end
@@ -80,7 +82,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
                 end
 
                 vim.wo.winbar = winbar
-            end,
-        })
-    end,
-})
+            end
+        )
+    end
+)

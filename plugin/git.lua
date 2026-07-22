@@ -1,7 +1,8 @@
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
-    group = vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
-    once = true,
-    callback = function()
+lib.create_autocmd(
+    { "BufReadPost", "BufNewFile" },
+    vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
+    { once = true },
+    function()
         vim.pack.add {
             "https://github.com/lewis6991/gitsigns.nvim",
             "https://github.com/esmuellert/codediff.nvim",
@@ -14,5 +15,5 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
                 .. lib.icons.ui.CircleMedium
                 .. " <summary>",
         }
-    end,
-})
+    end
+)
