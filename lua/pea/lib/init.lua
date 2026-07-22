@@ -38,7 +38,7 @@ end
 ---Load modules.
 ---@param root string #Root module.
 ---@param modules string[] #List of modules.
-function M.load_modules(root, modules)
+function M.require_modules(root, modules)
     local loaded = {}
 
     for _, module in ipairs(modules) do
