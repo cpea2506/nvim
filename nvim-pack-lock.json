@@ -13,7 +13,7 @@
       "src": "https://github.com/saghen/blink.pairs"
     },
     "codediff.nvim": {
-      "rev": "7608f3b436ce1f84a4888f75e53079caa981a2e9",
+      "rev": "46727b842e6315cc3586c2ea9051a0ac6abce6c8",
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/FylerOrg/fyler.nvim"
     },
     "fzf-lua": {
-      "rev": "532d463f5c83595192fe740572d8fd6902b2217a",
+      "rev": "233999ebe458284c79959222222f9e2dd29e509b",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -109,7 +109,7 @@
       "src": "https://github.com/cpea2506/relative-toggle.nvim"
     },
     "roslyn.nvim": {
-      "rev": "386cd91fcab17bcbaac82851a75764850a08e983",
+      "rev": "2dcbbe81b48f8377df2281d9be4f2c84ccfff520",
       "src": "https://github.com/seblyng/roslyn.nvim"
     },
     "select.nvim": {
