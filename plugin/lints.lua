@@ -12,7 +12,7 @@ lib.create_autocmd(
 
         lib.create_autocmd(
             { "BufReadPost", "BufWritePost", "InsertLeave" },
-            vim.api.nvim_create_augroup "pea_plugin",
+            vim.api.nvim_create_augroup "pea_lint",
             function()
                 lint.try_lint()
             end
