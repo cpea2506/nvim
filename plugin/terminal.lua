@@ -39,6 +39,7 @@ lib.create_autocmds {
     {
         "TermOpen",
         augroup,
+        { pattern = "term://*" },
         function()
             vim.cmd.startinsert()
         end,
@@ -46,6 +47,7 @@ lib.create_autocmds {
     {
         "TermClose",
         augroup,
+        { pattern = "term://*" },
         function(args)
             local buf = args.buf
 
