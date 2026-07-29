@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "1e4a8fb9708bbaa35addaa198638feed622d56ae",
+      "rev": "d33327a0ed7bfe3cd5dfa2fdd2738ad74f9e0ea3",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
@@ -13,7 +13,7 @@
       "src": "https://github.com/saghen/blink.pairs"
     },
     "codediff.nvim": {
-      "rev": "1739102d1cc7153ea9f8f7df7d6a6134ebc46111",
+      "rev": "d3eb933df1de9e246186b33f61e40eb7752a92b2",
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
@@ -115,6 +115,10 @@
     "select.nvim": {
       "rev": "180271c17bddf036a3cb3c184ed21273f243dfa8",
       "src": "https://github.com/cpea2506/select.nvim"
+    },
+    "toggleterm.nvim": {
+      "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
+      "src": "https://github.com/akinsho/toggleterm.nvim"
     }
   }
 }

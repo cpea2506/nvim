@@ -24,6 +24,7 @@ require("lualine").setup {
             "mason",
             "pager",
             "select",
+            "toggleterm",
         },
         globalstatus = true,
         component_separators = "",
