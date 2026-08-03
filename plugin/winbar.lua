@@ -65,8 +65,14 @@ lib.create_autocmd(
                 end
 
                 local bufnr = args.buf
-                local exclude_filetypes =
-                    { "", "fyler_finder", "fzf", "help", "pager", "qf", "nvim-pack", "toggleterm" }
+                local exclude_filetypes = {
+                    "",
+                    "help",
+                    "nvim-pack",
+                    "pager",
+                    "qf",
+                    "toggleterm",
+                }
 
                 if
                     vim.iter(exclude_filetypes):any(function(v)
