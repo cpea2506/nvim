@@ -1,7 +1,7 @@
 local colors = require "pea.plugin.lualine.colors"
 local components = require "pea.plugin.lualine.components"
 
-local label = {
+local title = {
     function()
         local loclist = vim.fn.getloclist(0, { title = 0 })
         local qflist = vim.fn.getqflist { title = 0 }
@@ -9,7 +9,7 @@ local label = {
 
         return is_loclist and "Location: " .. loclist.title or "Quickfix: " .. qflist.title
     end,
-    color = { fg = colors.jungle_green },
+    color = { fg = colors.jungle_green, gui = "bold" },
 }
 
 return {
@@ -23,7 +23,7 @@ return {
             components.evil,
             components.location,
             components.center,
-            label,
+            title,
         },
         lualine_x = {
             components.scrollbar,
