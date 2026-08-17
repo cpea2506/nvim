@@ -17,7 +17,7 @@ vim.schedule(function()
                 "smart",
                 "filename_first",
             },
-            file_ignore_patterns = { "%.meta" },
+            file_ignore_patterns = { "%.meta", "%.fbx" },
             sorting_strategy = "ascending",
             layout_strategy = "vertical",
             layout_config = {
