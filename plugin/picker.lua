@@ -31,7 +31,6 @@ vim.schedule(function()
             find_files = {
                 preview = false,
                 hidden = true,
-                find_command = { "fd", "--type", "f", "-E", ".git" },
                 layout_config = {
                     height = 0.35,
                     width = 0.4,
