@@ -111,10 +111,6 @@
     "select.nvim": {
       "rev": "180271c17bddf036a3cb3c184ed21273f243dfa8",
       "src": "https://github.com/cpea2506/select.nvim"
-    },
-    "toggleterm.nvim": {
-      "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
-      "src": "https://github.com/akinsho/toggleterm.nvim"
     }
   }
 }

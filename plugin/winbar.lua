@@ -71,7 +71,6 @@ lib.create_autocmd(
                     "nvim-pack",
                     "pager",
                     "qf",
-                    "toggleterm",
                 }
 
                 if
