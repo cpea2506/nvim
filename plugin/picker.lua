@@ -1,54 +1,56 @@
 vim.schedule(function()
-    vim.pack.add {
-        "https://github.com/nvim-telescope/telescope.nvim",
-        "https://github.com/nvim-lua/plenary.nvim",
-    }
+    vim.pack.add { "https://github.com/ibhagwan/fzf-lua" }
 
-    local telescope = require "telescope"
-    local actions = require "telescope.actions"
-
-    telescope.setup {
-        defaults = {
-            prompt_prefix = lib.icons.ui.Telescope .. " ",
-            selection_caret = lib.icons.ui.ChevronRight .. " ",
-            dynamic_preview_title = true,
-            results_title = false,
-            path_display = {
-                "smart",
-                "filename_first",
-            },
-            file_ignore_patterns = { "%.meta", "%.fbx" },
-            sorting_strategy = "ascending",
-            layout_strategy = "vertical",
-            layout_config = {
-                anchor = "CENTER",
-                width = 0.5,
-                height = 0.85,
-                prompt_position = "top",
+    require("fzf-lua").setup {
+        winopts = {
+            height = 0.85,
+            width = 0.5,
+            row = 0.5,
+            col = 0.5,
+            title_flags = false,
+            preview = {
+                layout = "vertical",
+                vertical = "up:50%",
             },
         },
-        pickers = {
-            find_files = {
-                preview = false,
-                hidden = true,
-                layout_config = {
-                    height = 0.35,
-                    width = 0.4,
-                },
+        file_ignore_patterns = { "%.meta$", "%.fbx$", "%.png$", "%.jpg$" },
+        fzf_opts = {
+            ["--cycle"] = true,
+            ["--gutter"] = " ",
+            ["--pointer"] = lib.icons.ui.ChevronRight,
+            ["--prompt"] = " " .. lib.icons.ui.Telescope .. " ",
+            ["--highlight-line"] = true,
+        },
+        fzf_colors = true,
+        files = {
+            previewer = false,
+            cwd_prompt = false,
+            formatter = "path.filename_first",
+            winopts = {
+                height = 0.35,
+                width = 0.4,
             },
-            buffers = {
-                mappings = {
-                    i = {
-                        ["<C-x>"] = actions.delete_buffer + actions.move_to_top,
-                    },
-                },
+        },
+        grep = {
+            hidden = true,
+        },
+        keymap = {
+            builtin = {
+                true,
+                ["<C-d>"] = "preview-page-down",
+                ["<C-u>"] = "preview-page-up",
+            },
+            fzf = {
+                true,
+                ["ctrl-d"] = "preview-page-down",
+                ["ctrl-u"] = "preview-page-up",
             },
         },
     }
 
     lib.set_keymaps {
-        { "n", "<leader>sf", "<cmd>Telescope find_files<cr>", { desc = "Find Files" } },
-        { "n", "<leader>st", "<cmd>Telescope live_grep<cr>", { desc = "Find Grep" } },
-        { "n", "<leader>sb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" } },
+        { "n", "<leader>sf", "<cmd>FzfLua files<cr>", { desc = "FzfLua Files" } },
+        { "n", "<leader>st", "<cmd>FzfLua live_grep<cr>", { desc = "FzfLua Grep" } },
+        { "n", "<leader>sb", "<cmd>FzfLua buffers<cr>", { desc = "FzfLua Buffers" } },
     }
 end)

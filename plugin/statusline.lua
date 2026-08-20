@@ -15,7 +15,7 @@ require("lualine").setup {
         },
         disabled_filetypes = {
             "",
-            "TelescopePrompt",
+            "fzf",
             "checkhealth",
             "fyler_finder",
             "gitsigns-blame",
