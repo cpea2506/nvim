@@ -21,19 +21,18 @@ Start Neovim - plugins bootstraps on first launch. Run `:Mason` to install LSP s
 
 Plugin definitions live in [`plugin/`](plugin).
 
-| Area            | Plugins                                                                                             |
-| --------------- | --------------------------------------------------------------------------------------------------- |
-| Package manager | `vim.pack`                                                                                          |
-| UI              | `one_monokai`, `lualine`, `nvim-web-devicons`                                                       |
-| Navigation      | `fyler`, `fzf-lua`                                                                                  |
-| Git             | `gitsigns`                                                                                          |
-| Syntax          | `arborist.nvim`, `nvim-treesitter-context`                                                          |
-| LSP             | `mason.nvim`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                                        |
-| Completion      | `blink.cmp`, `blink.pairs`, `blink-ripgrep`, `friendly-snippets`                                    |
-| Editing         | `better-escape`, `select.nvim`, `input.nvim`, `nvim-surround`, `numb`, `relative-toggle`, `quicker` |
-| Formatting      | `conform.nvim`                                                                                      |
-| Linting         | `nvim-lint`                                                                                         |
-| Debug           | `debugmaster.nvim`, `nvim-dap`, `nvim-dap-unity`                                                    |
+| Area            | Plugins                                                                            |
+| --------------- | ---------------------------------------------------------------------------------- |
+| Package manager | `vim.pack`                                                                         |
+| UI              | `one_monokai`, `lualine`, `nvim-web-devicons`, `nvim-navic`                        |
+| Navigation      | `fyler`, `fzf-lua`                                                                 |
+| Git             | `gitsigns`, `codediff.nvim`                                                        |
+| Syntax          | `nvim-treesitter`, `nvim-treesitter-context`                                       |
+| LSP             | `mason.nvim`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                       |
+| Completion      | `blink.cmp`, `blink.pairs`, `friendly-snippets`                                    |
+| Editing         | `relative-toggle`, `select.nvim`, `input.nvim`, `nvim-surround`, `numb`, `quicker` |
+| Formatting      | `conform.nvim`                                                                     |
+| Debug           | `debugmaster.nvim`, `nvim-dap`, `nvim-dap-unity`                                   |
 
 ## Keymaps
 
@@ -44,7 +43,9 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 | Key           | Mode | Action                      |
 | ------------- | ---- | --------------------------- |
 | `<C-h/j/k/l>` | n    | Navigate windows            |
+| `<C-h/j/k/l>` | i    | Move cursor in insert       |
 | `<C-s>`       | n    | Save                        |
+| `<leader>w`   | n    | Save (no autocmds)          |
 | `<C-e>`       | n    | Close buffer                |
 | `<C-x>`       | t    | Exit terminal mode          |
 | `< / >`       | v    | Indent left/right, reselect |
@@ -72,14 +73,13 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 | Key          | Action              |
 | ------------ | ------------------- |
 | `<leader>e`  | Open Fyler explorer |
-| `<leader>sg` | Global grep         |
 | `<leader>sf` | File search         |
 | `<leader>st` | Live grep           |
 | `<leader>sb` | Buffers             |
 
 ### Terminal
 
-[`lua/pea/keymaps.lua`](lua/pea/keymaps.lua) - uses native `term`.
+[`plugin/terminal.lua`](plugin/terminal.lua) - uses native `term`.
 
 | Key          | Action                                 |
 | ------------ | -------------------------------------- |
@@ -124,12 +124,11 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 
 [`lua/pea/autocmds.lua`](lua/pea/autocmds.lua)
 
-| Behavior             | Detail                                    |
-| -------------------- | ----------------------------------------- |
-| Yank highlight       | `TextYankPost` / `TextPutPost`            |
-| Close help buffers   | `q` in `help`, `man`, `qf`, `checkhealth` |
-| Equalize splits      | `VimResized` → `tabdo wincmd =`           |
-| Auto-delete terminal | `TermClose` → `bwipeout!`                 |
+| Behavior           | Detail                                  |
+| ------------------ | --------------------------------------- |
+| Yank highlight     | `TextYankPost` / `TextPutPost`          |
+| Close help buffers | `q` in `help`, `man`, `qf`, `nvim-pack` |
+| Equalize splits    | `VimResized` → `tabdo wincmd =`         |
 
 ## LSP servers
 
@@ -147,6 +146,7 @@ Custom filetypes ([`ftdetect/`](ftdetect)):
 | ------------------- | ------------ | ---------------------- |
 | `*.shader`          | `glsl`       | Enables `shaderls` LSP |
 | `*.jslib`, `*.jpre` | `javascript` |                        |
+| `*.asmdef`          | `json`       |                        |
 
 Install via `:Mason`, override in `after/lsp/<server>.lua`.
 
@@ -160,12 +160,3 @@ Install via `:Mason`, override in `after/lsp/<server>.lua`.
 | C/C++                                     | `clang-format` |
 | TOML                                      | `taplo`        |
 | Shell                                     | `shfmt`        |
-
-## Linting
-
-**nvim-lint** runs on save / read / insert leave ([`plugin/lints.lua`](plugin/lints.lua)).
-
-| Language | Linter       |
-| -------- | ------------ |
-| Lua      | `selene`     |
-| Shell    | `shellcheck` |
