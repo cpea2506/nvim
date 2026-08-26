@@ -2,6 +2,31 @@ local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
 
 lib.create_autocmds {
     {
+        "PackChanged",
+        augroup,
+        function(args)
+            local name, kind = args.data.spec.name, args.data.kind
+
+            if name == "blink.cmp" and (kind == "install" or kind == "update") then
+                if not args.data.active then
+                    vim.cmd.packadd "blink.lib"
+                    vim.cmd.packadd "blink.cmp"
+                end
+
+                require("blink.cmp").build():pwait()
+            end
+
+            if name == "blink.pairs" and (kind == "install" or kind == "update") then
+                if not args.data.active then
+                    vim.cmd.packadd "blink.lib"
+                    vim.cmd.packadd "blink.pairs"
+                end
+
+                require("blink.pairs").build():pwait()
+            end
+        end,
+    },
+    {
         { "BufReadPost", "BufNewFile" },
         augroup,
         { once = true },
@@ -11,10 +36,7 @@ lib.create_autocmds {
                 "https://github.com/saghen/blink.pairs",
             }
 
-            local blink_pairs = require "blink.pairs"
-
-            blink_pairs.build():pwait()
-            blink_pairs.setup {
+            require("blink.pairs").setup {
                 highlights = {
                     groups = {
                         "RainbowDelimiterRed",
@@ -41,10 +63,7 @@ lib.create_autocmds {
                 "https://github.com/saghen/blink.cmp",
             }
 
-            local blink_cmp = require "blink.cmp"
-
-            blink_cmp.build():pwait()
-            blink_cmp.setup {
+            require("blink.cmp").setup {
                 fuzzy = {
                     implementation = "rust",
                     sorts = {
