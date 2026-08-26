@@ -2,6 +2,7 @@ require("vim._core.ui2").enable {
     msg = {
         targets = {
             progress = "msg",
+            undo = "msg",
         },
     },
 }
