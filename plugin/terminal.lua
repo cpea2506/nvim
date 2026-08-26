@@ -11,6 +11,29 @@ local function open(cmd, opts)
         cmd = ("tabnew | term %s"):format(cmd)
     end
 
+    lib.create_autocmds {
+        {
+            "TermOpen",
+            augroup,
+            { once = true },
+            function()
+                vim.cmd.startinsert()
+            end,
+        },
+        {
+            "TermClose",
+            augroup,
+            { once = true },
+            function(args)
+                local buf = args.buf
+
+                if buf and vim.api.nvim_buf_is_valid(buf) then
+                    vim.api.nvim_buf_delete(buf, { force = true })
+                end
+            end,
+        },
+    }
+
     vim.cmd(cmd)
 end
 
@@ -35,29 +58,6 @@ lib.set_keymaps {
         "<leader>ac",
         function()
             open("opencode --continue", { direction = "vertical", size = 80 })
-        end,
-    },
-}
-
-lib.create_autocmds {
-    {
-        "TermOpen",
-        augroup,
-        { pattern = "term://*" },
-        function()
-            vim.cmd.startinsert()
-        end,
-    },
-    {
-        "TermClose",
-        augroup,
-        { pattern = "term://*" },
-        function(args)
-            local buf = args.buf
-
-            if buf and vim.api.nvim_buf_is_valid(buf) then
-                vim.api.nvim_buf_delete(buf, { force = true })
-            end
         end,
     },
 }
