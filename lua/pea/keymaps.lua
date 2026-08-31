@@ -15,6 +15,6 @@ lib.set_keymaps {
     { "n", "<leader>w", "<cmd>noautocmd w<cr>", { desc = "Save without autocmd" } },
     { "n", "<C-s>", "<cmd>w<cr>", { desc = "Save" } },
 
-    { "v", "<", "<gv", { desc = "Move text" } },
-    { "v", ">", ">gv" },
+    { "v", "<", "<gv", { desc = "Move text left" } },
+    { "v", ">", ">gv", { desc = "Move text right" } },
 }
