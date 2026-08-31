@@ -92,7 +92,6 @@ local components = {
             end
 
             pcall(function()
-                -- Add formatters.
                 local formatters = require("conform").list_formatters(buf)
                 local formatter_names = vim.iter(formatters)
                     :map(function(v)
@@ -100,10 +99,6 @@ local components = {
                     end)
                     :totable()
                 vim.list_extend(client_names, formatter_names)
-
-                -- Add linters.
-                local linter_names = require("lint")._resolve_linter_by_ft(vim.bo[buf].filetype)
-                vim.list_extend(client_names, linter_names)
             end)
 
             return table.concat(client_names, (" %s "):format(lib.icons.ui.ThinLine))
