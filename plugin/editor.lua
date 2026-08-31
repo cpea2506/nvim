@@ -1,21 +1,34 @@
 local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
 
-vim.pack.add { "https://github.com/cpea2506/relative-toggle.nvim" }
+vim.pack.add({
+    "https://github.com/cpea2506/relative-toggle.nvim",
+    "https://github.com/cpea2506/input.nvim",
+    "https://github.com/cpea2506/select.nvim",
+    "https://github.com/kylechui/nvim-surround",
+    "https://github.com/nacro90/numb.nvim",
+    "https://github.com/stevearc/quicker.nvim",
+}, { load = false })
 
 vim.schedule(function()
-    vim.pack.add {
-        "https://github.com/cpea2506/input.nvim",
-        "https://github.com/cpea2506/select.nvim",
-    }
+    vim.cmd.packadd "input.nvim"
+    vim.cmd.packadd "select.nvim"
 end)
 
 lib.create_autocmds {
+    {
+        "UIEnter",
+        augroup,
+        { once = true },
+        function()
+            vim.cmd.packadd "relative-toggle.nvim"
+        end,
+    },
     {
         { "BufReadPost", "BufNewFile" },
         augroup,
         { once = true },
         function()
-            vim.pack.add { "https://github.com/kylechui/nvim-surround" }
+            vim.cmd.packadd "nvim-surround"
         end,
     },
     {
@@ -23,7 +36,7 @@ lib.create_autocmds {
         augroup,
         { pattern = ":", once = true },
         function()
-            vim.pack.add { "https://github.com/nacro90/numb.nvim" }
+            vim.cmd.packadd "numb.nvim"
 
             require("numb").setup {
                 number_only = true,
@@ -35,7 +48,7 @@ lib.create_autocmds {
         augroup,
         { pattern = "qf", once = true },
         function()
-            vim.pack.add { "https://github.com/stevearc/quicker.nvim" }
+            vim.cmd.packadd "quicker.nvim"
 
             require("quicker").setup {
                 type_icons = {

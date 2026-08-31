@@ -1,8 +1,11 @@
+vim.pack.add({
+    "https://github.com/nvim-tree/nvim-web-devicons",
+    "https://github.com/FylerOrg/fyler.nvim",
+}, { load = false })
+
 vim.schedule(function()
-    vim.pack.add {
-        "https://github.com/nvim-tree/nvim-web-devicons",
-        "https://github.com/FylerOrg/fyler.nvim",
-    }
+    vim.cmd.packadd "nvim-web-devicons"
+    vim.cmd.packadd "fyler.nvim"
 
     require("fyler").setup {
         integrations = {

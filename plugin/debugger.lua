@@ -31,11 +31,15 @@ vim.fn.sign_define("DapStopped", {
     numhl = "DapStopped",
 })
 
+vim.pack.add({
+    "https://github.com/mfussenegger/nvim-dap",
+    "https://github.com/MironPascalCaseFan/debugmaster.nvim",
+    "https://github.com/ownself/nvim-dap-unity",
+}, { load = false })
+
 lib.set_keymap("n", "<leader>d", function()
-    vim.pack.add {
-        "https://github.com/mfussenegger/nvim-dap",
-        "https://github.com/MironPascalCaseFan/debugmaster.nvim",
-    }
+    vim.cmd.packadd "nvim-dap"
+    vim.cmd.packadd "debugmaster.nvim"
 
     require("debugmaster").mode.toggle()
 end, { desc = "Toggle Debug Mode" })
@@ -43,7 +47,7 @@ end, { desc = "Toggle Debug Mode" })
 lib.create_autocmd("FileType", augroup, { pattern = "cs", once = true }, function()
     lib.create_autocmd("User", augroup, { pattern = "DebugModeChanged", once = true }, function(args)
         if args.data.enabled then
-            vim.pack.add { "https://github.com/ownself/nvim-dap-unity" }
+            vim.cmd.packadd "nvim-dap-unity"
 
             require("nvim-dap-unity").setup {
                 auto_install_on_start = true,

@@ -1,5 +1,13 @@
 local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
 
+vim.pack.add({
+    "https://github.com/nvim-tree/nvim-web-devicons",
+    "https://github.com/saghen/blink.lib",
+    "https://github.com/saghen/blink.pairs",
+    "https://github.com/rafamadriz/friendly-snippets",
+    "https://github.com/saghen/blink.cmp",
+}, { load = false })
+
 lib.create_autocmds {
     {
         "PackChanged",
@@ -31,10 +39,8 @@ lib.create_autocmds {
         augroup,
         { once = true },
         function()
-            vim.pack.add {
-                "https://github.com/saghen/blink.lib",
-                "https://github.com/saghen/blink.pairs",
-            }
+            vim.cmd.packadd "blink.lib"
+            vim.cmd.packadd "blink.pairs"
 
             require("blink.pairs").setup {
                 highlights = {
@@ -56,12 +62,10 @@ lib.create_autocmds {
         augroup,
         { once = true },
         function()
-            vim.pack.add {
-                "https://github.com/nvim-tree/nvim-web-devicons",
-                "https://github.com/saghen/blink.lib",
-                "https://github.com/rafamadriz/friendly-snippets",
-                "https://github.com/saghen/blink.cmp",
-            }
+            vim.cmd.packadd "nvim-web-devicons"
+            vim.cmd.packadd "blink.lib"
+            vim.cmd.packadd "friendly-snippets"
+            vim.cmd.packadd "blink.cmp"
 
             require("blink.cmp").setup {
                 fuzzy = {

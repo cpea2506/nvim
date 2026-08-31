@@ -1,12 +1,15 @@
+vim.pack.add({
+    "https://github.com/nvim-tree/nvim-web-devicons",
+    "https://github.com/SmiteshP/nvim-navic",
+}, { load = false })
+
 lib.create_autocmd(
     { "BufReadPost", "BufNewFile" },
     vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
     { once = true },
     function()
-        vim.pack.add {
-            "https://github.com/nvim-tree/nvim-web-devicons",
-            "https://github.com/SmiteshP/nvim-navic",
-        }
+        vim.cmd.packadd "nvim-web-devicons"
+        vim.cmd.packadd "nvim-navic"
 
         local navic = require "nvim-navic"
 

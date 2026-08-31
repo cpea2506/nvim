@@ -1,5 +1,9 @@
+vim.pack.add({
+    "https://github.com/ibhagwan/fzf-lua",
+}, { load = false })
+
 vim.schedule(function()
-    vim.pack.add { "https://github.com/ibhagwan/fzf-lua" }
+    vim.cmd.packadd "fzf-lua"
 
     require("fzf-lua").setup {
         winopts = {

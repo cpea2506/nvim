@@ -1,5 +1,10 @@
 local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
 
+vim.pack.add({
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/nvim-treesitter/nvim-treesitter-context",
+}, { load = false })
+
 lib.create_autocmds {
     {
         "PackChanged",
@@ -21,10 +26,8 @@ lib.create_autocmds {
         augroup,
         { once = true },
         function()
-            vim.pack.add {
-                "https://github.com/nvim-treesitter/nvim-treesitter",
-                "https://github.com/nvim-treesitter/nvim-treesitter-context",
-            }
+            vim.cmd.packadd "nvim-treesitter"
+            vim.cmd.packadd "nvim-treesitter-context"
 
             require("treesitter-context").setup {
                 mode = "cursor",

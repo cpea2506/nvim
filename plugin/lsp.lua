@@ -1,7 +1,14 @@
 local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
 
+vim.pack.add({
+    "https://github.com/mason-org/mason.nvim",
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/seblyng/roslyn.nvim",
+    "https://github.com/saecki/crates.nvim",
+}, { load = false })
+
 vim.schedule(function()
-    vim.pack.add { "https://github.com/mason-org/mason.nvim" }
+    vim.cmd.packadd "mason.nvim"
 
     require("mason").setup {
         registries = {
@@ -29,7 +36,7 @@ lib.create_autocmds {
         augroup,
         { once = true },
         vim.schedule_wrap(function()
-            vim.pack.add { "https://github.com/neovim/nvim-lspconfig" }
+            vim.cmd.packadd "nvim-lspconfig"
 
             local registry = require "mason-registry"
 
@@ -48,7 +55,7 @@ lib.create_autocmds {
         augroup,
         { pattern = "cs", once = true },
         function()
-            vim.pack.add { "https://github.com/seblyng/roslyn.nvim" }
+            vim.cmd.packadd "roslyn.nvim"
 
             require("roslyn").setup {
                 filewatching = "roslyn",
@@ -60,7 +67,7 @@ lib.create_autocmds {
         augroup,
         { pattern = "Cargo.toml", once = true },
         function()
-            vim.pack.add { "https://github.com/saecki/crates.nvim" }
+            vim.cmd.packadd "crates.nvim"
 
             require("crates").setup {
                 date_format = "%d-%m-%Y",
