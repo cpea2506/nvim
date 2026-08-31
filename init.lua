@@ -6,7 +6,6 @@ lib.require_modules("pea", {
     "options",
     "autocmds",
     "keymaps",
-    "events",
     "ui",
     "lsp",
 })

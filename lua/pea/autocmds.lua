@@ -30,4 +30,17 @@ lib.create_autocmds {
             vim.cmd.tabnext(vim.api.nvim_get_current_tabpage())
         end,
     },
+    {
+        "CmdAtom",
+        augroup "pea_auto_hlsearch",
+        function(args)
+            local enable = vim.iter({ "/", "?", "*", "#", "n", "N" }):any(function(cmd)
+                return args.data.cmd == cmd
+            end)
+
+            if vim.o.hlsearch ~= enable then
+                vim.o.hlsearch = enable
+            end
+        end,
+    },
 }
