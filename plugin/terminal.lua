@@ -1,5 +1,34 @@
 local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
 
+local function send(buf, text)
+    local timer = assert(vim.uv.new_timer())
+
+    timer:start(
+        100,
+        100,
+        vim.schedule_wrap(function()
+            local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+
+            while #lines > 0 and vim.iter(lines):last():match "^%s*$" do
+                table.remove(lines)
+            end
+
+            local cursor = vim.api.nvim_win_get_cursor(0)
+            local has_lines = #lines >= 5
+            local cursor_ready = cursor[1] > 3
+
+            if has_lines and cursor_ready then
+                timer:stop()
+                timer:close()
+
+                vim.api.nvim_buf_call(buf, function()
+                    vim.api.nvim_put(vim.split(text, "\r?\n"), "c", false, true)
+                end)
+            end
+        end)
+    )
+end
+
 local function open(cmd, opts)
     opts = vim.tbl_deep_extend("force", { direction = "horizontal", size = 15 }, opts or {})
 
@@ -16,7 +45,11 @@ local function open(cmd, opts)
             "TermOpen",
             augroup,
             { once = true },
-            function()
+            function(args)
+                if opts.input then
+                    send(args.buf, opts.input)
+                end
+
                 vim.cmd.startinsert()
             end,
         },
@@ -51,6 +84,16 @@ lib.set_keymaps {
         "<leader>ai",
         function()
             open("opencode", { direction = "vertical", size = 80 })
+        end,
+    },
+    {
+        "v",
+        "<leader>ai",
+        function()
+            local lines = vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v")
+            local input = table.concat(lines, "\n")
+
+            open("opencode", { direction = "vertical", size = 80, input = input })
         end,
     },
     {
