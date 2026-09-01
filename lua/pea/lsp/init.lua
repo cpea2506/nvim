@@ -90,11 +90,11 @@ lib.create_autocmds {
                     }
 
                     vim.lsp.buf_request(buf, "textDocument/codeAction", params, function(err, result)
+                        vim.api.nvim_buf_clear_namespace(buf, namespace, 0, -1)
+
                         if err or not result then
                             return
                         end
-
-                        vim.api.nvim_buf_clear_namespace(buf, namespace, 0, -1)
 
                         if not vim.tbl_isempty(result) then
                             vim.api.nvim_buf_set_extmark(buf, namespace, current_line, 0, {
