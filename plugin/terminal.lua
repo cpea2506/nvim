@@ -22,7 +22,7 @@ local function send(buf, text)
                 timer:close()
 
                 vim.api.nvim_buf_call(buf, function()
-                    vim.api.nvim_put(vim.split(text, "\r?\n"), "c", false, true)
+                    vim.api.nvim_put(vim.split(text, "\n", { plain = true }), "c", false, true)
                 end)
             end
         end)
@@ -87,10 +87,12 @@ lib.set_keymaps {
         end,
     },
     {
-        "v",
+        "x",
         "<leader>ai",
         function()
-            local lines = vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v")
+            local lines = vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", {
+                type = vim.api.nvim_get_mode().mode,
+            })
             local input = table.concat(lines, "\n")
 
             open("opencode", { direction = "vertical", size = 80, input = input })
