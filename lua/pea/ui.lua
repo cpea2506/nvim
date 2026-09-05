@@ -1,8 +1,27 @@
 require("vim._core.ui2").enable {
     msg = {
         targets = {
+            [""] = "msg",
+            empty = "msg",
+            emsg = "msg",
+            echo = "msg",
+            echomsg = "msg",
+            echoerr = "msg",
+            list_cmd = "msg",
+            lua_error = "msg",
+            lua_print = "msg",
             progress = "msg",
+            quickfix = "msg",
+            rpc_error = "msg",
+            search_cmd = "msg",
+            search_count = "msg",
+            shell_cmd = "msg",
+            shell_err = "msg",
+            shell_out = "msg",
+            shell_ret = "msg",
             undo = "msg",
+            verbose = "msg",
+            wmsg = "msg",
         },
     },
 }
