@@ -8,16 +8,12 @@ local function send(buf, text)
         100,
         vim.schedule_wrap(function()
             local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-
-            while #lines > 0 and vim.iter(lines):last():match "^%s*$" do
-                table.remove(lines)
-            end
-
+            local non_empty_lines = vim.iter(lines):filter(function(s)
+                return s:match "%S" ~= nil
+            end)
             local cursor = vim.api.nvim_win_get_cursor(0)
-            local has_lines = #lines >= 5
-            local cursor_ready = cursor[1] > 3
 
-            if has_lines and cursor_ready then
+            if non_empty_lines:count() > 5 and cursor[1] > 3 then
                 timer:stop()
                 timer:close()
 
