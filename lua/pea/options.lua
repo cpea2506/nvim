@@ -1,3 +1,4 @@
+---@type { vim: table<string, any>, global: table<string, any> }
 local options = {
     vim = {
         clipboard = "unnamedplus",

@@ -2,12 +2,21 @@ local M = {}
 
 ---@param what vim.fn.setqflist.what
 local function on_list(what)
+    if not what.items then
+        return
+    end
+
     vim.list.unique(what.items, function(item)
         return (":%s:%d:%s"):format(item.filename, item.lnum, item.text)
     end)
 
     if #what.items == 1 then
         local item = what.items[1]
+
+        if not item.filename or not item.lnum or not item.col then
+            return
+        end
+
         local item_bufnr = item.bufnr or vim.fn.bufadd(item.filename)
 
         -- Save position in jumplist.
@@ -86,6 +95,7 @@ function M.set(bufnr)
                 vim.diagnostic.setqflist {
                     severity = {
                         min = vim.diagnostic.severity.WARN,
+                        max = vim.diagnostic.severity.ERROR,
                     },
                 }
             end,

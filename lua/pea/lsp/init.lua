@@ -13,6 +13,7 @@ vim.diagnostic.config {
     virtual_lines = {
         current_line = true,
         format = function(diagnostic)
+            ---@cast vim.diagnostic.severity +vim.diagnostic.SeverityName
             local severity = vim.diagnostic.severity[diagnostic.severity]
 
             return lib.icons.diagnostics[severity] .. " " .. diagnostic.message
@@ -83,8 +84,7 @@ lib.create_autocmds {
                 lib.create_autocmd("CursorHold", augroup, { buf = buf }, function()
                     local current_line = vim.api.nvim_win_get_cursor(0)[1] - 1
 
-                    ---@type { [any]: any }
-                    local params = vim.lsp.util.make_range_params(0, "utf-8")
+                    local params = vim.lsp.util.make_range_params(0, "utf-8") ---@as lsp.CodeActionParams
                     params.context = {
                         diagnostics = vim.lsp.diagnostic.from(vim.diagnostic.get(buf, { lnum = current_line })),
                     }
@@ -140,6 +140,7 @@ lib.create_autocmds {
 
             ---@type lsp.ProgressParams
             local params = data.params
+            ---@cast params.value { kind: "begin" | "report" | "end", percentage: integer, message: string, title: string }
             local value = params.value
 
             local is_done = value.kind == "end"
@@ -150,7 +151,9 @@ lib.create_autocmds {
                 local percentage = value.percentage or 0
                 local frame = math.min(math.floor((percentage / 100) * #spinner) + 1, #spinner)
 
-                icon = spinner[frame]
+                if spinner[frame] then
+                    icon = spinner[frame]
+                end
             end
 
             vim.api.nvim_echo({ { is_done and "Done" or value.message or "", "Type" } }, true, {
