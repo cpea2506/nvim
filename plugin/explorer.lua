@@ -1,41 +1,40 @@
 vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",
-    "https://github.com/FylerOrg/fyler.nvim",
 }, { load = false })
 
-vim.schedule(function()
+lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup("pea_plugin", { clear = false }), { once = true }, function()
     vim.cmd.packadd "nvim-web-devicons"
-    vim.cmd.packadd "fyler.nvim"
 
-    require("fyler").setup {
-        integrations = {
-            icon = "nvim_web_devicons",
-        },
-        extensions = {
-            trash = {
-                enabled = true,
-            },
-        },
-        kind = "floating",
-        kind_presets = {
-            floating = {
-                border = vim.o.winborder,
-            },
-        },
-        mappings = {
-            n = {
-                ["<C-s>"] = { disabled = true },
-                ["<C-v>"] = { disabled = true },
-                ["|"] = { action = "select", args = { vsplit = true } },
-            },
-        },
-        ui = {
-            hidden_items = {
-                switches = {},
-            },
-            indent_guides = true,
-        },
-    }
+    local ns = vim.api.nvim_create_namespace "pea_plugins_dir"
 
-    lib.set_keymap("n", "<leader>e", "<cmd>Fyler<cr>", { desc = "Open Explorer" })
+    vim.api.nvim_set_decoration_provider(ns, {
+        on_win = function(_, _, buf)
+            return vim.bo[buf].filetype == "directory"
+        end,
+        ---@return integer
+        on_range = function(_, _, buf, row, _, end_row)
+            local name = vim.api.nvim_buf_get_lines(buf, row, end_row, true)[1]
+
+            if not name then
+                return end_row
+            end
+
+            local ext = vim.fs.ext(name)
+            ---@type string, string
+            local icon, hl = require("nvim-web-devicons").get_icon(name, ext, { default = true, strict = true })
+            local stat = vim.uv.fs_stat(name)
+
+            if stat and stat.type == "directory" then
+                icon, hl = lib.icons.ui.FolderCollapsed, "directoryDirectoryIcon"
+            end
+
+            vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+                id = end_row,
+                virt_text = { { icon, hl }, { " " } },
+                virt_text_pos = "inline",
+            })
+
+            return end_row
+        end,
+    })
 end)

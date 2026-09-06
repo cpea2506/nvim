@@ -22,7 +22,6 @@ lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup("pea_plugin", { clear 
                 "",
                 "fzf",
                 "checkhealth",
-                "fyler_finder",
                 "gitsigns-blame",
                 "help",
                 "input",
@@ -34,7 +33,7 @@ lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup("pea_plugin", { clear 
             component_separators = "",
             section_separators = "",
         },
-        extensions = lib.require_modules("pea.plugin.lualine.extensions", { "pack", "quickfix" }),
+        extensions = lib.require_modules("pea.plugin.lualine.extensions", { "pack", "quickfix", "directory" }),
         sections = {
             lualine_a = {},
             lualine_b = {},

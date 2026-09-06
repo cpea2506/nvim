@@ -25,7 +25,7 @@ Plugin definitions live in [`plugin/`](plugin).
 | --------------- | ---------------------------------------------------------------------------------- |
 | Package manager | `vim.pack`                                                                         |
 | UI              | `one_monokai`, `lualine`, `nvim-web-devicons`, `nvim-navic`                        |
-| Navigation      | `fyler`, `fzf-lua`                                                                 |
+| Navigation      | `dir`, `fzf-lua`                                                                   |
 | Git             | `gitsigns`, `codediff.nvim`                                                        |
 | Syntax          | `nvim-treesitter`, `nvim-treesitter-context`                                       |
 | LSP             | `mason.nvim`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                       |
@@ -70,12 +70,12 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 
 [`plugin/picker.lua`](plugin/picker.lua)
 
-| Key          | Action              |
-| ------------ | ------------------- |
-| `<leader>e`  | Open Fyler explorer |
-| `<leader>sf` | File search         |
-| `<leader>st` | Live grep           |
-| `<leader>sb` | Buffers             |
+| Key          | Action                         |
+| ------------ | ------------------------------ |
+| `<leader>e`  | Open builtin directory listing |
+| `<leader>sf` | File search                    |
+| `<leader>st` | Live grep                      |
+| `<leader>sb` | Buffers                        |
 
 ### Terminal
 
