@@ -35,13 +35,47 @@ lib.create_autocmds {
         augroup,
         function(args)
             local buf = args.buf
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-            if not client then
-                return
-            end
+            local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+            local capabilities = assert(client.server_capabilities)
 
             require("pea.lsp.keymaps").set(buf)
+
+            if client:supports_method("textDocument/completion", buf) then
+                local completionProvider = assert(capabilities.completionProvider)
+                local chars = {}
+
+                for i = 32, 126 do
+                    table.insert(chars, string.char(i))
+                end
+
+                completionProvider.triggerCharacters = chars
+
+                vim.lsp.completion.enable(true, client.id, buf, {
+                    autotrigger = true,
+                    convert = function(item)
+                        vim.print(item)
+                        local kind = vim.lsp.protocol.CompletionItemKind[item.kind]
+                        local labelDetails = assert(item.labelDetails)
+                        local abbr = ("%s  %s%s"):format(lib.icons.kind[kind], item.label, labelDetails.detail or "")
+
+                        return {
+                            abbr = abbr,
+                            abbr_hlgroup = "CmpItemKind" .. kind,
+                            kind = "",
+                        }
+                    end,
+                })
+
+                lib.create_autocmd("CompleteChanged", augroup, { buf = buf }, function()
+                    local info = vim.fn.complete_info { "selected" }
+                    ---@type integer
+                    local winid = info.preview_winid
+
+                    if winid and vim.api.nvim_win_is_valid(winid) then
+                        vim.api.nvim_win_set_config(winid, { border = "rounded" })
+                    end
+                end)
+            end
 
             if client:supports_method("textDocument/inlayHint", buf) then
                 vim.lsp.inlay_hint.enable(true, { bufnr = buf })
@@ -132,11 +166,7 @@ lib.create_autocmds {
         },
         function(args)
             local data = args.data
-            local client = vim.lsp.get_client_by_id(data.client_id)
-
-            if not client then
-                return
-            end
+            local client = assert(vim.lsp.get_client_by_id(data.client_id))
 
             ---@type lsp.ProgressParams
             local params = data.params
