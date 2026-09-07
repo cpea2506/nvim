@@ -22,9 +22,8 @@ lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup("pea_plugin", { clear 
             local ext = vim.fs.ext(name)
             ---@type string, string
             local icon, hl = require("nvim-web-devicons").get_icon(name, ext, { default = true, strict = true })
-            local stat = vim.uv.fs_stat(name)
 
-            if stat and stat.type == "directory" then
+            if name:match "/$" then
                 icon, hl = lib.icons.ui.FolderCollapsed, "directoryDirectoryIcon"
             end
 
