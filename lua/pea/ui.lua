@@ -7,6 +7,7 @@ require("vim._core.ui2").enable {
             echo = "msg",
             echomsg = "msg",
             echoerr = "msg",
+            completion = "msg",
             list_cmd = "msg",
             lua_error = "msg",
             lua_print = "msg",
