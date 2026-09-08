@@ -6,7 +6,7 @@ Neovim config using native `vim.pack` - LSP, completion, formatting, and a focus
 
 - **Neovim nightly** + `git`
 - **`ripgrep`** - fzf-lua grep backend
-- **`cargo`** - building `blink.cmp` / `blink.pairs`
+- **`cargo`** - building `blink.pairs`
 - **`lazygit`** - git UI in terminal tab
 
 ## Quick start
@@ -29,7 +29,7 @@ Plugin definitions live in [`plugin/`](plugin).
 | Git             | `gitsigns`, `codediff.nvim`                                                        |
 | Syntax          | `nvim-treesitter`, `nvim-treesitter-context`                                       |
 | LSP             | `mason.nvim`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                       |
-| Completion      | `blink.cmp`, `blink.pairs`, `friendly-snippets`                                    |
+| Completion      | `builtin completion`, `blink.pairs`, `friendly-snippets`                           |
 | Editing         | `relative-toggle`, `select.nvim`, `input.nvim`, `nvim-surround`, `numb`, `quicker` |
 | Formatting      | `conform.nvim`                                                                     |
 | Debug           | `debugmaster.nvim`, `nvim-dap`, `nvim-dap-unity`                                   |
