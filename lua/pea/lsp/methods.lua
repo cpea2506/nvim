@@ -21,30 +21,18 @@ return {
             autotrigger = true,
             convert = function(item)
                 local kind = vim.lsp.protocol.CompletionItemKind[item.kind]
-                local abbr = { ("%s  %s"):format(lib.icons.kind[kind], item.label) }
-                local labelDetails = item.labelDetails
-
-                if labelDetails then
-                    abbr[#abbr + 1] = labelDetails.detail
-                end
+                local abbr = table.concat {
+                    ("%s  %s"):format(lib.icons.kind[kind], item.label),
+                    item.labelDetails and item.labelDetails.detail,
+                }
 
                 return {
-                    abbr = table.concat(abbr),
+                    abbr = abbr,
                     abbr_hlgroup = "CmpItemKind" .. kind,
                     kind = "",
                 }
             end,
         })
-
-        lib.create_autocmd("CompleteChanged", augroup, { buf = buf }, function()
-            local info = vim.fn.complete_info { "selected" }
-            ---@type integer
-            local winid = info.preview_winid
-
-            if winid and vim.api.nvim_win_is_valid(winid) then
-                vim.api.nvim_win_set_config(winid, { border = "rounded" })
-            end
-        end)
     end,
     inlay_hint = function(client, buf)
         if not client:supports_method("textDocument/inlayHint", buf) then

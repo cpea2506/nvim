@@ -1,19 +1,15 @@
 {
   "plugins": {
-    "blink.cmp": {
-      "rev": "49d39fda6350d7f789d1da1053e86c9e256f8108",
-      "src": "https://github.com/saghen/blink.cmp"
-    },
     "blink.lib": {
-      "rev": "f55df8a6e0a7acccf45ef0ffbb4ce46110fcf7d0",
+      "rev": "fd9a48ebbe6ec30d5dfcc5b42c243941ccdca1aa",
       "src": "https://github.com/saghen/blink.lib"
     },
     "blink.pairs": {
-      "rev": "21c2ac9164b36ae5e22f84a2dd0f02eaf107f8fe",
+      "rev": "70673231ba75e3b6094c43a62ac3bf5967926a30",
       "src": "https://github.com/saghen/blink.pairs"
     },
     "codediff.nvim": {
-      "rev": "1c8cc7b6785ec2508dd88ae12302de25afa57656",
+      "rev": "61521381445aab22d5f988e7d99c2d7a76ccc1a1",
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
@@ -29,7 +25,7 @@
       "src": "https://github.com/MironPascalCaseFan/debugmaster.nvim"
     },
     "friendly-snippets": {
-      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "rev": "bb548e5ae4550a5e318b7e398a93b9af456b65e1",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
@@ -65,7 +61,7 @@
       "src": "https://github.com/ownself/nvim-dap-unity"
     },
     "nvim-lspconfig": {
-      "rev": "84252f9832fb5b9024fe9f7258e7c2aff915e6fb",
+      "rev": "da1aff0332774a0f60d52bf972e815dfc226f276",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-navic": {
@@ -77,7 +73,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "41416e81a6c7f4af4984395bfe0cd8d174e70976",
+      "rev": "5cb0114e6242625db56dd6440e945ed1ece10bc7",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-context": {
