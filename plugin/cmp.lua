@@ -57,6 +57,14 @@ lib.create_autocmds {
         end,
     },
     {
+        "CmdlineChanged",
+        augroup,
+        { pattern = { ":", "?", "/" } },
+        function()
+            vim.fn.wildtrigger()
+        end,
+    },
+    {
         "CompleteChanged",
         augroup,
         function()
