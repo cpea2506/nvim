@@ -21,15 +21,10 @@ return {
             autotrigger = true,
             convert = function(item)
                 local kind = vim.lsp.protocol.CompletionItemKind[item.kind]
-                local abbr = table.concat {
-                    ("%s  %s"):format(lib.icons.kind[kind], item.label),
-                    item.labelDetails and item.labelDetails.detail,
-                }
 
                 return {
-                    abbr = abbr,
-                    abbr_hlgroup = "CmpItemKind" .. kind,
-                    kind = "",
+                    kind = lib.icons.kind[kind],
+                    kind_hlgroup = "CmpItemKind" .. kind,
                 }
             end,
         })
