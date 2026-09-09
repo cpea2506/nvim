@@ -1,3 +1,5 @@
+---@alias LspMethod fun(client: vim.lsp.Client, buf: integer)
+
 local augroup = vim.api.nvim_create_augroup("pea_lsp", { clear = false })
 local namespace = vim.api.nvim_create_namespace "pea_lsp"
 
@@ -29,6 +31,7 @@ return {
             end,
         })
     end,
+    ---@type LspMethod
     inlay_hint = function(client, buf)
         if not client:supports_method("textDocument/inlayHint", buf) then
             return
@@ -36,6 +39,7 @@ return {
 
         vim.lsp.inlay_hint.enable(true, { bufnr = buf })
     end,
+    ---@type LspMethod
     document_color = function(client, buf)
         if not client:supports_method("textDocument/documentColor", buf) then
             return
@@ -43,6 +47,7 @@ return {
 
         vim.lsp.document_color.enable(true, { bufnr = buf, client_id = client.id }, { style = "virtual" })
     end,
+    ---@type LspMethod
     on_type_formatting = function(client, buf)
         if not client:supports_method("textDocument/onTypeFormatting", buf) then
             return
@@ -50,6 +55,7 @@ return {
 
         vim.lsp.on_type_formatting.enable(true, { client_id = client.id })
     end,
+    ---@type LspMethod
     codelens = function(client, buf)
         if not client:supports_method("textDocument/codeLens", buf) then
             return
@@ -57,6 +63,7 @@ return {
 
         vim.lsp.codelens.enable(true, { bufnr = buf, client_id = client.id })
     end,
+    ---@type LspMethod
     document_highlight = function(client, buf)
         if not client:supports_method("textDocument/documentHighlight", buf) then
             return
@@ -81,6 +88,7 @@ return {
             },
         }
     end,
+    ---@type LspMethod
     code_action = function(client, buf)
         if not client:supports_method("textDocument/codeAction", buf) then
             return
