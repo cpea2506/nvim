@@ -15,8 +15,6 @@ require("one_monokai").setup {
             DapStopped = { fg = colors.green, ctermbg = 0 },
 
             directoryDirectoryIcon = { fg = colors.yellow },
-
-            PmenuMatch = { fg = colors.aqua, update = true },
         }
     end,
 }
