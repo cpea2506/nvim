@@ -45,8 +45,8 @@ local function on_list(what)
     end
 end
 
----@param bufnr integer
-function M.set(bufnr)
+---@param buf integer
+function M.set(buf)
     lib.set_keymaps {
         {
             "n",
@@ -54,7 +54,7 @@ function M.set(bufnr)
             function()
                 vim.lsp.buf.definition { on_list = on_list }
             end,
-            { buf = bufnr, desc = "Definition" },
+            { buf = buf, desc = "Definition" },
         },
         {
             "n",
@@ -62,7 +62,7 @@ function M.set(bufnr)
             function()
                 vim.lsp.buf.type_definition { on_list = on_list }
             end,
-            { buf = bufnr, desc = "Type Definition" },
+            { buf = buf, desc = "Type Definition" },
         },
         {
             "n",
@@ -70,7 +70,7 @@ function M.set(bufnr)
             function()
                 vim.lsp.buf.references(nil, { on_list = on_list })
             end,
-            { buf = bufnr, desc = "References", nowait = true },
+            { buf = buf, desc = "References", nowait = true },
         },
         {
             "n",
@@ -78,15 +78,15 @@ function M.set(bufnr)
             function()
                 vim.lsp.buf.implementation { on_list = on_list }
             end,
-            { buf = bufnr, desc = "Implementation" },
+            { buf = buf, desc = "Implementation" },
         },
         {
             "n",
             "gl",
             function()
-                vim.diagnostic.open_float { bufnr = bufnr }
+                vim.diagnostic.open_float { bufnr = buf }
             end,
-            { buf = bufnr, desc = "Line Diagnostics" },
+            { buf = buf, desc = "Line Diagnostics" },
         },
         {
             "n",
@@ -99,15 +99,15 @@ function M.set(bufnr)
                     },
                 }
             end,
-            { buf = bufnr, desc = "Workspace Diagnostics" },
+            { buf = buf, desc = "Workspace Diagnostics" },
         },
         {
             "n",
             "gn",
             function()
-                vim.lsp.buf.rename(nil, { bufnr = bufnr })
+                vim.lsp.buf.rename(nil, { bufnr = buf })
             end,
-            { buf = bufnr, desc = "Rename" },
+            { buf = buf, desc = "Rename" },
         },
         {
             { "n", "v" },
@@ -115,7 +115,7 @@ function M.set(bufnr)
             function()
                 vim.lsp.buf.code_action()
             end,
-            { buf = bufnr, desc = "Code Action" },
+            { buf = buf, desc = "Code Action" },
         },
     }
 end

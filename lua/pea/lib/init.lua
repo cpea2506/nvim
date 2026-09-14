@@ -8,12 +8,12 @@ M.is_windows = jit.os:find "Windows" ~= nil
 
 M.create_autocmd = require("vim._core.util").nvim_on
 
----@alias Lib.Autocmd
+---@alias lib.Autocmd
 --- | [vim.api.keyset.events|vim.api.keyset.events[], string|integer?, vim.api.keyset.create_autocmd, fun(ev: vim.api.keyset.create_autocmd.callback_args): boolean?]
 --- | [vim.api.keyset.events|vim.api.keyset.events[], string|integer?, fun(ev: vim.api.keyset.create_autocmd.callback_args): boolean?]
 
 ---Create autocmds.
----@param autocmds Lib.Autocmd[] #List of autocmds.
+---@param autocmds lib.Autocmd[] #List of autocmds.
 function M.create_autocmds(autocmds)
     for _, autocmd in ipairs(autocmds) do
         local events, group, opts_or_fn, fn = unpack(autocmd)
@@ -28,10 +28,10 @@ end
 
 M.set_keymap = vim.keymap.set
 
----@alias Lib.Keymap [string|string[], string|string[], function|string, vim.keymap.set.Opts?]
+---@alias lib.Keymap [string|string[], string|string[], function|string, vim.keymap.set.Opts?]
 
 ---Set keymaps.
----@param keymaps Lib.Keymap[] #List of keymaps.
+---@param keymaps lib.Keymap[] #List of keymaps.
 function M.set_keymaps(keymaps)
     for _, keymap in ipairs(keymaps) do
         local modes, lhs, rhs, opts = unpack(keymap)
