@@ -4,6 +4,7 @@ local augroup = vim.api.nvim_create_augroup("pea_lsp", { clear = false })
 local namespace = vim.api.nvim_create_namespace "pea_lsp"
 
 return {
+    ---@type LspMethod
     completion = function(client, buf)
         if not client:supports_method("textDocument/completion", buf) then
             return
