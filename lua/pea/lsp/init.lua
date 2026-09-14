@@ -86,7 +86,7 @@ lib.create_autocmds {
                 end
             end
 
-            vim.api.nvim_echo({ { value.message or "Done", "Type" } }, true, {
+            vim.api.nvim_echo({ { value.message or "Done", "Type" } }, false, {
                 id = ("%s.%s"):format(client.id, params.token),
                 kind = "progress",
                 status = is_done and "success" or "running",
