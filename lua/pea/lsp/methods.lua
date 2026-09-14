@@ -3,7 +3,92 @@
 local augroup = vim.api.nvim_create_augroup("pea_lsp", { clear = false })
 local namespace = vim.api.nvim_create_namespace "pea_lsp"
 
+---@param what vim.fn.setqflist.what
+local function on_list(what)
+    if not what.items then
+        return
+    end
+
+    vim.list.unique(what.items, function(item)
+        return (":%s:%d:%s"):format(item.filename, item.lnum, item.text)
+    end)
+
+    if #what.items == 1 then
+        local item = what.items[1]
+
+        if not item.filename or not item.lnum or not item.col then
+            return
+        end
+
+        local item_bufnr = item.bufnr or vim.fn.bufadd(item.filename)
+
+        -- Save position in jumplist.
+        vim.cmd.normal { "m'", bang = true }
+
+        local winid = vim.api.nvim_get_current_win()
+        local curpos = vim.api.nvim_win_get_cursor(winid)
+        curpos[1] = item_bufnr
+
+        vim.fn.settagstack(winid, {
+            items = {
+                {
+                    bufnr = item_bufnr,
+                    from = curpos,
+                    tagname = vim.fn.expand "<cword>",
+                },
+            },
+        }, "t")
+
+        vim.bo[item_bufnr].buflisted = true
+        vim.api.nvim_win_set_buf(winid, item_bufnr)
+        vim.api.nvim_win_set_cursor(winid, { item.lnum, item.col - 1 })
+    else
+        vim.fn.setqflist({}, " ", what)
+        vim.cmd "bo cope"
+    end
+end
+
 return {
+    ---@type lsp.Method
+    definition = function(client, buf)
+        if not client:supports_method("textDocument/definition", buf) then
+            return
+        end
+
+        lib.set_keymap("n", "gd", function()
+            vim.lsp.buf.definition { on_list = on_list }
+        end, { buf = buf, desc = "Definition" })
+    end,
+    ---@type lsp.Method
+    type_definition = function(client, buf)
+        if not client:supports_method("textDocument/typeDefinition", buf) then
+            return
+        end
+
+        lib.set_keymap("n", "gD", function()
+            vim.lsp.buf.type_definition { on_list = on_list }
+        end, { buf = buf, desc = "Type Definition" })
+    end,
+    ---@type lsp.Method
+    implementation = function(client, buf)
+        if not client:supports_method("textDocument/implementation", buf) then
+            return
+        end
+
+        lib.set_keymap("n", "gi", function()
+            vim.lsp.buf.implementation { on_list = on_list }
+        end, { buf = buf, desc = "Implementation" })
+    end,
+    ---@type lsp.Method
+    references = function(client, buf)
+        if not client:supports_method("textDocument/references", buf) then
+            return
+        end
+
+        lib.set_keymap("n", "gr", function()
+            vim.lsp.buf.references(nil, { on_list = on_list })
+        end, { buf = buf, desc = "References", nowait = true })
+    end,
     ---@type lsp.Method
     completion = function(client, buf)
         if not client:supports_method("textDocument/completion", buf) then
@@ -31,6 +116,46 @@ return {
                 }
             end,
         })
+    end,
+    ---@type lsp.Method
+    rename = function(client, buf)
+        if not client:supports_method "textDocument/rename" then
+            return
+        end
+
+        lib.set_keymap("n", "gn", function()
+            vim.lsp.buf.rename(nil, { bufnr = buf })
+        end, { buf = buf, desc = "Rename" })
+    end,
+    ---@type lsp.Method
+    diagnostic = function(client, buf)
+        if not client:supports_method("textDocument/diagnostic", buf) then
+            return
+        end
+
+        lib.set_keymaps {
+            {
+                "n",
+                "gl",
+                function()
+                    vim.diagnostic.open_float { bufnr = buf }
+                end,
+                { buf = buf, desc = "Line Diagnostics" },
+            },
+            {
+                "n",
+                "gw",
+                function()
+                    vim.diagnostic.setqflist {
+                        severity = {
+                            min = vim.diagnostic.severity.WARN,
+                            max = vim.diagnostic.severity.ERROR,
+                        },
+                    }
+                end,
+                { buf = buf, desc = "Workspace Diagnostics" },
+            },
+        }
     end,
     ---@type lsp.Method
     inlay_hint = function(client, buf)
@@ -94,6 +219,10 @@ return {
         if not client:supports_method("textDocument/codeAction", buf) then
             return
         end
+
+        lib.set_keymap({ "n", "v" }, "ga", function()
+            vim.lsp.buf.code_action()
+        end, { buf = buf, desc = "Code Action" })
 
         lib.create_autocmd("CursorHold", augroup, { buf = buf }, function()
             local current_line = vim.api.nvim_win_get_cursor(0)[1] - 1

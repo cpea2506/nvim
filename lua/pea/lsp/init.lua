@@ -36,8 +36,6 @@ lib.create_autocmds {
             local buf = args.buf
             local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-            require("pea.lsp.keymaps").set(buf)
-
             for _, method in pairs(require "pea.lsp.methods") do
                 method(client, buf)
             end
