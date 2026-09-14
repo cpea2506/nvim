@@ -86,7 +86,7 @@ return {
         end
 
         lib.set_keymap("n", "gr", function()
-            vim.lsp.buf.references(nil, { on_list = on_list })
+            vim.lsp.buf.references({ includeDeclaration = false }, { on_list = on_list })
         end, { buf = buf, desc = "References", nowait = true })
     end,
     ---@type lsp.Method
