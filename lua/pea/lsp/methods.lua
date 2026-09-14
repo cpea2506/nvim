@@ -90,34 +90,6 @@ return {
         end, { buf = buf, desc = "References", nowait = true })
     end,
     ---@type lsp.Method
-    completion = function(client, buf)
-        if not client:supports_method("textDocument/completion", buf) then
-            return
-        end
-
-        local capabilities = assert(client.server_capabilities)
-        local completionProvider = assert(capabilities.completionProvider)
-        local chars = {}
-
-        for i = 32, 126 do
-            table.insert(chars, string.char(i))
-        end
-
-        completionProvider.triggerCharacters = chars
-
-        vim.lsp.completion.enable(true, client.id, buf, {
-            autotrigger = true,
-            convert = function(item)
-                local kind = vim.lsp.protocol.CompletionItemKind[item.kind]
-
-                return {
-                    kind = lib.icons.kind[kind],
-                    kind_hlgroup = "CmpItemKind" .. kind,
-                }
-            end,
-        })
-    end,
-    ---@type lsp.Method
     rename = function(client, buf)
         if not client:supports_method "textDocument/rename" then
             return

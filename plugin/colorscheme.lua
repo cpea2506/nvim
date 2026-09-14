@@ -15,6 +15,8 @@ require("one_monokai").setup {
             DapStopped = { fg = colors.green, ctermbg = 0 },
 
             directoryDirectoryIcon = { fg = colors.yellow },
+
+            BlinkCmpLabelMatch = { bold = true },
         }
     end,
 }

@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "blink.cmp": {
+      "rev": "473c928d8b9b5b3f638cd085a01899972cf205c6",
+      "src": "https://github.com/saghen/blink.cmp"
+    },
     "blink.lib": {
       "rev": "fd9a48ebbe6ec30d5dfcc5b42c243941ccdca1aa",
       "src": "https://github.com/saghen/blink.lib"
@@ -23,6 +27,10 @@
     "debugmaster.nvim": {
       "rev": "505d9a269d657ce8e0fa5601e0530f0d8798038c",
       "src": "https://github.com/MironPascalCaseFan/debugmaster.nvim"
+    },
+    "friendly-snippets": {
+      "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
       "rev": "05e44d38de0a79c11fba5f7bf8138791b1dbdd1e",
@@ -81,7 +89,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "one_monokai.nvim": {
-      "rev": "26e95c14dd3dcd4bf5752d19a54a28817f7d8ea7",
+      "rev": "907cb55796037a9839d121b239237bbb9fe764e0",
       "src": "https://github.com/cpea2506/one_monokai.nvim"
     },
     "quicker.nvim": {
