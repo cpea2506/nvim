@@ -87,12 +87,12 @@ lib.create_autocmds {
             end
 
             vim.api.nvim_echo({ { value.message or "Done", "Type" } }, false, {
-                id = ("%s.%s"):format(client.id, params.token),
+                id = ("lsp.%s.%s"):format(client.id, params.token),
                 kind = "progress",
                 status = is_done and "success" or "running",
                 percent = value.percentage,
-                title = ("%s [%s] %s"):format(icon, client.name, value.title or ""),
-                source = "lsp",
+                title = ("%s [%s] %s"):format(icon, client.name, value.title),
+                source = "vim.lsp",
             })
         end,
     },
