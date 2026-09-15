@@ -1,4 +1,4 @@
-local augroup = vim.api.nvim_create_augroup("pea.plugin", { clear = false })
+local augroup = vim.api.nvim_create_augroup "pea.plugin.cmp"
 
 vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",

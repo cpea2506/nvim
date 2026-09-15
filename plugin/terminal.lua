@@ -1,5 +1,3 @@
-local augroup = vim.api.nvim_create_augroup("pea.plugin", { clear = false })
-
 local function send(buf, text)
     local timer = assert(vim.uv.new_timer())
 
@@ -36,15 +34,18 @@ local function open(cmd, opts)
         cmd = ("tabnew | term %s"):format(cmd)
     end
 
+    local augroup = vim.api.nvim_create_augroup "pea.plugin.terminal"
+
     lib.create_autocmds {
         {
             "TermOpen",
             augroup,
-            { once = true },
             function(args)
                 if opts.input then
                     send(args.buf, opts.input)
                 end
+
+                print "hehehe"
 
                 vim.cmd.startinsert()
             end,
@@ -52,7 +53,6 @@ local function open(cmd, opts)
         {
             "TermClose",
             augroup,
-            { once = true },
             function(args)
                 local buf = args.buf
 

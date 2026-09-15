@@ -1,4 +1,4 @@
-local augroup = vim.api.nvim_create_augroup("pea.plugin", { clear = false })
+local augroup = vim.api.nvim_create_augroup "pea.plugin.treesitter"
 
 vim.pack.add({
     "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -38,7 +38,7 @@ lib.create_autocmds {
                 require("treesitter-context").go_to_context(vim.v.count1)
             end, { desc = "Go To Context" })
 
-            lib.create_autocmd("FileType", vim.api.nvim_create_augroup "pea.treesitter", function(args)
+            lib.create_autocmd("FileType", augroup, function(args)
                 local buf = args.buf
                 local lang = vim.treesitter.language.get_lang(args.match) or args.match
 

@@ -1,4 +1,4 @@
-local augroup = vim.api.nvim_create_augroup("pea.plugin", { clear = false })
+local augroup = vim.api.nvim_create_augroup "pea.plugin.debugger"
 
 vim.fn.sign_define("DapBreakpoint", {
     text = lib.icons.ui.Circle,

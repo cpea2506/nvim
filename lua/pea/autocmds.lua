@@ -1,16 +1,16 @@
-local augroup = vim.api.nvim_create_augroup
+local augroup = vim.api.nvim_create_augroup "pea.global"
 
 lib.create_autocmds {
     {
         { "TextYankPost", "TextPutPost" },
-        augroup "pea.highlight_op",
+        augroup,
         function()
             vim.hl.hl_op()
         end,
     },
     {
         "FileType",
-        augroup "pea.qclose",
+        augroup,
         {
             pattern = { "help", "man", "qf", "nvim-pack" },
         },
@@ -24,7 +24,7 @@ lib.create_autocmds {
     },
     {
         "BufReadPost",
-        augroup "pea.restore_cursor",
+        augroup,
         function(args)
             local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
             local line_count = vim.api.nvim_buf_line_count(args.buf)
@@ -36,7 +36,7 @@ lib.create_autocmds {
     },
     {
         "VimResized",
-        augroup "pea.resize_splits",
+        augroup,
         function()
             vim.cmd.tabdo "wincmd ="
             vim.cmd.tabnext(vim.api.nvim_get_current_tabpage())
@@ -44,7 +44,7 @@ lib.create_autocmds {
     },
     {
         "CmdAtom",
-        augroup "pea.auto_hlsearch",
+        augroup,
         function(args)
             local enable = vim.iter({ "/", "?", "*", "#", "n", "N" }):any(function(cmd)
                 return args.data.cmd == cmd
