@@ -16,6 +16,11 @@ return {
                     vim.env.VIMRUNTIME,
                 },
             },
+            diagnostics = {
+                disable = {
+                    "unresolved-require",
+                },
+            },
             runtime = {
                 version = "LuaJIT",
                 requirePattern = {
