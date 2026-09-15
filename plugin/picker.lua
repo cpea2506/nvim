@@ -24,6 +24,7 @@ vim.schedule(function()
             ["--pointer"] = lib.icons.ui.ChevronRight,
             ["--prompt"] = " " .. lib.icons.ui.Telescope .. " ",
             ["--highlight-line"] = true,
+            ["--nth"] = "1..",
         },
         fzf_colors = true,
         files = {
