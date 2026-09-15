@@ -5,7 +5,7 @@ function component:init(options)
 
     lib.create_autocmd(
         "User",
-        vim.api.nvim_create_augroup "pea_lualine_debug",
+        vim.api.nvim_create_augroup "pea.lualine.debug",
         { pattern = "DebugModeChanged" },
         function(args)
             self.enabled = args.data.enabled

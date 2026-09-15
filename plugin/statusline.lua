@@ -2,7 +2,7 @@ vim.pack.add({
     "https://github.com/nvim-lualine/lualine.nvim",
 }, { load = false })
 
-lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup("pea_plugin", { clear = false }), { once = true }, function()
+lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup("pea.plugin", { clear = false }), { once = true }, function()
     vim.cmd.packadd "lualine.nvim"
 
     local colors = require "pea.plugin.lualine.colors"

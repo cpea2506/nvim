@@ -2,10 +2,10 @@ vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",
 }, { load = false })
 
-lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup("pea_plugin", { clear = false }), { once = true }, function()
+lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup("pea.plugin", { clear = false }), { once = true }, function()
     vim.cmd.packadd "nvim-web-devicons"
 
-    local ns = vim.api.nvim_create_namespace "pea_plugins_dir"
+    local ns = vim.api.nvim_create_namespace "pea.dir"
 
     vim.api.nvim_set_decoration_provider(ns, {
         on_win = function(_, _, buf)

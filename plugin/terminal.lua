@@ -1,4 +1,4 @@
-local augroup = vim.api.nvim_create_augroup("pea_plugin", { clear = false })
+local augroup = vim.api.nvim_create_augroup("pea.plugin", { clear = false })
 
 local function send(buf, text)
     local timer = assert(vim.uv.new_timer())

@@ -4,7 +4,7 @@ vim.pack.add({
 
 lib.create_autocmd(
     { "BufReadPost", "BufNewFile" },
-    vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
+    vim.api.nvim_create_augroup("pea.plugin", { clear = false }),
     { once = true },
     function()
         vim.cmd.packadd "conform.nvim"

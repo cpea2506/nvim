@@ -26,7 +26,7 @@ vim.diagnostic.config {
     },
 }
 
-local augroup = vim.api.nvim_create_augroup "pea_lsp"
+local augroup = vim.api.nvim_create_augroup "pea.lsp"
 
 lib.create_autocmds {
     {

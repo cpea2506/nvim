@@ -1,7 +1,7 @@
 ---@alias lsp.Method fun(client: vim.lsp.Client, buf: integer)
 
-local augroup = vim.api.nvim_create_augroup("pea_lsp", { clear = false })
-local namespace = vim.api.nvim_create_namespace "pea_lsp"
+local augroup = vim.api.nvim_create_augroup("pea.lsp", { clear = false })
+local namespace = vim.api.nvim_create_namespace "pea.lsp"
 
 ---@param what vim.fn.setqflist.what
 local function on_list(what)

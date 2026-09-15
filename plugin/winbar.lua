@@ -5,7 +5,7 @@ vim.pack.add({
 
 lib.create_autocmd(
     { "BufReadPost", "BufNewFile" },
-    vim.api.nvim_create_augroup("pea_plugin", { clear = false }),
+    vim.api.nvim_create_augroup("pea.plugin", { clear = false }),
     { once = true },
     function()
         vim.cmd.packadd "nvim-web-devicons"
@@ -61,7 +61,7 @@ lib.create_autocmd(
 
         lib.create_autocmd(
             { "BufWinEnter", "CursorHold", "CursorHoldI", "BufWritePost" },
-            vim.api.nvim_create_augroup "pea_winbar",
+            vim.api.nvim_create_augroup "pea.winbar",
             function(args)
                 if vim.fn.win_gettype() == "popup" then
                     return

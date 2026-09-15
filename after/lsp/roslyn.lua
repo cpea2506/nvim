@@ -32,7 +32,7 @@ return {
     on_attach = function(client, buf)
         lib.create_autocmd(
             "InsertCharPre",
-            vim.api.nvim_create_augroup("pea_lsp", { clear = false }),
+            vim.api.nvim_create_augroup("pea.lsp", { clear = false }),
             { buf = buf },
             function()
                 local char = vim.v.char
