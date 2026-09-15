@@ -17,7 +17,7 @@ vim.schedule(function()
                 vertical = "up:50%",
             },
         },
-        file_ignore_patterns = { "%.meta$", "%.fbx$", "%.png$", "%.jpg$" },
+        file_ignore_patterns = { "^%.git/", "%.meta$", "%.fbx$", "%.png$", "%.jpg$" },
         fzf_opts = {
             ["--cycle"] = true,
             ["--gutter"] = " ",
