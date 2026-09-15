@@ -46,11 +46,6 @@ lib.create_autocmds {
         augroup,
         function(args)
             local bufnr = args.buf
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-            if not client then
-                return
-            end
 
             vim.api.nvim_clear_autocmds {
                 group = augroup,
