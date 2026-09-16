@@ -1,6 +1,6 @@
 vim.pack.add({
     "https://github.com/stevearc/conform.nvim",
-}, { load = false })
+}, { load = function() end })
 
 lib.create_autocmd(
     { "BufReadPost", "BufNewFile" },

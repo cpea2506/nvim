@@ -1,6 +1,6 @@
 vim.pack.add({
     "https://github.com/nvim-lualine/lualine.nvim",
-}, { load = false })
+}, { load = function() end })
 
 lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup "pea.plugin.statusline", { once = true }, function()
     vim.cmd.packadd "lualine.nvim"

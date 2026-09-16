@@ -3,7 +3,7 @@ local augroup = vim.api.nvim_create_augroup "pea.plugin.treesitter"
 vim.pack.add({
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
-}, { load = false })
+}, { load = function() end })
 
 lib.create_autocmds {
     {

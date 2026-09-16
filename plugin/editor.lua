@@ -9,7 +9,7 @@ vim.pack.add({
     "https://github.com/kylechui/nvim-surround",
     "https://github.com/nacro90/numb.nvim",
     "https://github.com/stevearc/quicker.nvim",
-}, { load = false })
+}, { load = function() end })
 
 vim.schedule(function()
     vim.cmd.packadd "input.nvim"

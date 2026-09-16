@@ -1,6 +1,6 @@
 vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",
-}, { load = false })
+}, { load = function() end })
 
 lib.create_autocmd("UIEnter", vim.api.nvim_create_augroup "pea.plugin.explorer", { once = true }, function()
     vim.cmd.packadd "nvim-web-devicons"

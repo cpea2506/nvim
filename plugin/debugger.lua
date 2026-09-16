@@ -35,7 +35,7 @@ vim.pack.add({
     "https://github.com/mfussenegger/nvim-dap",
     "https://github.com/MironPascalCaseFan/debugmaster.nvim",
     "https://github.com/ownself/nvim-dap-unity",
-}, { load = false })
+}, { load = function() end })
 
 lib.set_keymap("n", "<leader>d", function()
     vim.cmd.packadd "nvim-dap"

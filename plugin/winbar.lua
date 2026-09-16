@@ -3,7 +3,7 @@ local augroup = vim.api.nvim_create_augroup "pea.plugin.winbar"
 vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",
     "https://github.com/SmiteshP/nvim-navic",
-}, { load = false })
+}, { load = function() end })
 
 lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, function()
     vim.cmd.packadd "nvim-web-devicons"

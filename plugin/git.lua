@@ -1,7 +1,7 @@
 vim.pack.add({
     "https://github.com/lewis6991/gitsigns.nvim",
     "https://github.com/esmuellert/codediff.nvim",
-}, { load = false })
+}, { load = function() end })
 
 lib.create_autocmd(
     { "BufReadPost", "BufNewFile" },

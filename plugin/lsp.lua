@@ -5,7 +5,7 @@ vim.pack.add({
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/seblyng/roslyn.nvim",
     "https://github.com/saecki/crates.nvim",
-}, { load = false })
+}, { load = function() end })
 
 vim.schedule(function()
     vim.cmd.packadd "mason.nvim"
