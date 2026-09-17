@@ -15,10 +15,8 @@ lib.create_autocmds {
             local name, kind = args.data.spec.name, args.data.kind
 
             if name == "blink.cmp" and (kind == "install" or kind == "update") then
-                if not args.data.active then
-                    vim.cmd.packadd "blink.lib"
-                    vim.cmd.packadd "blink.cmp"
-                end
+                vim.cmd.packadd "blink.lib"
+                vim.cmd.packadd "blink.cmp"
 
                 require("blink.cmp").build():pwait()
             end
