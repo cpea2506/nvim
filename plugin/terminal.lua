@@ -45,8 +45,6 @@ local function open(cmd, opts)
                     send(args.buf, opts.input)
                 end
 
-                print "hehehe"
-
                 vim.cmd.startinsert()
             end,
         },
