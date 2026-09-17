@@ -13,10 +13,7 @@ lib.create_autocmds {
             local name, kind = args.data.spec.name, args.data.kind
 
             if name == "nvim-treesitter" and kind == "update" then
-                if not args.data.active then
-                    vim.cmd.packadd "nvim-treesitter"
-                end
-
+                vim.cmd.packadd "nvim-treesitter"
                 vim.cmd.TSUpdate()
             end
         end,

@@ -24,10 +24,8 @@ lib.create_autocmds {
             local name, kind = args.data.spec.name, args.data.kind
 
             if name == "blink.pairs" and (kind == "install" or kind == "update") then
-                if not args.data.active then
-                    vim.cmd.packadd "blink.lib"
-                    vim.cmd.packadd "blink.pairs"
-                end
+                vim.cmd.packadd "blink.lib"
+                vim.cmd.packadd "blink.pairs"
 
                 require("blink.pairs").build():pwait()
             end
