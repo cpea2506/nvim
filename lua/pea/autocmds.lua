@@ -15,11 +15,7 @@ lib.create_autocmds {
             pattern = { "help", "man", "qf", "nvim-pack" },
         },
         function(args)
-            local buf = args.buf
-
-            lib.set_keymap("n", "q", function()
-                vim.api.nvim_buf_delete(buf, { force = true })
-            end, { buf = buf, silent = true })
+            lib.set_keymap("n", "q", "<cmd>close<cr>", { buf = args.buf, silent = true })
         end,
     },
     {
@@ -30,16 +26,8 @@ lib.create_autocmds {
             local line_count = vim.api.nvim_buf_line_count(args.buf)
 
             if mark[1] > 0 and mark[1] <= line_count then
-                vim.cmd 'normal! g`"zz'
+                vim.cmd.normal { [[g'"zz]], bang = true }
             end
-        end,
-    },
-    {
-        "VimResized",
-        augroup,
-        function()
-            vim.cmd.tabdo "wincmd ="
-            vim.cmd.tabnext(vim.api.nvim_get_current_tabpage())
         end,
     },
     {
