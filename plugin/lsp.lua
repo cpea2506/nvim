@@ -1,41 +1,38 @@
 local augroup = vim.api.nvim_create_augroup "pea.plugin.lsp"
 
 vim.pack.add({
-    "https://github.com/mason-org/mason.nvim",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/seblyng/roslyn.nvim",
     "https://github.com/saecki/crates.nvim",
 }, { load = function() end })
 
-vim.schedule(function()
-    vim.cmd.packadd "mason.nvim"
+vim.pack.add { "https://github.com/mason-org/mason.nvim" }
 
-    require("mason").setup {
-        registries = {
-            "github:mason-org/mason-registry",
-            "github:Crashdummyy/mason-registry",
+require("mason").setup {
+    registries = {
+        "github:mason-org/mason-registry",
+        "github:Crashdummyy/mason-registry",
+    },
+    ui = {
+        border = "rounded",
+        keymaps = {
+            toggle_package_expand = "o",
+            uninstall_package = "d",
         },
-        ui = {
-            border = "rounded",
-            keymaps = {
-                toggle_package_expand = "o",
-                uninstall_package = "d",
-            },
-            icons = {
-                package_installed = lib.icons.ui.ThinTick,
-                package_pending = lib.icons.ui.ArrowRight,
-                package_uninstalled = lib.icons.ui.Close,
-            },
+        icons = {
+            package_installed = lib.icons.ui.ThinTick,
+            package_pending = lib.icons.ui.ArrowRight,
+            package_uninstalled = lib.icons.ui.Close,
         },
-    }
-end)
+    },
+}
 
 lib.create_autocmds {
     {
         { "BufReadPre", "BufNewFile" },
         augroup,
         { once = true },
-        vim.schedule_wrap(function()
+        function()
             vim.cmd.packadd "nvim-lspconfig"
 
             local registry = require "mason-registry"
@@ -48,7 +45,7 @@ lib.create_autocmds {
                     vim.lsp.enable(server, true)
                 end
             end)
-        end),
+        end,
     },
     {
         "FileType",

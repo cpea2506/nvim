@@ -3,13 +3,14 @@ local augroup = vim.api.nvim_create_augroup "pea.plugin.editor"
 vim.pack.add({
     "https://github.com/saghen/blink.lib",
     "https://github.com/saghen/blink.pairs",
-    "https://github.com/cpea2506/relative-toggle.nvim",
     "https://github.com/cpea2506/input.nvim",
     "https://github.com/cpea2506/select.nvim",
     "https://github.com/kylechui/nvim-surround",
     "https://github.com/nacro90/numb.nvim",
     "https://github.com/stevearc/quicker.nvim",
 }, { load = function() end })
+
+vim.pack.add { "https://github.com/cpea2506/relative-toggle.nvim" }
 
 vim.schedule(function()
     vim.cmd.packadd "input.nvim"
@@ -52,14 +53,6 @@ lib.create_autocmds {
                     },
                 },
             }
-        end,
-    },
-    {
-        "UIEnter",
-        augroup,
-        { once = true },
-        function()
-            vim.cmd.packadd "relative-toggle.nvim"
         end,
     },
     {

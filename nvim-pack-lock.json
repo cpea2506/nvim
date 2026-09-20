@@ -65,7 +65,7 @@
       "src": "https://github.com/ownself/nvim-dap-unity"
     },
     "nvim-lspconfig": {
-      "rev": "b410cbfb9934e3d37733d36e396feeb51d43881c",
+      "rev": "98e5981d14057a54cd49a35fb280dfd275ff65f8",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-navic": {
@@ -85,7 +85,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     },
     "nvim-web-devicons": {
-      "rev": "5f032a85be210cd1c6ac98861eb3b187ff3bd5eb",
+      "rev": "914decffe650296c87312c53b7933ecb86718499",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "one_monokai.nvim": {
