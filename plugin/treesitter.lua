@@ -26,13 +26,15 @@ lib.create_autocmds {
             vim.cmd.packadd "nvim-treesitter"
             vim.cmd.packadd "nvim-treesitter-context"
 
-            require("treesitter-context").setup {
+            local context = require("treesitter-context")
+
+            context.setup {
                 mode = "cursor",
                 max_lines = 3,
             }
 
             lib.set_keymap("n", "[c", function()
-                require("treesitter-context").go_to_context(vim.v.count1)
+                context.go_to_context(vim.v.count1)
             end, { desc = "Go To Context" })
 
             lib.create_autocmd("FileType", augroup, function(args)
