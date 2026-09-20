@@ -41,10 +41,14 @@ local function open(cmd, opts)
             "TermOpen",
             augroup,
             function(args)
+                local buf = args.buf
+
                 if opts.input then
-                    send(args.buf, opts.input)
+                    send(buf, opts.input)
                 end
 
+                vim.wo.winfixwidth = true
+                vim.wo.winfixheight = true
                 vim.cmd.startinsert()
             end,
         },
