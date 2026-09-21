@@ -68,6 +68,15 @@ local function open(cmd, opts)
     vim.cmd(cmd)
 end
 
+local function get_ai_editor()
+    if not vim.env.AI_EDITOR then
+        vim.notify("AI_EDITOR environment variable is not set", vim.log.levels.ERROR)
+        return
+    end
+
+    return vim.env.AI_EDITOR
+end
+
 lib.set_keymaps {
     { "t", "<C-\\>", [[<C-\><C-n>]] },
     {
@@ -81,26 +90,38 @@ lib.set_keymaps {
         "n",
         "<leader>ai",
         function()
-            open("opencode", { direction = "vertical", size = 80 })
+            local command = get_ai_editor()
+
+            if command then
+                open(command, { direction = "vertical", size = 80 })
+            end
         end,
     },
     {
         "x",
         "<leader>ai",
         function()
-            local lines = vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", {
-                type = vim.api.nvim_get_mode().mode,
-            })
-            local input = table.concat(lines, "\n")
+            local command = get_ai_editor()
 
-            open("opencode", { direction = "vertical", size = 80, input = input })
+            if command then
+                local lines = vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", {
+                    type = vim.api.nvim_get_mode().mode,
+                })
+                local input = table.concat(lines, "\n")
+
+                open(command, { direction = "vertical", size = 80, input = input })
+            end
         end,
     },
     {
         "n",
         "<leader>ac",
         function()
-            open("opencode --continue", { direction = "vertical", size = 80 })
+            local command = get_ai_editor()
+
+            if command then
+                open(command .. " --continue", { direction = "vertical", size = 80 })
+            end
         end,
     },
 }
