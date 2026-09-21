@@ -40,7 +40,7 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
 
                 ---@type integer
                 local start = hunk.added.start
-                local last = start + hunk.added.count 
+                local last = start + hunk.added.count
                 local last_hunk_line = vim.api.nvim_buf_get_lines(buf, last - 2, last - 1, true)[1]
 
                 if not last_hunk_line then
