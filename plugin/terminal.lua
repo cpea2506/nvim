@@ -56,11 +56,8 @@ local function open(cmd, opts)
             "TermClose",
             augroup,
             function(args)
-                local buf = args.buf
-
-                if buf and vim.api.nvim_buf_is_valid(buf) then
-                    vim.api.nvim_buf_delete(buf, { force = true })
-                end
+                vim.cmd.close()
+                vim.bo[args.buf].buflisted = false
             end,
         },
     }

@@ -16,6 +16,7 @@ lib.create_autocmds {
         },
         function(args)
             lib.set_keymap("n", "q", "<cmd>close<cr>", { buf = args.buf, silent = true })
+            vim.bo[args.buf].buflisted = false
         end,
     },
     {
