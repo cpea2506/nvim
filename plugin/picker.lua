@@ -1,8 +1,10 @@
 vim.pack.add({
+    "https://github.com/nvim-tree/nvim-web-devicons",
     "https://github.com/ibhagwan/fzf-lua",
 }, { load = function() end })
 
 vim.schedule(function()
+    vim.cmd.packadd "nvim-web-devicons"
     vim.cmd.packadd "fzf-lua"
 
     require("fzf-lua").setup {
