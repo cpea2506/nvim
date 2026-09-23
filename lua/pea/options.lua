@@ -40,6 +40,7 @@ local options = {
     global = {
         mapleader = " ",
         health = { style = "float" },
+        loaded_nvim_dir_plugin = false,
     },
 }
 

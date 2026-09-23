@@ -17,7 +17,7 @@ local cwd = {
 }
 
 return {
-    filetypes = { "directory" },
+    filetypes = { "fyler_finder" },
     sections = {
         lualine_c = {
             components.leftbar,

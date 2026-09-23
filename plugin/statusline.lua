@@ -28,7 +28,7 @@ require("lualine").setup {
         component_separators = "",
         section_separators = "",
     },
-    extensions = lib.require_modules("pea.plugin.lualine.extensions", { "pack", "quickfix", "directory" }),
+    extensions = lib.require_modules("pea.plugin.lualine.extensions", { "pack", "quickfix", "fyler" }),
     sections = {
         lualine_a = {},
         lualine_b = {},

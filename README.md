@@ -25,7 +25,7 @@ Plugin definitions live in [`plugin/`](plugin).
 | --------------- | ---------------------------------------------------------------------------------- |
 | Package manager | `vim.pack`                                                                         |
 | UI              | `one_monokai`, `lualine`, `nvim-web-devicons`, `nvim-navic`                        |
-| Navigation      | `dir`, `fzf-lua`                                                                   |
+| Navigation      | `fyler`, `fzf-lua`                                                                   |
 | Git             | `gitsigns`, `codediff.nvim`                                                        |
 | Syntax          | `nvim-treesitter`, `nvim-treesitter-context`                                       |
 | LSP             | `mason.nvim`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                       |
@@ -72,7 +72,7 @@ Leader: `<Space>` ([`lua/pea/options.lua`](lua/pea/options.lua)).
 
 | Key          | Action                         |
 | ------------ | ------------------------------ |
-| `<leader>e`  | Open builtin directory listing |
+| `<leader>e`  | Open directory listing |
 | `<leader>sf` | File search                    |
 | `<leader>st` | Live grep                      |
 | `<leader>sb` | Buffers                        |
