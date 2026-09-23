@@ -1,5 +1,16 @@
 local augroup = vim.api.nvim_create_augroup "pea.plugin.editor"
 
+lib.create_autocmd("PackChanged", augroup, function(args)
+    local name, kind = args.data.spec.name, args.data.kind
+
+    if name == "blink.pairs" and (kind == "install" or kind == "update") then
+        vim.cmd.packadd "blink.lib"
+        vim.cmd.packadd "blink.pairs"
+
+        require("blink.pairs").build():pwait()
+    end
+end)
+
 vim.pack.add({
     "https://github.com/saghen/blink.lib",
     "https://github.com/saghen/blink.pairs",
@@ -15,20 +26,6 @@ vim.pack.add {
 }
 
 lib.create_autocmds {
-    {
-        "PackChanged",
-        augroup,
-        function(args)
-            local name, kind = args.data.spec.name, args.data.kind
-
-            if name == "blink.pairs" and (kind == "install" or kind == "update") then
-                vim.cmd.packadd "blink.lib"
-                vim.cmd.packadd "blink.pairs"
-
-                require("blink.pairs").build():pwait()
-            end
-        end,
-    },
     {
         { "BufReadPost", "BufNewFile" },
         augroup,

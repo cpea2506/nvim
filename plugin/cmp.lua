@@ -1,5 +1,16 @@
 local augroup = vim.api.nvim_create_augroup "pea.plugin.cmp"
 
+lib.create_autocmd("PackChanged", augroup, function(args)
+    local name, kind = args.data.spec.name, args.data.kind
+
+    if name == "blink.cmp" and (kind == "install" or kind == "update") then
+        vim.cmd.packadd "blink.lib"
+        vim.cmd.packadd "blink.cmp"
+
+        require("blink.cmp").build():pwait()
+    end
+end)
+
 vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",
     "https://github.com/rafamadriz/friendly-snippets",
@@ -8,20 +19,6 @@ vim.pack.add({
 }, { load = function() end })
 
 lib.create_autocmds {
-    {
-        "PackChanged",
-        augroup,
-        function(args)
-            local name, kind = args.data.spec.name, args.data.kind
-
-            if name == "blink.cmp" and (kind == "install" or kind == "update") then
-                vim.cmd.packadd "blink.lib"
-                vim.cmd.packadd "blink.cmp"
-
-                require("blink.cmp").build():pwait()
-            end
-        end,
-    },
     {
         { "InsertEnter", "CmdlineEnter" },
         augroup,
