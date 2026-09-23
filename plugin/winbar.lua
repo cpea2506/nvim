@@ -63,7 +63,7 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
         end
 
         local bufnr = args.buf
-        local exclude_filetypes = { "", "directory", "help", "nvim-pack", "pager", "qf" }
+        local exclude_filetypes = { "", "directory", "help", "nvim-pack", "pager", "qf", "toggleterm" }
 
         if vim.iter(exclude_filetypes):any(function(v)
             return vim.bo[bufnr].filetype == v

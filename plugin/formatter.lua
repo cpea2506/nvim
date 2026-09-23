@@ -20,13 +20,21 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
             css = { "prettier" },
             cpp = { "clang-format" },
             toml = { "taplo" },
-            sh = { "shfmt" }
+            sh = { "shfmt" },
         },
         default_format_opts = {
             timeout_ms = 500,
-            lsp_format = "fallback"
+            lsp_format = "fallback",
         },
         format_on_save = function(buf)
+            -- TODO: remove.
+            if vim.bo[buf].filetype == "lua" then
+                return {
+                    timeout_ms = 500,
+                    lsp_format = "fallback",
+                }
+            end
+
             local hunks = require("gitsigns").get_hunks(buf)
 
             if not hunks then
@@ -52,7 +60,7 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
                     range = {
                         start = { start, 0 },
                         ["end"] = { last - 1, last_hunk_line:len() },
-                    }
+                    },
                 }
             end
         end,
