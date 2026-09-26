@@ -1,10 +1,4 @@
-vim.pack.add {
-    "https://github.com/nvim-tree/nvim-web-devicons",
-    "https://github.com/ibhagwan/fzf-lua",
-}
-
-vim.cmd.packadd "nvim-web-devicons"
-vim.cmd.packadd "fzf-lua"
+vim.pack.add { "https://github.com/ibhagwan/fzf-lua" }
 
 require("fzf-lua").setup {
     winopts = {

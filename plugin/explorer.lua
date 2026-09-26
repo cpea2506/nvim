@@ -1,7 +1,4 @@
-vim.pack.add {
-    "https://github.com/nvim-tree/nvim-web-devicons",
-    "https://github.com/FylerOrg/fyler.nvim",
-}
+vim.pack.add { "https://github.com/FylerOrg/fyler.nvim" }
 
 require("fyler").setup {
     auto_confirm_simple_mutation = true,
