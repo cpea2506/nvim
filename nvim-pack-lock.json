@@ -37,7 +37,7 @@
       "src": "https://github.com/FylerOrg/fyler.nvim"
     },
     "fzf-lua": {
-      "rev": "13bb178a299f7493dd64427a58e61904c4b58ecb",
+      "rev": "78b85d2a522b1e6a2d154216b3e532a1df1ad6d7",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
@@ -57,7 +57,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "numb.nvim": {
-      "rev": "36260c446465b1303b0b1922c722904791bdb03f",
+      "rev": "53bfc4ff20e7b44cfe1d2ca62d9f2131f392f1be",
       "src": "https://github.com/nacro90/numb.nvim"
     },
     "nvim-dap": {

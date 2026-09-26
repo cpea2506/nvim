@@ -12,7 +12,6 @@ lib.create_autocmd("PackChanged", augroup, function(args)
 end)
 
 vim.pack.add({
-    "https://github.com/nvim-tree/nvim-web-devicons",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/saghen/blink.lib",
     "https://github.com/saghen/blink.cmp",
@@ -24,7 +23,6 @@ lib.create_autocmds {
         augroup,
         { once = true },
         function()
-            vim.cmd.packadd "nvim-web-devicons"
             vim.cmd.packadd "friendly-snippets"
             vim.cmd.packadd "blink.lib"
             vim.cmd.packadd "blink.cmp"
