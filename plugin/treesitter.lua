@@ -26,7 +26,7 @@ lib.create_autocmds {
             vim.cmd.packadd "nvim-treesitter"
             vim.cmd.packadd "nvim-treesitter-context"
 
-            local context = require("treesitter-context")
+            local context = require "treesitter-context"
 
             context.setup {
                 mode = "cursor",
