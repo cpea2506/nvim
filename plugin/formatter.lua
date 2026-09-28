@@ -27,14 +27,6 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
             lsp_format = "fallback",
         },
         format_on_save = function(buf)
-            -- TODO: remove.
-            if vim.bo[buf].filetype == "lua" then
-                return {
-                    timeout_ms = 500,
-                    lsp_format = "fallback",
-                }
-            end
-
             local hunks = require("gitsigns").get_hunks(buf)
 
             if not hunks then
@@ -42,26 +34,22 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
             end
 
             for _, hunk in ipairs(hunks) do
-                if not hunk or hunk.type == "delete" then
-                    return
+                if hunk and hunk.type ~= "delete" then
+                    ---@type integer
+                    local start = hunk.added.start
+                    local last = start + hunk.added.count
+                    local last_hunk_line = vim.api.nvim_buf_get_lines(buf, last - 2, last - 1, true)[1]
+
+                    if last_hunk_line then
+                        require("conform").format {
+                            bufnr = buf,
+                            range = {
+                                start = { start, 0 },
+                                ["end"] = { last - 1, last_hunk_line:len() },
+                            },
+                        }
+                    end
                 end
-
-                ---@type integer
-                local start = hunk.added.start
-                local last = start + hunk.added.count
-                local last_hunk_line = vim.api.nvim_buf_get_lines(buf, last - 2, last - 1, true)[1]
-
-                if not last_hunk_line then
-                    return
-                end
-
-                require("conform").format {
-                    bufnr = buf,
-                    range = {
-                        start = { start, 0 },
-                        ["end"] = { last - 1, last_hunk_line:len() },
-                    },
-                }
             end
         end,
     }
