@@ -48,8 +48,8 @@ local function on_list(what)
     end
 end
 
+---@type table<string, lsp.Method>
 return {
-    ---@type lsp.Method
     definition = function(client, buf)
         if not client:supports_method("textDocument/definition", buf) then
             return
@@ -59,7 +59,6 @@ return {
             vim.lsp.buf.definition { on_list = on_list }
         end, { buf = buf, desc = "Definition" })
     end,
-    ---@type lsp.Method
     type_definition = function(client, buf)
         if not client:supports_method("textDocument/typeDefinition", buf) then
             return
@@ -69,7 +68,6 @@ return {
             vim.lsp.buf.type_definition { on_list = on_list }
         end, { buf = buf, desc = "Type Definition" })
     end,
-    ---@type lsp.Method
     implementation = function(client, buf)
         if not client:supports_method("textDocument/implementation", buf) then
             return
@@ -79,7 +77,6 @@ return {
             vim.lsp.buf.implementation { on_list = on_list }
         end, { buf = buf, desc = "Implementation" })
     end,
-    ---@type lsp.Method
     references = function(client, buf)
         if not client:supports_method("textDocument/references", buf) then
             return
@@ -89,7 +86,6 @@ return {
             vim.lsp.buf.references({ includeDeclaration = false }, { on_list = on_list })
         end, { buf = buf, desc = "References", nowait = true })
     end,
-    ---@type lsp.Method
     rename = function(client, buf)
         if not client:supports_method "textDocument/rename" then
             return
@@ -99,7 +95,6 @@ return {
             vim.lsp.buf.rename(nil, { bufnr = buf })
         end, { buf = buf, desc = "Rename" })
     end,
-    ---@type lsp.Method
     diagnostic = function(client, buf)
         if not client:supports_method("textDocument/diagnostic", buf) then
             return
@@ -129,7 +124,6 @@ return {
             },
         }
     end,
-    ---@type lsp.Method
     inlay_hint = function(client, buf)
         if not client:supports_method("textDocument/inlayHint", buf) then
             return
@@ -137,7 +131,6 @@ return {
 
         vim.lsp.inlay_hint.enable(true, { bufnr = buf })
     end,
-    ---@type lsp.Method
     document_color = function(client, buf)
         if not client:supports_method("textDocument/documentColor", buf) then
             return
@@ -145,7 +138,6 @@ return {
 
         vim.lsp.document_color.enable(true, { bufnr = buf, client_id = client.id }, { style = "virtual" })
     end,
-    ---@type lsp.Method
     on_type_formatting = function(client, buf)
         if not client:supports_method("textDocument/onTypeFormatting", buf) then
             return
@@ -153,7 +145,6 @@ return {
 
         vim.lsp.on_type_formatting.enable(true, { client_id = client.id })
     end,
-    ---@type lsp.Method
     codelens = function(client, buf)
         if not client:supports_method("textDocument/codeLens", buf) then
             return
@@ -161,7 +152,6 @@ return {
 
         vim.lsp.codelens.enable(true, { bufnr = buf, client_id = client.id })
     end,
-    ---@type lsp.Method
     document_highlight = function(client, buf)
         if not client:supports_method("textDocument/documentHighlight", buf) then
             return
@@ -186,7 +176,6 @@ return {
             },
         }
     end,
-    ---@type lsp.Method
     code_action = function(client, buf)
         if not client:supports_method("textDocument/codeAction", buf) then
             return
