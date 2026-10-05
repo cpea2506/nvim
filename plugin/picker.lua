@@ -34,18 +34,6 @@ require("fzf-lua").setup {
     grep = {
         hidden = true,
     },
-    keymap = {
-        builtin = {
-            true,
-            ["<C-d>"] = "preview-page-down",
-            ["<C-u>"] = "preview-page-up",
-        },
-        fzf = {
-            true,
-            ["ctrl-d"] = "preview-page-down",
-            ["ctrl-u"] = "preview-page-up",
-        },
-    },
 }
 
 lib.set_keymaps {
