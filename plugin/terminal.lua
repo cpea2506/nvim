@@ -18,7 +18,11 @@ local function open_lazygit()
     local lazygit = terminal:new {
         cmd = "lazygit",
         hidden = true,
-        direction = "tab",
+        direction = "float",
+        float_opts = {
+            width = vim.o.columns,
+            height = vim.o.lines,
+        },
     }
 
     lazygit:open()
