@@ -18,6 +18,7 @@ local options = {
         number = true,
         shiftwidth = 4,
         showmode = false,
+        showtabline = 0,
         signcolumn = "yes",
         smartcase = true,
         smartindent = true,
