@@ -3,7 +3,6 @@ local augroup = vim.api.nvim_create_augroup "pea.plugin.lsp"
 vim.pack.add({
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/seblyng/roslyn.nvim",
-    "https://github.com/saecki/crates.nvim",
 }, { load = function() end })
 
 vim.pack.add { "https://github.com/mason-org/mason.nvim" }
@@ -56,35 +55,6 @@ lib.create_autocmds {
 
             require("roslyn").setup {
                 filewatching = "roslyn",
-            }
-        end,
-    },
-    {
-        "BufRead",
-        augroup,
-        { pattern = "Cargo.toml", once = true },
-        function()
-            vim.cmd.packadd "crates.nvim"
-
-            require("crates").setup {
-                date_format = "%d-%m-%Y",
-                popup = {
-                    autofocus = true,
-                    border = "rounded",
-                },
-                lsp = {
-                    enabled = true,
-                    actions = true,
-                    completion = true,
-                    hover = true,
-                },
-                completion = {
-                    crates = {
-                        enabled = true,
-                        max_results = 8,
-                        min_chars = 3,
-                    },
-                },
             }
         end,
     },
