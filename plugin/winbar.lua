@@ -25,7 +25,7 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
         return s == nil or s == ""
     end
 
-    local function get_filename()
+    local function get_filename(bufnr)
         local filename = vim.fn.expand "%:t"
 
         if is_empty(filename) then
@@ -34,13 +34,25 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
 
         local extension = vim.fs.ext(filename)
         local devicons = require "nvim-web-devicons"
-        local fileicon, hlgroup = devicons.get_icon(filename, extension, { default = true })
+        local fileicon, icon_hlgroup = devicons.get_icon(filename, extension, { default = true })
+        local filename_hlgroup = vim.bo[bufnr].modified and "WarningMsg" or "WinBar"
 
-        return " " .. "%#" .. hlgroup .. "#" .. fileicon .. "%*" .. " " .. "%#WinBar#" .. filename .. "%*"
+        return " "
+            .. "%#"
+            .. icon_hlgroup
+            .. "#"
+            .. fileicon
+            .. "%*"
+            .. " "
+            .. "%#"
+            .. filename_hlgroup
+            .. "#"
+            .. filename
+            .. "%*"
     end
 
     local function get_locations(bufnr)
-        local filename = get_filename()
+        local filename = get_filename(bufnr)
 
         if not navic.is_available(bufnr) then
             return filename
@@ -71,7 +83,7 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
 
         local winbar = get_locations(bufnr)
 
-        if vim.bo[bufnr].mod then
+        if vim.bo[bufnr].modified then
             winbar = winbar .. "%#LspCodeLens# " .. lib.icons.ui.Circle .. "%*"
         end
 
