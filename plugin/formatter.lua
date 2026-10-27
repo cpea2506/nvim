@@ -53,4 +53,6 @@ lib.create_autocmd({ "BufReadPost", "BufNewFile" }, augroup, { once = true }, fu
             end
         end,
     }
+
+    lib.set_keymap("n", "<leader>f", require("conform").format, { desc = "Format buffer" })
 end)
