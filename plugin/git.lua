@@ -1,6 +1,5 @@
 vim.pack.add({
     "https://github.com/lewis6991/gitsigns.nvim",
-    "https://github.com/esmuellert/codediff.nvim",
 }, { load = function() end })
 
 lib.create_autocmd(
@@ -9,7 +8,6 @@ lib.create_autocmd(
     { once = true },
     function()
         vim.cmd.packadd "gitsigns.nvim"
-        vim.cmd.packadd "codediff.nvim"
 
         require("gitsigns").setup {
             attach_to_untracked = true,

@@ -26,7 +26,7 @@ Plugin definitions live in [`plugin/`](plugin).
 | Package manager | `vim.pack`                                                                         |
 | UI              | `one_monokai`, `lualine`, `nvim-web-devicons`, `nvim-navic`                        |
 | Navigation      | `fyler`, `fzf-lua`                                                                   |
-| Git             | `gitsigns`, `codediff.nvim`                                                        |
+| Git             | `gitsigns`
 | Syntax          | `nvim-treesitter`, `nvim-treesitter-context`                                       |
 | LSP             | `mason.nvim`, `nvim-lspconfig`, `roslyn.nvim`, `crates.nvim`                       |
 | Completion      | `blink.cmp`, `blink.pairs`, `friendly-snippets`                                    |

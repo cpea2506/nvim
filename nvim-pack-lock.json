@@ -1,7 +1,7 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "1e4cb39b9200950dca1cbc4d630c60c16eb8e7e4",
+      "rev": "d4318ec75309a37e09757de0f16faa67bf22b890",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
@@ -12,10 +12,6 @@
       "rev": "ef8fc29c8afa0fc1d0eb611a1a76fd87f0951f6e",
       "src": "https://github.com/saghen/blink.pairs"
     },
-    "codediff.nvim": {
-      "rev": "09d9ebef2cc5a5c04db7a349cd6c61bdf84ecc8e",
-      "src": "https://github.com/esmuellert/codediff.nvim"
-    },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -25,7 +21,7 @@
       "src": "https://github.com/MironPascalCaseFan/debugmaster.nvim"
     },
     "friendly-snippets": {
-      "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
+      "rev": "b2ea5c41a150ba72fb656eedb4ed0a86d138d945",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fyler.nvim": {
@@ -37,7 +33,7 @@
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "d4854fa9a94b5c8b37dd209fb4a19e98e764186f",
+      "rev": "1e9d0fbfe7ff848bc402d2c2e2854fb4eff2dce7",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "input.nvim": {
@@ -65,7 +61,7 @@
       "src": "https://github.com/ownself/nvim-dap-unity"
     },
     "nvim-lspconfig": {
-      "rev": "77b7432d4770d23b277d37923e5a08a442d8bb07",
+      "rev": "d8d2fda7aae57030452ce8cd6e770b1eb704514e",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-navic": {
@@ -77,7 +73,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "a2f694478be07f89c2d03cc17858a8745a400c4b",
+      "rev": "a9c4e1457e2e59f1b82c8f78dcdb3b2517555200",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-context": {
@@ -101,7 +97,7 @@
       "src": "https://github.com/cpea2506/relative-toggle.nvim"
     },
     "roslyn.nvim": {
-      "rev": "bf1bd4e70bc7068d1b4aebf4ce03cc19a86615be",
+      "rev": "059c5791a19a00049736d02ad2855a346433cf54",
       "src": "https://github.com/seblyng/roslyn.nvim"
     },
     "select.nvim": {
