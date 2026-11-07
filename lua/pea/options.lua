@@ -1,6 +1,5 @@
----@alias options table<string, any>
----@type { vim: options, global: options }
 local options = {
+    ---@type table<string, any>
     vim = {
         clipboard = "unnamedplus",
         cmdheight = 0,
@@ -33,6 +32,7 @@ local options = {
         updatetime = 250,
         winborder = "rounded",
     },
+    ---@type table<string, any>
     global = {
         mapleader = " ",
         health = { style = "float" },
